@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: #1a1a1a;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        /* div {
+            width: 500px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        } */
+        form {
+            background-color: #d58eff;
+            border-radius: 6px;
+            width: 400px;
+            height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        input {
+            height: 30px;
+            border-radius: 5px;
+            margin: 8px 0px;
+        }
+
+        button {
+            background-color: rgb(27, 108, 184);
+            height: 25px;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 15px;
+        }
+
+        button:hover {
+            background-color: green;
+        }
+
+        h2{
+            color: #fff;
+        }
+
+        .email, 
+        .password{
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+    <div class="signup">
+        <form>
+            <h2>Sign Up</h2>
+
+            <input type="email" class="email" name="" id="" placeholder="Enter your email">
+            <label for="" class="name">
+                <input type="text" name="" id="" placeholder="First Name">
+                <input type="text" name="" id="" placeholder="Last Name">
+            </label>
+            <input type="password" class="password"name="" id="" placeholder="Enter password">
+            <button type="submit">Sign Up</button>
+        </form>
+    </div>
+</body>
+</html>
