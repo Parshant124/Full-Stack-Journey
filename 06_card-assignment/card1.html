@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-image: url(https://images.unsplash.com/32/Mc8kW4x9Q3aRR3RkP5Im_IMG_4417.jpg?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8d2Vic2l0ZSUyMGJhY2tncm91bmR8ZW58MHx8MHx8fDA%3D);
+            height: 90vh;
+            width: 90vw;
+            font-family: Arial;
+            display: flex;
+            justify-content: center;
+            align-items:center;
+            color: white;
+        }
+        
+        .container{
+            background: linear-gradient(135deg, blue, violet);
+            display: flex;
+            flex-direction: column;
+            justify-content: right;
+            align-items: center;
+            width: 30%;
+            min-width: 300px;
+            height: 30%;
+            min-height: 300px;
+            padding: 30px;
+            border-radius: 50px;
+        }
+        .youtube{
+            display:grid;
+            width: 100%;
+            grid-template-columns: 50px 120px;
+            justify-content: center;   
+            align-content:center;     
+        }
+        .profile-image{
+            height: 100px;
+            width: 100px;
+            border-radius: 50%;
+            border: 4px solid rgb(0, 174, 255);
+        }
+        .info{
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            align-items: center;
+        }
+        .buttons{
+            height: 30px;
+            display: grid;
+            grid-template-columns: 120px 35px 35px;
+            gap: 5px;
+            margin: 30px 0px 0px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="youtube">
+            <img src=".\images\youtube-svgrepo-com.svg" alt="youtube" class="image" style="height: 35px ;margin:0px 10px">
+            <h2 style="margin:4px 0px 0px; padding: 0">Youtube</h2>
+        </div>
+        <img src="https://images.unsplash.com/vector-1780634658581-4a7ff153d05d?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDZ8SWY2NUF1Tk9PeFF8fGVufDB8fHx8fA%3D%3D" alt="" class="profile-image">
+        <div class="info">
+            <h2 style="margin: 10px 0px 0px; padding: 0;">Parshant</h2>
+            <h4 style="margin: 0px 0px 10px; font-size: 12px; font-weight: normal">@parshant - 129M Subscribers</h4>
+        </div>
+        <div class="buttons">
+            <button style="border-radius: 10px ;height: 30px; font-weight: bold; border:none">Subscribe</button>
+            <button style="border-radius: 10px ;height: 30px; border:none;"><img src="./images/notification-svgrepo-com.svg" alt="notification" class="image" style="height: 20px; padding: 3px 0px 0px"></button>
+            <button style="border-radius: 10px ;height: 30px; border:none; padding: 5px 0px 0px"><img src="./images\refresh-cw-alt-3-svgrepo-com.svg" alt="refresh" class="image" style="height: 20px;"></button>
+        </div>
+    </div>
+</body>
+</html>
