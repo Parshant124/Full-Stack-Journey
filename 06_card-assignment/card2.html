@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: #1a1a1a;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items:center;
+            font-family: Arial;
+            height: 100vh;
+        }
+        .card{
+            background-color: #fff;
+            max-width: 350px;
+            max-height: 225px;
+            min-width: 200px;
+            min-height: 112.5px;
+            border-radius: 15px;
+            
+        }
+        .header{
+            background-color: rgb(43, 166, 168);
+            color: #fff;
+            display: grid;
+            grid-template-columns: 8fr 1fr;
+            padding: 10px;
+            border-radius: 15px 15px 0px 0px;
+        }
+        h2{
+            font-size: 1.2rem;
+        }
+        h3{
+            font-size: 0.9rem;
+            font-weight: normal;
+        }
+        .content{
+            display: grid;
+            grid-template-columns: 1fr 4fr;
+            align-items: center;
+        }
+        .details{
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            padding: 10px;
+        }
+        h4,
+        h5{
+            padding:0;
+            margin:0;
+        }
+        h4{
+            font-weight: normal;
+            color:rgb(43, 166, 168);
+            font-size: 0.8rem;
+        }
+        h5{
+            font-weight: normal;
+            font-size: 0.7rem;
+            margin-bottom: 15px;
+        }
+        .item1{
+            grid-column: 1/3;
+        }
+        .contact{
+            padding: 0px 0px 0px 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="header">
+            <div class="contact">
+                <h2 style="padding:0; margin:0">Dream Fitness</h2>
+                <h3 style="padding:0; margin:0">Parshant (+917814638139)</h3>
+            </div>
+            <div class="logo">
+                <img src=".\images\Card2_logo.jpg" alt="logo" style="height: 40px; width:45px ;border-radius:50%; padding: 0px 10px 0px 0px">
+            </div>
+        </div>
+        <div class="content">
+            <div class="profile">
+                <img src=".\images\Card2_people.jpg" alt="" style="height: 60px; border-radius:50%;  border: 2px solid rgb(43, 166, 168); margin:0px 15px">
+            </div>
+            <div class="details">
+                <div class="item1">
+                    <h4>Name:</h4>
+                    <h5>Parshant</h5>
+                </div>
+                <div>
+                    <h4>Plan:</h4>
+                    <h5>Strength</h5>
+                </div>
+                <div>
+                    <h4>MID:</h4>
+                    <h5>783</h5>
+                </div>
+                <div>
+                    <h4>Plan Start:</h4>
+                    <h5>01 Jan 2026</h5>
+                </div>
+                <div>
+                    <h4>Plan Expiry:</h4>
+                    <h5>01 Jan 2027</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
