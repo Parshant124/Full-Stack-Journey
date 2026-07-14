@@ -1,0 +1,1542 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>YouTube</title>
+    <link href="./output.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div
+      id="home"
+      class="grid grid-rows-[80px_1fr] grid-cols-12 h-screen w-full overflow-hidden"
+    >
+      <div
+        id="header"
+        class="bg-white col-start-1 col-end-13 row-start-1 row-end-2 grid grid-flow-col"
+      >
+        <div class="left flex">
+          <button>
+            <img
+              src=".\svg\nav-icon-svgrepo-com.svg"
+              alt=""
+              class="h-6 ml-4 cursor-pointer"
+            />
+          </button>
+          <img
+            src=".\svg\youtube-svgrepo-com.svg"
+            alt="logo"
+            class="mx-4 h-24 cursor-pointer"
+            title="YouTube Home"
+          />
+        </div>
+        <div
+          class="right grid grid-flow-col justify-items-end mr-4 items-center"
+        >
+          <div class="grid grid-flow-col items-center">
+            <button class="grid grid-flow-col items-center">
+              <input
+                type="text"
+                class="hidden sm:grid border rounded-full w-[20vw] lg:w-[25vw] h-8 active:ring-2 active:ring-blue-500 active:outline-none pl-4"
+                placeholder="Search"
+              />
+              <img
+                src=".\svg\search-svgrepo-com.svg"
+                alt=""
+                class="h-10 p-2 rounded-full hover:bg-gray-200 cursor-pointer"
+                title="Search"
+              />
+            </button>
+            <button>
+              <img
+                src=".\svg\mic-svgrepo-com.svg"
+                alt=""
+                class="h-10 p-2 rounded-full hover:bg-gray-200 cursor-pointer"
+                title="Search with your voice"
+              />
+            </button>
+          </div>
+          <div class="grid grid-flow-col items-center md:justify-between">
+            <button
+              class="font-medium text-lg border rounded-3xl px-2 hover:bg-gray-300 cursor-pointer"
+            >
+              + Create
+            </button>
+            <button>
+              <img
+                src=".\svg\notification-svgrepo-com.svg"
+                alt=""
+                class="h-10 p-2 rounded-full hover:bg-gray-200 cursor-pointer"
+                title="Notifications"
+              />
+            </button>
+            <button
+              class="bg-purple-400 h-10 w-10 rounded-full text-white text-lg cursor-pointer"
+            >
+              P
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        id="nav"
+        class="md:col-start-1 md:col-end-2 xl:col-start-1 xl:col-end-3 row-start-2 row-end-3 hidden md:flex overflow-hidden md:flex-col pt-4 xl:overflow-y-auto select-none **:cursor-pointer"
+      >
+        <div
+          class="xl:hidden flex flex-col items-center mb-2 hover:bg-gray-300 rounded-xl mx-2 py-0.5 cursor-pointer"
+          title="Home"
+        >
+          <img src=".\svg\home-svgrepo-com.svg" alt="" class="w-8" />
+          <h2 class="text-[10px] font-medium text-center cursor-pointer">
+            Home
+          </h2>
+        </div>
+        <div
+          title="Shorts"
+          class="xl:hidden flex flex-col items-center mb-2 hover:bg-gray-300 rounded-xl mx-2 py-0.5 cursor-pointer"
+        >
+          <img
+            src=".\svg\250px-Youtube_shorts_icon.svg.webp"
+            alt=""
+            class="w-7"
+          />
+          <h2 class="text-[10px] font-medium text-center">Shorts</h2>
+        </div>
+        <div
+          title="Subscriptions"
+          class="xl:hidden flex flex-col justify-center items-center mb-2 hover:bg-gray-300 rounded-xl py-0.5 cursor-pointer"
+        >
+          <img src=".\svg\subscriptions-svgrepo-com.svg" alt="" class="w-8" />
+          <h2 class="text-[10px] font-medium text-center">Subscriptions</h2>
+        </div>
+        <div
+          title="You"
+          class="xl:hidden flex flex-col items-center mb-2 hover:bg-gray-300 rounded-xl mx-2 py-0.5 cursor-pointer"
+        >
+          <img
+            src=".\svg\account-avatar-man-svgrepo-com.svg"
+            alt=""
+            class="w-8"
+          />
+          <h2 class="text-[10px] font-medium text-center">You</h2>
+        </div>
+
+        <div class="hidden xl:grid">
+          <div
+            title="Home"
+            class="h-12 flex items-center hover:bg-gray-300 rounded-xl mx-2 cursor-pointer"
+          >
+            <img src=".\svg\home-svgrepo-com.svg" alt="" class="w-10 pl-4" />
+            <h2 class="text-lg pl-4">Home</h2>
+          </div>
+          <div
+            title="Shorts"
+            class="h-12 flex items-center hover:bg-gray-300 rounded-xl mx-2 cursor-pointer"
+          >
+            <img
+              src=".\svg\250px-Youtube_shorts_icon.svg.webp"
+              alt=""
+              class="w-10 pl-4"
+            />
+            <h2 class="text-lg pl-4">Shorts</h2>
+          </div>
+          <div class="border-t border-gray-300 my-3"></div>
+        </div>
+        <div class="hidden xl:grid">
+          <h3 
+          title="Subscriptions"
+          class="font-medium text-lg ml-2 mb-2 hover:underline">
+            Subscriptions >
+          </h3>
+          <div>
+            <div
+              title="Mr Beast"
+              class="flex items-center mb-2 hover:bg-gray-300 rounded-xl mx-2 py-0.5 cursor-pointer"
+            >
+              <img
+                src="https://i.pinimg.com/1200x/6d/3d/0b/6d3d0b5dc1082b4eed5c911d76459932.jpg"
+                alt=""
+                class="w-8 h-8 rounded-full ml-4"
+              />
+              <h3 class="pl-8">Mr Beast</h3>
+            </div>
+            <div
+              title="T Series"
+              class="flex items-center mb-2 hover:bg-gray-300 rounded-xl mx-2 py-0.5 cursor-pointer"
+            >
+              <img
+                src="https://i.pinimg.com/736x/d8/46/f1/d846f15ca3ce123a87ae9ed9746a2276.jpg"
+                alt=""
+                class="w-8 h-8 rounded-full ml-4"
+              />
+              <h3 class="pl-8">T Series</h3>
+            </div>
+            <div
+            title="PewDiePie"
+              class="flex items-center mb-2 hover:bg-gray-300 rounded-xl mx-2 py-0.5 cursor-pointer"
+            >
+              <img
+                src="https://i.pinimg.com/736x/b7/67/25/b76725f34d8a065c3015d5198f4ab676.jpg"
+                alt=""
+                class="w-8 h-8 rounded-full ml-4"
+              />
+              <h3 class="pl-8">PewDiePie</h3>
+            </div>
+            <div
+              title="CarryMinati"
+              class="flex items-center mb-2 hover:bg-gray-300 rounded-xl mx-2 py-0.5 cursor-pointer"
+            >
+              <img
+                src="https://i.pinimg.com/1200x/0a/35/92/0a3592cf1df5d11df3cf7173214b04a0.jpg"
+                alt=""
+                class="w-8 h-8 rounded-full ml-4"
+              />
+              <h3 class="pl-8">CarryMinati</h3>
+            </div>
+            <div
+              title="MythPat"
+              class="flex items-center mb-2 hover:bg-gray-300 rounded-xl mx-2 py-0.5 cursor-pointer"
+            >
+              <img
+                src="https://i.pinimg.com/736x/e4/3b/64/e43b64b754e80aa3f8fc3f3985d8a69e.jpg"
+                alt=""
+                class="w-8 h-8 rounded-full ml-4"
+              />
+              <h3 class="pl-8">MythPat</h3>
+            </div>
+            <div
+              title="Dude Perfect"
+              class="flex items-center mb-2 hover:bg-gray-300 rounded-xl mx-2 py-0.5 cursor-pointer"
+            >
+              <img
+                src="https://i.pinimg.com/1200x/99/31/f9/9931f92ed885c172ff2f0bfd669fb3a6.jpg"
+                alt=""
+                class="w-8 h-8 rounded-full ml-4"
+              />
+              <h3 class="pl-8">Dude Perfect</h3>
+            </div>
+            <div
+              title="Jonathan Gaming"
+              class="flex items-center mb-2 hover:bg-gray-300 rounded-xl mx-2 py-0.5 cursor-pointer"
+            >
+              <img
+                src="https://i.pinimg.com/736x/54/13/b4/5413b40f0926bd5765b20fad945d4cd8.jpg"
+                alt=""
+                class="w-8 h-8 rounded-full ml-4"
+              />
+              <h3 class="pl-8">Jonathan Gaming</h3>
+            </div>
+            <div
+            title="Show more"
+              class="flex items-center hover:bg-gray-300 rounded-xl mx-2 cursor-pointer"
+            >
+              <img
+                src="https://www.svgrepo.com/show/521469/arrow-down.svg"
+                alt=""
+                class="w-8 h-8 rounded-full ml-4 mt-1"
+                />
+                <h3 class="pl-8">Show more</h3>
+            </div>
+
+            <div class="border-t border-gray-300 my-3"></div>
+          </div>
+        </div>
+        <div class="hidden xl:grid">
+          <h3 class="font-medium text-lg ml-2 mb-2 hover:underline">You ></h3>
+          <div
+            title="History"
+            class="flex mb-2 hover:bg-gray-300 rounded-xl mx-2 cursor-pointer"
+          >
+            <img
+              src="https://www.svgrepo.com/show/525952/history.svg"
+              alt=""
+              class="h-8 ml-4"
+            />
+            <h3 class="pt-1 pl-4">History</h3>
+          </div>
+          <div
+            title="Playlists"
+            class="flex mb-2 hover:bg-gray-300 rounded-xl mx-2 cursor-pointer"
+          >
+            <img
+              src="https://www.svgrepo.com/show/325504/playlist-play.svg"
+              alt=""
+              class="h-8 ml-4"
+            />
+            <h3 class="pt-1 pl-4">Playlists</h3>
+          </div>
+          <div
+            title="Watch later"
+            class="flex mb-2 hover:bg-gray-300 rounded-xl mx-2 cursor-pointer"
+          >
+            <img
+              src="https://www.svgrepo.com/show/532125/clock-two.svg"
+              alt=""
+              class="h-8 ml-4"
+            />
+            <h3 class="pt-1 pl-4">Watch later</h3>
+          </div>
+          <div
+            title="Liked videos"
+            class="flex mb-2 hover:bg-gray-300 rounded-xl mx-2 cursor-pointer"
+          >
+            <img
+              src="https://www.svgrepo.com/show/522577/like.svg"
+              alt=""
+              class="h-8 ml-4"
+            />
+            <h3 class="pt-1 pl-4">Liked videos</h3>
+          </div>
+          <div 
+            title="Downloads"
+            class="flex hover:bg-gray-300 rounded-xl mx-2 cursor-pointer">
+            <img
+              src="https://www.svgrepo.com/show/458452/download-1.svg"
+              alt=""
+              class="h-8 ml-4"
+            />
+            <h3 class="pt-1 pl-4">Downloads</h3>
+          </div>
+          <div class="border-t border-gray-300 my-3"></div>
+        </div>
+        <div class="hidden xl:grid">
+          <h3 class="font-medium ml-2 mb-2">More from YouTube</h3>
+          <div
+            title="YouTube Premium"
+            class="flex mb-2 hover:bg-gray-300 rounded-xl mx-2 cursor-pointer"
+          >
+            <img
+              src="https://www.svgrepo.com/show/475700/youtube-color.svg"
+              alt=""
+              class="h-8 ml-4"
+            />
+            <h3 class="pt-1 pl-4">YouTube Premium</h3>
+          </div>
+          <div
+            title="YouTube Music"
+            class="flex mb-2 hover:bg-gray-300 rounded-xl mx-2 cursor-pointer"
+          >
+            <img
+              src="https://www.svgrepo.com/show/343535/youtube-music-song-multimedia-audio.svg"
+              alt=""
+              class="h-8 ml-4"
+            />
+            <h3 class="pt-1 pl-4">YouTube Music</h3>
+          </div>
+          <div 
+            title="YouTube Kids"
+            class="flex hover:bg-gray-300 rounded-xl mx-2 cursor-pointer">
+            <img
+              src="https://www.svgrepo.com/show/294287/youtube.svg"
+              alt=""
+              class="h-8 ml-4"
+            />
+            <h3 class="pt-1 pl-4">YouTube Kids</h3>
+          </div>
+          <div class="border-t border-gray-300 my-3"></div>
+        </div>
+        <div class="hidden xl:grid">
+          <h3 class="mb-4">&copy Parshant July 2026</h3>
+        </div>
+      </div>
+      <div
+        id="content"
+        class="col-start-1 col-end-13 md:col-start-2 md:col-end-13 xl:col-start-3 xl:col-end-13 row-start-2 row-end-3 w-full grid grid-cols-2 px-4 box-border overflow-y-auto"
+      >
+        <div
+          id="videos"
+          class="col-start-1 col-end-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 sm:gap-x-2 gap-y-4 pt-4"
+        >
+          <div
+            class="h-[67vw] sm:h-[40vw] md:h-[36vw] lg:h-[25vw] xl:h-[22vw] rounded-xl courser-pointer box-border hover:bg-gray-200 hover:p-2"
+          >
+            <div class="relative">
+              <img
+                src=".\svg\Thumbnail\The-return-of-stick-Fight.jpg"
+                alt=""
+                class="h-3/4 w-full object-cover rounded-xl"
+              />
+              <h4 class="absolute text-white bg-black/50 px-1 bottom-2 right-2 rounded-md text-[12px] font-bold">10:06</h4>
+            </div>
+            <div class="flex w-full">
+              <div >
+                <img
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStTRKSB0DWZofxfVEDBAkrxj_yAg9TyQ8_lkp81pBUhQ&s=10"
+                  alt=""
+                  class="h-10 w-10 min-h-10 min-w-10 mt-2 rounded-full"
+                />
+              </div>
+              <div class="ml-2 pt-2 w-4/5 min-w-4/5">
+                <h3
+                  title="The Return of Stick Fight"
+                  class="font-bold font-['Roboto_Condensed'] text-black text-lg tracking-tight line-clamp-2 leading-tight"
+                >
+                  The Return of Stick Fight
+                </h3>
+                <h3 class="text-gray-500 text-sm">SMii7Y</h3>
+                <div class="flex text-gray-500 text-sm w-full">
+                  <h4>8m views</h4>
+                  <h4 class="ml-4">&bull; 4 years ago</h4>
+                </div>
+              </div>
+              <div class="pt-2 flex flex-col justify-start relative">
+                <div class="relative over">
+                <img
+                  src=".\svg\more-vertical-svgrepo-com.svg"
+                  alt=""
+                  class="min-h-10 min-w-10 sm:h-10 sm:w-10 hover:bg-gray-400 rounded-full p-2 absolute z-40 mr-2"
+                />
+                </div>
+                <div class="bg-white rounded-xl w-60 absolute overflow-hidden z-50 hidden">
+                  <ul class="whitespace-nowrap text-black w-full">
+                    <li class="py-3 px-3 box-border hover:bg-gray-300 flex">
+                      <img src="https://www.svgrepo.com/show/364782/queue-fill.svg" alt="" class="h-6 mr-2">
+                      <span>Add to queue</span></li>
+                    <li class="py-3 px-3 hover:bg-gray-300 flex">
+                      <img src="https://www.svgrepo.com/show/532125/clock-two.svg"  alt="" class="h-6 mr-2">
+                      <span>Save to Watch Later</span></li>
+                    <li class="py-3 px-3 hover:bg-gray-300 flex">
+                      <img src=".\vid\svg\save-svgrepo-com.svg" alt="" class="h-6 mr-2">
+                      <span>Save to playlist</span></li>
+                    <li class="py-3 px-3 hover:bg-gray-300 flex">
+                      <img src="https://www.svgrepo.com/show/510957/download.svg" alt="" class="h-6 mr-2">
+                      <span>Download</span></li>
+                    <li class="py-3 px-3 hover:bg-gray-300 flex">
+                      <img src="https://www.svgrepo.com/show/479323/share-arrow.svg" alt="" class="h-6 mr-2">
+                      <span>Share</span></li>
+                    <li class="py-3 px-3 hover:bg-gray-300 flex">
+                      <img src="https://www.svgrepo.com/show/506404/ban.svg" alt="" class="h-6 mr-2">
+                      <span>Not interested</span></li>
+                    <li class="py-3 px-3 hover:bg-gray-300 flex">
+                      <img src="https://www.svgrepo.com/show/522961/minus-circle.svg" alt="" class="h-6 mr-2">
+                      <span>Don't recommend channel</span></li>
+                    <li class="py-3 px-3 hover:bg-gray-300 flex">
+                      <img src="https://www.svgrepo.com/show/532527/flag.svg" alt="" class="h-6 mr-2">
+                      <span>Report</span></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="h-[67vw] sm:h-[40vw] md:h-[36vw] lg:h-[25vw] xl:h-[22vw] rounded-xl box-border courser-pointer hover:bg-gray-200 hover:p-2"
+          >
+            <div class="relative">
+              <img
+                src=".\svg\Thumbnail\Beginner's-guide.jpg"
+                alt=""
+                class="h-3/4 w-full object-cover rounded-xl"
+              />
+              <h4 class="absolute text-white bg-black/50 px-1 bottom-2 right-2 rounded-md text-[12px] font-bold">18:46</h4>
+            </div>
+            <div class="flex w-full">
+              <div>
+                <img
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTMylqzf1f5uEpIOz9P7LziPemfV1DhtSzhpfsYPVnWA&s=10"
+                  alt=""
+                  class="h-10 w-10 min-h-10 min-w-10 mt-2 rounded-full"
+                />
+              </div>
+              <div class="ml-2 pt-2 w-4/5">
+                <h3
+                  title="Beginner's Guide to the Gym| DO's and DON'Ts"
+                  class="font-bold font-['Roboto_Condensed'] text-black text-lg tracking-tight line-clamp-2 leading-tight"
+                >
+                  Beginner's Guide to the Gym| DO's and DON'Ts
+                </h3>
+                <h3 class="text-gray-500 text-sm">Magnus Method</h3>
+                <div class="flex text-gray-500 w-full text-sm">
+                  <h4>3.8m views</h4>
+                  <h4 class="ml-4">&bull; 4 years ago</h4>
+                </div>
+              </div>
+              <div class="pt-2 flex flex-col justify-start relative">
+                <div>
+                <img
+                  src=".\svg\more-vertical-svgrepo-com.svg"
+                  alt=""
+                  class="h-12 w-12 sm:h-10 sm:w-10 hover:bg-gray-400 rounded-full p-2"
+                />
+              </div>
+              <div class="bg-white rounded-xl w-60 absolute overflow-hidden z-50 hidden">
+                  <ul class="whitespace-nowrap text-black ">
+                    <li class="py-3 px-3 box-border hover:bg-gray-300 flex">
+                      <img src="https://www.svgrepo.com/show/364782/queue-fill.svg" alt="" class="h-6 mr-2">
+                      <span>Add to queue</span></li>
+                    <li class="py-3 px-3 hover:bg-gray-300 flex">
+                      <img src="https://www.svgrepo.com/show/532125/clock-two.svg"  alt="" class="h-6 mr-2">
+                      <span>Save to Watch Later</span></li>
+                    <li class="py-3 px-3 hover:bg-gray-300 flex">
+                      <img src=".\vid\svg\save-svgrepo-com.svg" alt="" class="h-6 mr-2">
+                      <span>Save to playlist</span></li>
+                    <li class="py-3 px-3 hover:bg-gray-300 flex">
+                      <img src="https://www.svgrepo.com/show/510957/download.svg" alt="" class="h-6 mr-2">
+                      <span>Download</span></li>
+                    <li class="py-3 px-3 hover:bg-gray-300 flex">
+                      <img src="https://www.svgrepo.com/show/479323/share-arrow.svg" alt="" class="h-6 mr-2">
+                      <span>Share</span></li>
+                    <li class="py-3 px-3 hover:bg-gray-300 flex">
+                      <img src="https://www.svgrepo.com/show/506404/ban.svg" alt="" class="h-6 mr-2">
+                      <span>Not interested</span></li>
+                    <li class="py-3 px-3 hover:bg-gray-300 flex">
+                      <img src="https://www.svgrepo.com/show/522961/minus-circle.svg" alt="" class="h-6 mr-2">
+                      <span>Don't recommend channel</span></li>
+                    <li class="py-3 px-3 hover:bg-gray-300 flex">
+                      <img src="https://www.svgrepo.com/show/532527/flag.svg" alt="" class="h-6 mr-2">
+                      <span>Report</span></li>
+                  </ul>
+                </div>
+                </div>
+            </div>
+          </div>
+          <div
+            class="hidden lg:block lg:h-[25vw] xl:h-[22vw] rounded-xl box-border hover:bg-gray-200 hover:p-2"
+          >
+            <div class="relative">
+              <img
+                src=".\svg\Thumbnail\LAN-Finale.jpg"
+                alt=""
+                class="h-3/4 w-full object-cover rounded-xl"
+              />
+              <h4 class="absolute text-white bg-black/50 px-1 bottom-2 right-2 rounded-md text-[12px] font-bold">8:53</h4>
+            </div>
+            <div class="flex w-full relative">
+              <div>
+                <img
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaDI27CHa4TyW7olPllt5LNwgmBKrYPoZocmnnwMaJXQ&s=10"
+                  alt=""
+                  class="h-10 w-10 min-h-10 min-w-10 mt-2 rounded-full"
+                />
+              </div>
+              <div class="ml-2 pt-2 w-4/5 min-w-4/5">
+                <h3
+                  title="Lan Finale.exe (BMPS 2026)"
+                  class="font-bold font-['Roboto_Condensed'] text-black text-lg tracking-tight line-clamp-2 leading-tight"
+                >
+                  Lan Finale.exe (BMPS 2026)
+                </h3>
+                <h3 class="text-gray-500 text-sm">Pin Pundri</h3>
+                <div class="flex text-gray-500 w-full text-sm">
+                  <h4>25k views</h4>
+                  <h4 class="ml-4">&bull; 23 hours ago</h4>
+                </div>
+              </div>
+              <div class="pt-2 flex flex-col justify-start relative">
+                <div>
+                <img
+                  src=".\svg\more-vertical-svgrepo-com.svg"
+                  alt=""
+                  class="min-h-10 min-w-10 sm:h-10 sm:w-10 hover:bg-gray-400 rounded-full p-2 absolute z-40 mr-2"
+                />
+                </div>
+                <div class="bg-white rounded-xl w-60 absolute overflow-hidden z-50 hidden">
+                  <ul class="whitespace-nowrap text-black">
+                    <li class="py-3 px-3 box-border hover:bg-gray-300 flex">
+                      <img src="https://www.svgrepo.com/show/364782/queue-fill.svg" alt="" class="h-6 mr-2">
+                      <span>Add to queue</span></li>
+                    <li class="py-3 px-3 hover:bg-gray-300 flex">
+                      <img src="https://www.svgrepo.com/show/532125/clock-two.svg"  alt="" class="h-6 mr-2">
+                      <span>Save to Watch Later</span></li>
+                    <li class="py-3 px-3 hover:bg-gray-300 flex">
+                      <img src=".\vid\svg\save-svgrepo-com.svg" alt="" class="h-6 mr-2">
+                      <span>Save to playlist</span></li>
+                    <li class="py-3 px-3 hover:bg-gray-300 flex">
+                      <img src="https://www.svgrepo.com/show/510957/download.svg" alt="" class="h-6 mr-2">
+                      <span>Download</span></li>
+                    <li class="py-3 px-3 hover:bg-gray-300 flex">
+                      <img src="https://www.svgrepo.com/show/479323/share-arrow.svg" alt="" class="h-6 mr-2">
+                      <span>Share</span></li>
+                    <li class="py-3 px-3 hover:bg-gray-300 flex">
+                      <img src="https://www.svgrepo.com/show/506404/ban.svg" alt="" class="h-6 mr-2">
+                      <span>Not interested</span></li>
+                    <li class="py-3 px-3 hover:bg-gray-300 flex">
+                      <img src="https://www.svgrepo.com/show/522961/minus-circle.svg" alt="" class="h-6 mr-2">
+                      <span>Don't recommend channel</span></li>
+                    <li class="py-3 px-3 hover:bg-gray-300 flex">
+                      <img src="https://www.svgrepo.com/show/532527/flag.svg" alt="" class="h-6 mr-2">
+                      <span>Report</span></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="shorts" class="col-start-1 col-end-3 grid grid-flow-row">
+          <div class="flex">
+            <img
+              src=".\svg\250px-Youtube_shorts_icon.svg.webp"
+              alt=""
+              class="h-8 w-8"
+            />
+            <h2
+              class="font-bold font-['Roboto_Condensed'] text-black text-xl pl-4"
+            >
+              Shorts
+            </h2>
+          </div>
+          <div
+            class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 sm:gap-x-2 gap-x-4"
+          >
+            <div class="h-[85vw] sm:h-[55vw] lg:h-[33vw] xl:h-[27vw] mt-2 rounded-xl hover:bg-gray-200 hover:p-2">
+              <img
+                src=".\svg\Shorts\Peter.jpg"
+                alt=""
+                class="h-7/8 w-full bg-red-500 rounded-xl"
+              />
+              <div class="flex mt-2 ml-1">
+                <div 
+                  title="Peter Destroyed Stores #familyguy #shorts"
+                  class="w-9/10">
+                  <h2
+                    class="font-bold font-['Roboto_Condensed'] text-black text-lg tracking-tight line-clamp-1 leading-tight"
+                  >
+                    Peter Destroyed Stores #familyguy #shorts
+                  </h2>
+                  <h3 class="text-gray-500 text-[12px]">1.2m views</h3>
+                </div>
+                <div>
+                  <div class="w-8 h-8 mt-1">
+                    <img
+                      src=".\svg\more-vertical-svgrepo-com.svg"
+                      alt=""
+                      class="h-full w-full hover:bg-gray-300 rounded-full"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="h-[85vw] sm:h-[55vw] lg:h-[33vw] xl:h-[27vw] mt-2 rounded-xl hover:bg-gray-200 hover:p-2">
+              <img
+                src=".\svg\Shorts\Chest-Press.jpg"
+                alt=""
+                class="h-7/8 w-full bg-red-500 rounded-xl"
+              />
+              <div class="flex mt-2 ml-1">
+                <div 
+                  title="Chest Press Mistakes"
+                  class="w-9/10">
+                  <h2
+                    class="font-bold font-['Roboto_Condensed'] text-black text-lg tracking-tight line-clamp-1 leading-tight"
+                  >
+                    Chest Press Mistakes
+                  </h2>
+                  <h3 class="text-gray-500 text-[12px]">301k views</h3>
+                </div>
+                <div>
+                  <div class="w-8 h-8 mt-1">
+                    <img
+                      src=".\svg\more-vertical-svgrepo-com.svg"
+                      alt=""
+                      class="h-full w-full hover:bg-gray-300 rounded-full"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="sm:h-[55vw] lg:h-[33vw] xl:h-[27vw]  mt-2 rounded-xl hidden sm:block hover:bg-gray-200 hover:p-2">
+              <img
+                src=".\svg\Shorts\Meccha-Hunter.jpg"
+                alt=""
+                class="h-7/8 w-full bg-red-500 rounded-xl"
+              />
+              <div class="flex mt-2 ml-1">
+                <div 
+                title="I Became a Hunter In MecchaChameleon"  
+                class="w-9/10">
+                  <h2
+                    class="font-bold font-['Roboto_Condensed'] text-black text-lg tracking-tight line-clamp-1 leading-tight"
+                  >
+                    I Became a Hunter In MecchaChameleon
+                  </h2>
+                  <h3 class="text-gray-500 text-[12px]">16m views</h3>
+                </div>
+                <div>
+                  <div class="w-8 h-8 mt-1">
+                    <img
+                      src=".\svg\more-vertical-svgrepo-com.svg"
+                      alt=""
+                      class="h-full w-full hover:bg-gray-300 rounded-full"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="lg:h-[33vw] xl:h-[27vw] mt-2 hidden lg:block rounded-xl hover:bg-gray-200 hover:p-2"
+            >
+            <div class="h-7/8 w-full overflow-hidden rounded-xl">
+            <img
+            src=".\svg\Shorts\Flower.jpg"
+            alt=""
+            class="h-full w-full object-center object-cover scale-125"
+            />
+            </div>
+              <div class="flex mt-2 ml-1">
+                <div title="A 1000-years old art-style">
+                  <h2
+                    class="font-bold font-['Roboto_Condensed'] text-black text-lg tracking-tight line-clamp-1 leading-tight"
+                  >
+                    A 1000-years old art-style
+                  </h2>
+                  <h3 class="text-gray-500 text-[12px]">786k views</h3>
+                </div>
+                <div>
+                  <div class="w-8 h-8 mt-1">
+                    <img
+                      src=".\svg\more-vertical-svgrepo-com.svg"
+                      alt=""
+                      class="h-full w-full hover:bg-gray-300 rounded-full"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="lg:h-[33vw] xl:h-[27vw] mt-2 hidden lg:block rounded-xl hover:bg-gray-200 hover:p-2"
+            >
+            <div class="h-7/8 w-full overflow-hidden rounded-xl">
+          <img
+                src=".\svg\Shorts\Science.jpg"
+                alt=""
+                class="h-full w-full object-center object-cover scale-125 overflow-hidden"
+              />
+              </div>
+              <div class="flex mt-2 ml-1">
+                <div>
+                  <h2
+                    title="Science Lifter Vs World's Strongest Pro"
+                    class="font-bold font-['Roboto_Condensed'] text-black text-lg tracking-tight line-clamp-1 leading-tight"
+                  >
+                    Science Lifter Vs World's Strongest Pro
+                  </h2>
+                  <h3 class="text-gray-500 text-[12px]">40m views</h3>
+                </div>
+                <div>
+                  <div class="w-8 h-8 mt-1">
+                    <img
+                      src=".\svg\more-vertical-svgrepo-com.svg"
+                      alt=""
+                      class="h-full w-full hover:bg-gray-300 rounded-full"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          id="videos"
+          class="col-start-1 col-end-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 sm:gap-x-2 gap-y-4 pt-4"
+        >
+          <div
+            class="h-[67vw] sm:h-[40vw] md:h-[36vw] lg:h-[25vw] xl:h-[22vw] rounded-xl hover:bg-gray-200 hover:p-2"
+          >
+            <div class="relative">
+              <img
+                src=".\svg\Thumbnail\Lolzzz-61Kills.jpg"
+                alt=""
+                class="h-3/4 w-full object-cover rounded-xl"
+              />
+              <h4 class="absolute text-white bg-black/50 px-1 bottom-2 right-2 rounded-md text-[12px] font-bold">11:17</h4>
+            </div>
+            <div class="flex">
+              <div>
+                <img
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmOVZthWDtYCJ-P5FajOtovfkDL72lzUtaKxLt3Sr2BQ&s=10"
+                  alt=""
+                  class="min-h-10 min-w-10 h-10 w-10 object-cover mt-2 rounded-full"
+                />
+              </div>
+              <div class="ml-2 pt-2 w-4/5">
+                <h3
+                  title="I MADE A WORLD RECORD OF 61 SOLO KILLS IN BGMI| TAG LoLzZz OR WHAT"
+                  class="font-bold font-['Roboto_Condensed'] text-black text-lg tracking-tight line-clamp-2 leading-tight"
+                >
+                  I MADE A WORLD RECORD OF 61 SOLO KILLS IN BGMI| TAG LoLzZz OR
+                  WHAT
+                </h3>
+                <h3 class="text-gray-500 text-sm">LoLzZz Gaming</h3>
+                <div class="flex text-gray-500 text-sm w-full">
+                  <h4>67k views</h4>
+                  <h4 class="ml-4">&bull; 3 hours ago</h4>
+                </div>
+              </div>
+              <div class="pt-2">
+                <div>
+                <img
+                  src=".\svg\more-vertical-svgrepo-com.svg"
+                  alt=""
+                  class="h-12 w-12 sm:h-10 sm:w-10 hover:bg-gray-400 rounded-full p-2"
+                />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="h-[67vw] sm:h-[40vw] md:h-[36vw] lg:h-[25vw] xl:h-[22vw] rounded-xl hover:bg-gray-200 hover:p-2"
+          >
+            <div class="relative">
+              <img
+                src=".\svg\Thumbnail\Snaxx-WatchParty.jpg"
+                alt=""
+                class="h-3/4 w-full object-cover rounded-xl"
+              />
+              <h4 class="absolute text-white bg-red-500 px-1 bottom-2 right-2 rounded-md text-[12px] font-medium flex items-center">
+                <svg 
+        class="w-3 h-3 fill-white"
+        viewBox="0 0 24 24"
+    >
+        <circle cx="12" cy="12" r="8"/>
+    </svg>
+
+    LIVE
+              </h4>
+            </div>
+            <div class="flex">
+              <div class="relative flex justify-center">
+                <img
+                  src="data:image/jpeg;base64,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"
+                  alt=""
+                  class="min-h-10 min-w-10 h-10 w-10 object-cover mt-2 rounded-full border-2 border-red-600 p-0.5"
+                />
+                <h5
+                  class="bg-red-600 text-white text-center text-[10px] font-medium rounded-sm absolute sm:bottom-5.5 sm:px-0.5 bottom-5"
+                >
+                  LIVE
+                </h5>
+              </div>
+              <div class="ml-2 pt-2 w-8/10">
+                <h3
+                  title="2026 PMMI Grand Finals Day 3 - WATCHPARTY WITH SNAX"
+                  class="font-bold font-['Roboto_Condensed'] text-black text-lg tracking-tight line-clamp-1 leading-tight"
+                >
+                  2026 PMMI Grand Finals Day 3 - WATCHPARTY WITH SNAX
+                </h3>
+                <h3 class="text-gray-500 text-sm">Snax Gaming</h3>
+                <div class="flex text-gray-500 text-sm w-full">
+                  <h4>37k watching</h4>
+                  <h4 class="ml-4"></h4>
+                </div>
+              </div>
+              <div class="pt-2">
+                <img
+                  src=".\svg\more-vertical-svgrepo-com.svg"
+                  alt=""
+                  class="h-12 w-12 sm:h-10 sm:w-10 hover:bg-gray-400 rounded-full p-2"
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            class="hidden lg:block lg:h-[25vw] xl:h-[22vw] rounded-xl hover:bg-gray-200 hover:p-2"
+          >
+            <div class="relative">
+              <img
+                src=".\svg\Thumbnail/Fast-Autoclikcer.jpg"
+                alt=""
+                class="h-3/4 w-full object-cover rounded-xl"
+              />
+              <h4 class="absolute text-white bg-black/50 px-1 bottom-2 right-2 rounded-md text-[12px] font-bold">04:13</h4>
+            </div>
+            <div class="flex">
+              <div>
+                <img
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmxAIParuA0FyHwNvRP16FG18GdZlNLvXgaA_TJvbHUg&s"
+                  alt=""
+                  class="h-10 w-10 min-h-10 min-w-10 mt-2 rounded-full"
+                />
+              </div>
+              <div class="ml-2 pt-2 w-8/10">
+                <h3
+                  title="World's fastest Lego Autoclicker"
+                  class="font-bold font-['Roboto_Condensed'] text-black text-lg tracking-tight line-clamp-2 leading-tight"
+                >
+                  World's fastest Lego Autoclicker
+                </h3>
+                <h3 class="text-gray-500 text-sm">Lucas-Dynamics</h3>
+                <div class="flex text-gray-500 text-sm w-full">
+                  <h4>10m views</h4>
+                  <h4 class="ml-4">&bull; 6 months ago</h4>
+                </div>
+              </div>
+              <div class="pt-2">
+                <img
+                  src=".\svg\more-vertical-svgrepo-com.svg"
+                  alt=""
+                  class="h-12 w-12 sm:h-10 sm:w-10 hover:bg-gray-400 rounded-full p-2"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          id="videos"
+          class="col-start-1 col-end-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 sm:gap-x-2 gap-y-4 pt-4"
+        >
+          <div
+            class="h-[67vw] sm:h-[40vw] md:h-[36vw] lg:h-[25vw] xl:h-[22vw] rounded-xl hover:bg-gray-200 hover:p-2"
+          >
+            <div class="relative">
+              <img
+                src=".\svg\Thumbnail\Gym-gears.jpg"
+                alt=""
+                class="h-3/4 w-full object-cover rounded-xl"
+              />
+              <h4 class="absolute text-white bg-black/50 px-1 bottom-2 right-2 rounded-md text-[12px] font-bold">08:23</h4>
+            </div>
+            <div class="flex">
+              <div>
+                <img
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3g2tcqq5aUjsf2BYpBHkVkF2mXkhK-OaGsJcI11q6OA&s"
+                  alt=""
+                  class="min-h-10 min-w-10 h-10 w-10 object-cover mt-2 rounded-full"
+                />
+              </div>
+              <div class="ml-2 pt-2 w-8/10">
+                <h3
+                  title="Every Gym Gear Explained"
+                  class="font-bold font-['Roboto_Condensed'] text-black text-lg tracking-tight line-clamp-2 leading-tight"
+                >
+                  Every Gym Gear Explained
+                </h3>
+                <h3 class="text-gray-500 text-sm">A Whey to Explain</h3>
+                <div class="flex text-gray-500 text-sm w-full">
+                  <h4>141k views</h4>
+                  <h4 class="ml-4">&bull; 1 month ago</h4>
+                </div>
+              </div>
+              <div class="pt-2">
+                <img
+                  src=".\svg\more-vertical-svgrepo-com.svg"
+                  alt=""
+                  class="h-12 w-12 sm:h-10 sm:w-10 hover:bg-gray-400 rounded-full p-2"
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            class="h-[67vw] sm:h-[40vw] md:h-[36vw] lg:h-[25vw] xl:h-[22vw] rounded-xl hover:bg-gray-200 hover:p-2"
+          >
+            <div class="relative">
+              <img
+                src=".\svg\Thumbnail\Taras.jpg"
+                alt=""
+                class="h-3/4 w-full object-cover rounded-xl"
+              />
+              <h4 class="absolute text-white bg-black/50 px-1 bottom-2 right-2 rounded-md text-[12px] font-bold">03:48</h4>
+            </div>
+            <div class="flex">
+              <div>
+                <img
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTR1qlgGjHcwy4u-bwfmdSTpGN-i1FrvSUlFq89-RaPtA&s=10"
+                  alt=""
+                  class="min-h-10 min-w-10 h-10 w-10 object-cover mt-2 rounded-full"
+                />
+              </div>
+              <div class="ml-2 pt-2 w-8/10">
+                <h3
+                  title="Taras-8k Video | Munjya | Sharvari & Abhay | Sachin-Jigar,Jasmine Sandals | Amitabh Bhattacharya"
+                  class="font-bold font-['Roboto_Condensed'] text-black text-lg tracking-tight line-clamp-2 leading-tight"
+                >
+                  Taras-8k Video | Munjya | Sharvari & Abhay | Sachin-Jigar,
+                  Jasmine Sandals | Amitabh Bhattacharya
+                </h3>
+                <h3 class="text-gray-500 text-sm">Zee Music Company</h3>
+                <div class="flex text-gray-500 text-sm w-full">
+                  <h4>4.3m views</h4>
+                  <h4 class="ml-4">&bull; 1 month ago</h4>
+                </div>
+              </div>
+              <div class="pt-2">
+                <img
+                  src=".\svg\more-vertical-svgrepo-com.svg"
+                  alt=""
+                  class="h-12 w-12 sm:h-10 sm:w-10 hover:bg-gray-400 rounded-full p-2"
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            class="hidden lg:block lg:h-[25vw] xl:h-[22vw] rounded-xl hover:bg-gray-200 hover:p-2"
+          >
+            <div class="relative">
+              <img
+                src=".\svg\Thumbnail/Wide-Lats.jpg"
+                alt=""
+                class="h-3/4 w-full object-cover rounded-xl"
+              />
+              <h4 class="absolute text-white bg-black/50 px-1 bottom-2 right-2 rounded-md text-[12px] font-bold">33:47</h4>
+            </div>
+            <div class="flex">
+              <div>
+                <img
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjKSBHHwioHbvcWhwvMT9BnlgIe_dXHuPzZZGfu1jV6A&s"
+                  alt=""
+                  class="h-10 w-10 min-h-10 min-w-10 mt-2 rounded-full"
+                />
+              </div>
+              <div class="ml-2 pt-2 w-8/10">
+                <h3
+                  title="How I Built My WIDE LATS"
+                  class="font-bold font-['Roboto_Condensed'] text-black text-lg tracking-tight line-clamp-2 leading-tight"
+                >
+                  How I Built My WIDE LATS
+                </h3>
+                <h3 class="text-gray-500 text-sm">Wesley Vissers</h3>
+                <div class="flex text-gray-500 text-sm w-full">
+                  <h4>78k views</h4>
+                  <h4 class="ml-4">&bull; 6 days ago</h4>
+                </div>
+              </div>
+              <div class="pt-2">
+                <img
+                  src=".\svg\more-vertical-svgrepo-com.svg"
+                  alt=""
+                  class="h-12 w-12 sm:h-10 sm:w-10 hover:bg-gray-400 rounded-full p-2"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          id="videos"
+          class="col-start-1 col-end-3 lg:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 sm:gap-x-2 gap-y-4 pt-4 hidden"
+        >
+          <div
+            class="lg:h-[25vw] xl:h-[22vw] rounded-xl hover:bg-gray-200 hover:p-2"
+          >
+            <div class="relative">
+              <img
+                src=".\svg\Thumbnail\Tibz-Olympic.jpg"
+                alt=""
+                class="h-3/4 w-full object-cover rounded-xl"
+              />
+              <h4 class="absolute text-white bg-black/50 px-1 bottom-2 right-2 rounded-md text-[12px] font-bold">17:08</h4>
+            </div>
+            <div class="flex">
+              <div>
+                <img
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReGVMQtVEQl1_JSZCdcXYpXboRijfDIsjYyU5_mO7JMA&s=10"
+                  alt=""
+                  class="min-h-10 min-w-10 h-10 w-10 object-cover mt-2 rounded-full"
+                />
+              </div>
+              <div class="ml-2 pt-2 w-8/10">
+                <h3
+                  title="I Snuck A Olympian Into A High School Track Meet"
+                  class="font-bold font-['Roboto_Condensed'] text-black text-lg tracking-tight line-clamp-2 leading-tight"
+                >
+                  I Snuck A Olympian Into A High School Track Meet
+                </h3>
+                <h3 class="text-gray-500 text-sm">Tibz</h3>
+                <div class="flex text-gray-500 text-sm w-full">
+                  <h4>8.5m views</h4>
+                  <h4 class="ml-4">&bull; 3 months ago</h4>
+                </div>
+              </div>
+              <div class="pt-2">
+                <img
+                  src=".\svg\more-vertical-svgrepo-com.svg"
+                  alt=""
+                  class="h-12 w-12 sm:h-10 sm:w-10 hover:bg-gray-400 rounded-full p-2"
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            class="lg:h-[25vw] xl:h-[22vw] rounded-xl hover:bg-gray-200 hover:p-2"
+          >
+            <div class="relative">
+              <img
+                src=".\svg\Thumbnail\Worse-Than-Death.jpg"
+                alt=""
+                class="h-3/4 w-full object-cover rounded-xl"
+              />
+              <h4 class="absolute text-white bg-black/50 px-1 bottom-2 right-2 rounded-md text-[12px] font-bold">06:53</h4>
+            </div>
+            <div class="flex">
+              <div class="relative flex justify-center">
+                <img
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQv42s1VDimrADvZDHl4nnQCpKFzk9y8mtptL3aw6owvQ&s=10"
+                  alt=""
+                  class="min-h-10 min-w-10 h-10 w-10 object-cover mt-2 rounded-full"
+                />
+              </div>
+              <div class="ml-2 pt-2 w-8/10">
+                <h3
+                  title="How Every Member of the Seven Died in The Boys (Explained)"
+                  class="font-bold font-['Roboto_Condensed'] text-black text-lg tracking-tight line-clamp-2 leading-tight"
+                >
+                  How Every Member of the Seven Died in The Boys (Explained)
+                </h3>
+                <h3 class="text-gray-500 text-sm">Watxher</h3>
+                <div class="flex text-gray-500 text-sm w-full">
+                  <h4>247k watching</h4>
+                  <h4 class="ml-4">&bull; 1 month ago</h4>
+                </div>
+              </div>
+              <div class="pt-2">
+                <img
+                  src=".\svg\more-vertical-svgrepo-com.svg"
+                  alt=""
+                  class="h-12 w-12 sm:h-10 sm:w-10 hover:bg-gray-400 rounded-full p-2"
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            class="hidden lg:block lg:h-[25vw] xl:h-[22vw] rounded-xl hover:bg-gray-200 hover:p-2"
+          >
+            <div class="relative">
+              <img
+                src=".\svg\Thumbnail/TOP-MrSpike.jpg"
+                alt=""
+                class="h-3/4 w-full object-cover rounded-xl"
+              />
+              <h4 class="absolute text-white bg-black/50 px-1 bottom-2 right-2 rounded-md text-[12px] font-bold">18:31</h4>
+            </div>
+            <div class="flex">
+              <div>
+                <img
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxES0msP0NOLfm40813-E6FLX0bV2aAHrP6gJeDQDnhw&s=10"
+                  alt=""
+                  class="h-10 w-10 min-h-10 min-w-10 mt-2 rounded-full"
+                />
+              </div>
+              <div class="ml-2 pt-2 w-8/10">
+                <h3
+                  title="TOP SHOWS HIS CLASS AGAIN! RRQ INSANE 30 POINTS WWCD"
+                  class="font-bold font-['Roboto_Condensed'] text-black text-lg tracking-tight line-clamp-2 leading-tight"
+                >
+                  TOP SHOWS HIS CLASS AGAIN! RRQ INSANE 30 POINTS WWCD
+                </h3>
+                <h3 class="text-gray-500 text-sm">Mr Spike Gaming</h3>
+                <div class="flex text-gray-500 text-sm w-full">
+                  <h4>95k views</h4>
+                  <h4 class="ml-4">&bull; 17 hours ago</h4>
+                </div>
+              </div>
+              <div class="pt-2">
+                <img
+                  src=".\svg\more-vertical-svgrepo-com.svg"
+                  alt=""
+                  class="h-12 w-12 sm:h-10 sm:w-10 hover:bg-gray-400 rounded-full p-2"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="shorts" class="col-start-1 col-end-3 grid grid-flow-row">
+          <div class="flex">
+            <img
+              src=".\svg\250px-Youtube_shorts_icon.svg.webp"
+              alt=""
+              class="h-8 w-8"
+            />
+            <h2
+              class="font-bold font-['Roboto_Condensed'] text-black text-xl pl-4"
+            >
+              Shorts
+            </h2>
+          </div>
+          <div
+            class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 sm:gap-x-2 gap-x-4"
+          >
+            <div class="h-[85vw] sm:h-[55vw] lg:h-[33vw] xl:h-[27vw] mt-2 rounded-xl hover:bg-gray-200 hover:p-2">
+              <div class="h-7/8 w-full rounded-xl overflow-hidden">
+              <img
+                src=".\svg\Shorts\Dhalsim.jpg"
+                alt=""
+                class="h-full w-full object-center object-cover scale-125"
+              /></div>
+              <div class="flex mt-2 ml-1">
+                <div class="w-9/10">
+                  <h2
+                    class="font-bold font-['Roboto_Condensed'] text-black text-lg tracking-tight line-clamp-1 leading-tight"
+                  >
+                    DHALSIM is absolutely insane #streetfighter #dhalsim
+                  </h2>
+                  <h3 class="text-gray-500 text-[12px]">2.2m views</h3>
+                </div>
+                <div>
+                  <div class="w-8 h-8 mt-1">
+                    <img
+                      src=".\svg\more-vertical-svgrepo-com.svg"
+                      alt=""
+                      class="h-full w-full hover:bg-gray-300 rounded-full"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="h-[85vw] sm:h-[55vw] lg:h-[33vw] xl:h-[27vw] mt-2 rounded-xl hover:bg-gray-200 hover:p-2">
+              <div class="h-7/8 w-full overflow-hidden rounded-xl">
+              <img
+                src=".\svg\Shorts\Body.jpg"
+                alt=""
+                class="h-full w-full object-cover object-center scale-125"
+              />
+              </div>
+              <div class="flex mt-2 ml-1">
+                <div class="w-9/10">
+                  <h2
+                    class="font-bold font-['Roboto_Condensed'] text-black text-lg tracking-tight line-clamp-1 leading-tight"
+                  >
+                    This hidden muscle changes your shoulders and chest. 💪
+                  </h2>
+                  <h3 class="text-gray-500 text-[12px]">3.5m views</h3>
+                </div>
+                <div>
+                  <div class="w-8 h-8 mt-1">
+                    <img
+                      src=".\svg\more-vertical-svgrepo-com.svg"
+                      alt=""
+                      class="h-full w-full hover:bg-gray-300 rounded-full"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="sm:h-[55vw] lg:h-[33vw] xl:h-[27vw]  mt-2 rounded-xl hidden sm:block hover:bg-gray-200 hover:p-2">
+              <div class="h-7/8 w-full overflow-hidden rounded-xl">
+              <img
+                src=".\svg\Shorts\cameraman.jpg"
+                alt=""
+                class="h-full w-full object-center object-cover scale-125"
+              />
+              </div>
+              <div class="flex mt-2 ml-1">
+                <div class="w-9/10">
+                  <h2
+                    class="font-bold font-['Roboto_Condensed'] text-black text-lg tracking-tight line-clamp-1 leading-tight"
+                  >
+                    🕶🎥 The Invisible MVP Behind Speed?! 👀🔥
+                  </h2>
+                  <h3 class="text-gray-500 text-[12px]">4.1m views</h3>
+                </div>
+                <div>
+                  <div class="w-8 h-8 mt-1">
+                    <img
+                      src=".\svg\more-vertical-svgrepo-com.svg"
+                      alt=""
+                      class="h-full w-full hover:bg-gray-300 rounded-full"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="lg:h-[33vw] xl:h-[27vw] mt-2 hidden lg:block rounded-xl hover:bg-gray-200 hover:p-2"
+            >
+            <div class="h-7/8 w-full overflow-hidden rounded-xl">
+            <img
+            src=".\svg\Shorts\Race.jpg"
+            alt=""
+            class="h-full w-full object-center object-cover scale-125"
+            />
+            </div>
+              <div class="flex mt-2 ml-1">
+                <div>
+                  <h2
+                    class="font-bold font-['Roboto_Condensed'] text-black text-lg tracking-tight line-clamp-1 leading-tight"
+                  >
+                    Being Punished For Reacting Too Fast Is Crazy💀🔥
+                  </h2>
+                  <h3 class="text-gray-500 text-[12px]">5.5m views</h3>
+                </div>
+                <div>
+                  <div class="w-8 h-8 mt-1">
+                    <img
+                      src=".\svg\more-vertical-svgrepo-com.svg"
+                      alt=""
+                      class="h-full w-full hover:bg-gray-300 rounded-full"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="lg:h-[33vw] xl:h-[27vw] mt-2 hidden lg:block rounded-xl hover:bg-gray-200 hover:p-2"
+            >
+            <div class="h-7/8 w-full overflow-hidden rounded-xl">
+          <img
+                src=".\svg\Shorts\Lois.jpg"
+                alt=""
+                class="h-full w-full object-center object-cover scale-125 overflow-hidden"
+              />
+              </div>
+              <div class="flex mt-2 ml-1">
+                <div>
+                  <h2
+                    class="font-bold font-['Roboto_Condensed'] text-black text-lg tracking-tight line-clamp-1 leading-tight"
+                  >
+                    Lois' Boxing Career #familyguy #shorts
+                  </h2>
+                  <h3 class="text-gray-500 text-[12px]">1.5m views</h3>
+                </div>
+                <div>
+                  <div class="w-8 h-8 mt-1">
+                    <img
+                      src=".\svg\more-vertical-svgrepo-com.svg"
+                      alt=""
+                      class="h-full w-full hover:bg-gray-300 rounded-full"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          id="videos"
+          class="col-start-1 col-end-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 sm:gap-x-2 gap-y-4 pt-4 mb-8"
+        >
+          <div
+            class="h-[67vw] sm:h-[40vw] md:h-[36vw] lg:h-[25vw] xl:h-[22vw] rounded-xl hover:bg-gray-200 hover:p-2"
+          >
+            <div class="relative">
+              <img
+                src=".\svg\Thumbnail\Liquid-Vaccum.jpg"
+                alt=""
+                class="h-3/4 w-full object-cover rounded-xl"
+              />
+              <h4 class="absolute text-white bg-black/50 px-1 bottom-2 right-2 rounded-md text-[12px] font-bold">01:54</h4>
+            </div>
+            <div class="flex">
+              <div>
+                <img
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuJs_a1iEbS_qYoY9KdGrNpitT6w57pih1T_7gPDwJZg&s=10"
+                  alt=""
+                  class="min-h-10 min-w-10 h-10 w-10 object-cover mt-2 rounded-full"
+                />
+              </div>
+              <div class="ml-2 pt-2 w-8/10">
+                <h3
+                  title="Why Don't Liquids Splash In a Vaccum?"
+                  class="font-bold font-['Roboto_Condensed'] text-black text-lg tracking-tight line-clamp-2 leading-tight"
+                >
+                  Why Don't Liquids Splash In a Vaccum?
+                </h3>
+                <h3 class="text-gray-500 text-sm">The Action Lab</h3>
+                <div class="flex text-gray-500 text-sm w-full">
+                  <h4>3.3m views</h4>
+                  <h4 class="ml-4">&bull; 11 months ago</h4>
+                </div>
+              </div>
+              <div class="pt-2">
+                <img
+                  src=".\svg\more-vertical-svgrepo-com.svg"
+                  alt=""
+                  class="h-12 w-12 sm:h-10 sm:w-10 hover:bg-gray-400 rounded-full p-2"
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            class="h-[67vw] sm:h-[40vw] md:h-[36vw] lg:h-[25vw] xl:h-[22vw] rounded-xl hover:bg-gray-200 hover:p-2"
+          >
+            <div class="relative">
+              <img
+                src=".\svg\Thumbnail\CBUM-Roman.jpg"
+                alt=""
+                class="h-3/4 w-full object-cover rounded-xl"
+              />
+              <h4 class="absolute text-white bg-black/50 px-1 bottom-2 right-2 rounded-md text-[12px] font-bold">31:19</h4>
+            </div>
+            <div class="flex">
+              <div class="relative flex justify-center">
+                <img
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5YR5TUljS5qJm4rBfg654OxNwkVqGRwP8p36i12mpRg&s=10"
+                  alt=""
+                  class="min-h-10 min-w-10 h-10 w-10 object-cover mt-2 rounded-full"
+                />
+              </div>
+              <div class="ml-2 pt-2 w-8/10">
+                <h3
+                  title="CBUM VS. RAMON DINO | FULL BACK WORKOUT"
+                  class="font-bold font-['Roboto_Condensed'] text-black text-lg tracking-tight line-clamp-2 leading-tight"
+                >
+                  CBUM VS. RAMON DINO | FULL BACK WORKOUT
+                </h3>
+                <h3 class="text-gray-500 text-sm">Chrid Bumstead</h3>
+                <div class="flex text-gray-500 text-sm w-full">
+                  <h4>4.7m views</h4>
+                  <h4 class="ml-4">&bull; 3 years ago</h4>
+                </div>
+              </div>
+              <div class="pt-2">
+                <img
+                  src=".\svg\more-vertical-svgrepo-com.svg"
+                  alt=""
+                  class="h-12 w-12 sm:h-10 sm:w-10 hover:bg-gray-400 rounded-full p-2"
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            class="hidden lg:block lg:h-[25vw] xl:h-[22vw] rounded-xl hover:bg-gray-200 hover:p-2"
+          >
+            <div class="relative">
+              <img
+                src=".\svg\Thumbnail/Sulek-Science.jpg"
+                alt=""
+                class="h-3/4 w-full object-cover rounded-xl"
+              />
+              <h4 class="absolute text-white bg-black/50 px-1 bottom-2 right-2 rounded-md text-[12px] font-bold">17:17</h4>
+            </div>
+            <div class="flex">
+              <div>
+                <img
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSP7cEwphveefdnfwsVmP094tRfPrwAPPx1Curu9l-qXA&s=10"
+                  alt=""
+                  class="h-10 w-10 min-h-10 min-w-10 mt-2 rounded-full"
+                />
+              </div>
+              <div class="ml-2 pt-2 w-8/10">
+                <h3
+                  title="The Science Behind Sam Sulek's Training"
+                  class="font-bold font-['Roboto_Condensed'] text-black text-lg tracking-tight line-clamp-2 leading-tight"
+                >
+                  The Science Behind Sam Sulek's Training
+                </h3>
+                <h3 class="text-gray-500 text-sm">Jeff Nippard</h3>
+                <div class="flex text-gray-500 text-sm w-full">
+                  <h4>5.2m views</h4>
+                  <h4 class="ml-4">&bull; 2 years ago</h4>
+                </div>
+              </div>
+              <div class="pt-2">
+                <img
+                  src=".\svg\more-vertical-svgrepo-com.svg"
+                  alt=""
+                  class="h-12 w-12 sm:h-10 sm:w-10 hover:bg-gray-400 rounded-full p-2"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <div id="videoPlayer"
+    class="hidden grid grid-rows-[80px_1fr] grid-cols-12 h-screen w-full overflow-y-auto">
+    <div
+        id="header"
+        class="bg-white col-start-1 col-end-13 row-start-1 row-end-2 grid grid-flow-col"
+      >
+        <div class="left flex">
+          <button>
+            <img
+              src=".\svg\nav-icon-svgrepo-com.svg"
+              alt=""
+              class="h-6 ml-4 cursor-pointer"
+            />
+          </button>
+          <img
+            src=".\svg\youtube-svgrepo-com.svg"
+            alt="logo"
+            class="mx-4 h-24 cursor-pointer"
+          />
+        </div>
+        <div
+          class="right grid grid-flow-col justify-items-end mr-4 items-center"
+        >
+          <div class="grid grid-flow-col items-center">
+            <button class="grid grid-flow-col items-center">
+              <input
+                type="text"
+                class="hidden sm:grid border rounded-full w-[20vw] lg:w-[25vw] h-8 active:ring-2 active:ring-blue-500 active:outline-none pl-4"
+                placeholder="Search"
+              />
+              <img
+                src=".\svg\search-svgrepo-com.svg"
+                alt=""
+                class="h-10 p-2 rounded-full hover:bg-gray-200 cursor-pointer"
+              />
+            </button>
+            <button>
+              <img
+                src=".\svg\mic-svgrepo-com.svg"
+                alt=""
+                class="h-10 p-2 rounded-full hover:bg-gray-200 cursor-pointer"
+              />
+            </button>
+          </div>
+          <div class="grid grid-flow-col items-center md:justify-between">
+            <button
+              class="font-medium text-lg border rounded-3xl px-2 hover:bg-gray-300 cursor-pointer"
+            >
+              + Create
+            </button>
+            <button>
+              <img
+                src=".\svg\notification-svgrepo-com.svg"
+                alt=""
+                class="h-10 p-2 rounded-full hover:bg-gray-200 cursor-pointer"
+              />
+            </button>
+            <button
+              class="bg-purple-400 h-10 w-10 rounded-full text-white text-lg cursor-pointer"
+            >
+              P
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-start-1 col-end-13 lg:col-start-1 lg:col-end-9">
+        <video src=".\vid\20240826_133858.mp4" controls class="p-2 rounded-3xl"></video>
+        <h2 class="font-bold font-['Roboto_Condensed'] text-black text-xl line-clamp-2 ml-4">Title of the video will come here and it may be long enough to move to next line</h2>
+        <div class="mt-2 ml-4 flex">
+          <div class="flex items-center">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1gNvhIFbYC1BdeOmS7JCap3GcyUHuT1W6ZfKryJuZjg&s=10" alt="" 
+            class="h-10 w-10 rounded-full">
+            <div class="flex flex-col ml-2">
+              <h3 class="font-bold font-['Roboto_Condensed'] text-black text-md line-clamp-2">MrBeast</h3>
+              <h3 class="font-light text-[10px]">500M subscribers</h3>
+            </div>
+          </div>
+          <div class="ml-4">
+            <button class="bg-gray-400 text-white p-2 px-4 font-medium rounded-3xl">Join</button>
+            <button class="bg-red-600 text-white p-2 px-4 font-medium rounded-3xl">Subscribe</button>
+          </div>
+        </div>
+        <div class="flex mt-2">
+          <div class="bg-gray-400 ml-4 px-3 flex py-1 rounded-full">
+            <button>
+              <img src=".\vid\svg\like-svgrepo-com.svg" alt="" class="h-6 w-6">
+            </button>
+            <h4 class="text-gray-100 ml-1">99m</h4>
+            <div class="border-l border-gray-500 ml-1"></div>
+            <button>
+              <img src=".\vid\svg\unlike-svgrepo-com.svg" alt="" class="h-7 w-7 ml-3">
+            </button>
+          </div>
+          <button class="flex bg-gray-400 px-2 py-1 rounded-full ml-2">
+            <img src=".\vid\svg\share-svgrepo-com.svg" alt="" class="h-7">
+            <h4 class="text-gray-100 ml-1">Share</h4>
+          </button>
+          <button class="flex bg-gray-400 px-2 py-1 rounded-full items-center ml-2"">
+            <img src=".\vid\svg\star-05-svgrepo-com.svg" alt="" class="h-6">
+            <h4 class="text-gray-100 ml-1">Ask</h4>
+          </button>
+          <button class="flex bg-gray-400 px-2 py-1 rounded-full items-center ml-2"">
+            <img src=".\vid\svg\save-svgrepo-com.svg" alt="" class="h-6">
+            <h4 class="text-gray-100 ml-1">Save</h4>
+          </button>
+          <button class="bg-gray-400 px-2 rounded-full ml-2">
+            <img src=".\vid\svg\more-horizontal-svgrepo-com.svg" alt="" class="h-7">
+          </button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
