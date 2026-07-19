@@ -1,0 +1,314 @@
+body{
+    background-color: #1a1a1a;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+.header{
+    display: flex;
+    justify-content: center;
+    margin: 20px 0px
+}
+
+.home{
+    display: flex;
+    width: 15%;
+}
+
+.Home-Btn{
+    background-color: rgb(226, 121, 29);
+    height: 30px;
+    padding: 0px 10px;
+    font-weight: 300;
+    color: #fff;
+    border-radius: 8px;
+}
+
+.search-Bar{
+    width: 70%;
+    display: flex;
+    flex-direction: row;
+}
+
+.searchInput{
+    height: 30px;
+    padding-left: 10px;
+    border-radius: 15px;
+    width: 40%;
+}
+
+.searchButton{
+    border-radius: 50%;
+    height: 35px;
+    width: 35px;
+    margin-left: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.searchButton img{
+    height:25px;
+    margin:0;
+    padding:0;
+}
+
+.wishList-Btn{
+    height: 30px;
+    padding: 0px 10px;
+    font-weight: 300;
+    background-color: #9cc233;
+    color: #fff;
+    border-radius: 8px;
+}
+
+.HomePage-MovieCards{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.HomePage-Movie{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgb(74, 207, 156);
+    width: 320px;
+    padding: 10px;
+    height: 550px;
+    margin: 20px;
+    border-radius: 10px;
+    color: #fff;
+    transform: scale(1);
+}
+
+.HomePage-Movie:hover{
+    background-color: rgb(46, 145, 107);
+    transform: scale(1.1);
+}
+
+.HPMovie-Img{
+    display: flex;
+    justify-content: center;
+    max-width: 300px;
+    max-height: 445px;
+    overflow: hidden;
+}
+
+.HPMovieCard-Top{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.HPMovieCard-Bottom{
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.HomePage-Year{
+    font-weight: 100;
+    color: #646262;
+    font-size: medium;
+}
+
+.HomePage-Rating{
+    color: #646262;
+    font-weight: 100;
+}
+
+.HomePage-WishlistAdd{
+    width: 60% ;
+    background-color: rgb(238, 130, 255);
+    color: #fff;
+    font-size: medium;
+}
+
+.HomePage-WishlistAdd:hover{
+    background-color: rgb(139, 66, 150);
+}
+
+.HPMovie-Ranking{
+    position: absolute;
+    top: -100px;
+    left: 20px;
+    font-size: 80px;
+}
+
+.hidden{
+    display: none;
+}
+
+.Search-Page h4{
+    color: #fff;
+    font-size:x-large;
+    margin-left: 15px;
+}
+
+.Search-Movie{
+    background-color: rgb(217, 149, 22);
+    margin: 10px;
+    height: 170px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    transform: scale(1);
+}
+
+.Search-Movie:hover{
+    transform: scale(1.02);
+    transition: 0.3s ease-in-out;
+    background-color: rgb(165, 115, 21);
+}
+
+.Search-Movie img{
+    height: 150px;
+    width: 120px;
+    margin-left: 10px;
+}
+
+.SM-details{
+    width: 100%;
+    height:100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.Search-Movie h2{
+    color: #fff;
+    font-size: xx-large;
+    margin: 0px 0px 0px 10px;
+}
+
+.Search-Movie h4{
+    font-weight: 100;
+    font-size: medium;
+    margin: 0px;
+    margin-left: 10px;
+}
+
+.Search-Movie button{
+    width: 80%;
+    max-width: 500px;
+    height: 30px;
+    margin-left: 10px;
+    border-radius: 6px;
+    color: #fff;
+    background-color: #0add8f;
+    font-weight: 700;
+    font-size: medium;
+}
+
+.Search-Page-Navigation-Btn{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    gap: 10px;
+}
+
+.Search-Page-Navigation-Btn button{
+    height: 30px;
+}
+
+.WL-Movie-List{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.WL-Movie{
+    height: 500px;
+    background-color: #605a5a;
+    padding: 10px;
+    width: 243px;
+    margin: 10px;
+    border-radius: 8px;
+    transform: scale(1)
+}
+
+.WL-Movie:hover{
+    transform: scale(1.04);
+    transition: 0.3s ease-in-out;
+    background-color: #413e3e;
+}
+
+.WL-poster{
+    height: 360px;
+    border-radius: 6px;
+}
+
+.WL-title{
+    display: flex;
+    color: #fff;
+    align-items: center;
+    height: 50px;
+}
+.WL-title h4{
+    width: 70%;
+    font-size: 20px;
+}
+
+.WL-title h5{
+    font-weight: 200;
+    margin-left: 25px;
+}
+
+.WL-status{
+    display: flex;
+    justify-content: space-between;
+    color: #fff;
+}
+
+.WL-pending{
+    color:yellow;
+}
+
+.WL-completed{
+    color:rgb(23, 183, 23);
+}
+
+.WL-status button{
+    background-color: #1d83cb;
+    color: #fff;
+    font-weight: bold;
+    padding:0px 15px;
+    height: 50px;
+}
+
+.WL-status button:hover{
+    background-color: #16659d;
+}
+
+.WL-remove-btn{
+    width: 100%;
+}
+
+.WL-remove-btn button{
+    width: 100%;
+    background-color: red;
+    color:aliceblue;
+    height: 30px;
+}
+
+.WL-remove-btn button:hover{
+    background-color: rgb(141, 19, 19);
+}
+
+#WL-Page-Nav-Btn{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    gap: 10px;
+}
+
+#WL-Page-Nav-Btn button{
+    height: 30px;
+}
+
+.WL-Movie-List h1{
+    color: #fff;
+    margin: 15px;
+}
