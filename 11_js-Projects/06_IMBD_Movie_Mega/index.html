@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IMBD Movies</title>
+    <link rel="icon" href="https://pixabay.com/images/download/x-147123_1920.png" type="image/png">
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="header" id="header">
+      <div class="home">
+        <button class="Home-Btn" id="Home-Btn">Home</button>
+      </div>
+      <div class="search-Bar">
+        <input
+          type="text"
+          class="searchInput"
+          id="searchBar"
+          placeholder="Search here"
+        />
+        <button class="searchButton" id="search-button">
+          <img src="https://www.svgrepo.com/show/532555/search.svg" alt="" />
+        </button>
+      </div>
+      <div>
+        <button class="wishList-Btn" id="wishList-Btn">WishList</button>
+      </div>
+    </div>
+
+    <div class="HomePage-MovieCards" id="HP-TrendingMovies"></div>
+    <div class="Search-Page hidden" id="Search-Movie-Page">
+      <h4>Search results for "<span id="movie-Searched"></span>"</h4>
+      <div id="Search-Result"></div>
+      <div class="Search-Page-Navigation-Btn" id="Search-Page-Footer"></div>
+    </div>
+    <div class="WishList-Page hidden" id="wishList">
+      <div class="WL-Movie-List" id="WL-MovieList">
+        </div>
+        <div id="WL-Page-Nav-Btn"></div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
