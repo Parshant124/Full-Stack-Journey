@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>21-Day Habit Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="app">
+  <header class="app-header">
+    <div class="brand">
+      <div class="brand-mark">21</div>
+      <div class="brand-name">Day Tracker</div>
+    </div>
+    <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()">
+      <span id="themeIcon">☀</span> <span id="themeLabel">Light</span>
+    </button>
+  </header>
+
+  <main>
+    <!-- HOME -->
+    <section class="view active" id="view-home">
+      <div class="hero">
+        <h1>Build habits that stick.</h1>
+        <p>Twenty-one days, one small action at a time. Track it, see it, keep it going.</p>
+      </div>
+
+      <div class="stats-bar">
+        <div class="stat-pill"><div class="num mono" id="statActive">0</div><div class="lbl">Active habits</div></div>
+        <div class="stat-pill"><div class="num mono" id="statToday">0%</div><div class="lbl">Done today</div></div>
+        <div class="stat-pill"><div class="num mono" id="statStreak">0</div><div class="lbl">Best streak</div></div>
+      </div>
+
+      <div class="nav-grid">
+        <button class="nav-card" onclick="showView('add')">
+          <div class="nav-icon" style="background:#21A38F22; color:#21A38F;">＋</div>
+          <h3>Add a habit</h3>
+          <p>Name it, pick an icon and a color, start a fresh 21-day run.</p>
+          <span class="go">Get started →</span>
+        </button>
+        <button class="nav-card" onclick="showView('track')">
+          <div class="nav-icon" style="background:#D99A2B22; color:#D99A2B;">✓</div>
+          <h3>Track today</h3>
+          <p>Check off what you've done and watch each chain grow.</p>
+          <span class="go">Open tracker →</span>
+        </button>
+        <button class="nav-card" onclick="showView('calendar')">
+          <div class="nav-icon" style="background:#4FA8D822; color:#4FA8D8;">▦</div>
+          <h3>Calendar</h3>
+          <p>See your month or week at a glance, day by day.</p>
+          <span class="go">View calendar →</span>
+        </button>
+        <button class="nav-card" onclick="showView('insights')">
+          <div class="nav-icon" style="background:#E85A3B22; color:#E85A3B;">▲</div>
+          <h3>Insights</h3>
+          <p>Completion rates, streak records, and what's working.</p>
+          <span class="go">See insights →</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ADD HABIT -->
+    <section class="view" id="view-add">
+      <div class="subheader">
+        <button class="back-btn" onclick="showView('home')">← Home</button>
+        <h2>Add a habit</h2>
+      </div>
+
+      <div class="form-card">
+        <label for="habitNameInput">Habit name</label>
+        <input id="habitNameInput" type="text" maxlength="60" placeholder="e.g. Drink 8 glasses of water">
+
+        <label for="habitStartInput">Start date</label>
+        <input id="habitStartInput" type="date">
+
+        <label>Choose an icon</label>
+        <div class="icon-grid" id="iconGrid"></div>
+
+        <label>Choose a color</label>
+        <div class="color-grid" id="colorGrid"></div>
+
+        <div class="preview-row">
+          <div class="preview-badge" id="previewBadge"></div>
+          <span id="previewText">This is how your habit will look</span>
+        </div>
+
+        <button class="primary-btn" onclick="saveHabit()">Start 21-day streak</button>
+      </div>
+
+      <div id="existingHabitsWrap"></div>
+    </section>
+
+    <!-- TRACK -->
+    <section class="view" id="view-track">
+      <div class="subheader">
+        <button class="back-btn" onclick="showView('home')">← Home</button>
+        <h2>Track your habits</h2>
+      </div>
+      <p class="auto-miss-note">A habit stays open all day. Once the date passes at midnight, anything left unmarked is automatically logged as <strong>missed</strong>. You can still fix a missed day by marking it done.</p>
+      <div id="trackList"></div>
+    </section>
+
+    <!-- CALENDAR -->
+    <section class="view" id="view-calendar">
+      <div class="subheader">
+        <button class="back-btn" onclick="showView('home')">← Home</button>
+        <h2>Calendar</h2>
+      </div>
+
+      <div class="cal-header">
+        <div class="cal-nav">
+          <button class="cal-arrow" onclick="navCal(-1)">←</button>
+          <div class="cal-title" id="calTitle"></div>
+          <button class="cal-arrow" onclick="navCal(1)">→</button>
+        </div>
+        <div class="mode-toggle">
+          <button id="modeMonth" class="active" onclick="setCalMode('month')">Month</button>
+          <button id="modeWeek" onclick="setCalMode('week')">Week</button>
+        </div>
+      </div>
+
+      <div id="calBody"></div>
+      <div id="dayDetail"></div>
+    </section>
+
+    <!-- INSIGHTS -->
+    <section class="view" id="view-insights">
+      <div class="subheader">
+        <button class="back-btn" onclick="showView('home')">← Home</button>
+        <h2>Insights</h2>
+      </div>
+      <div id="insightsBody"></div>
+    </section>
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
