@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 function Footer() {
   return (
-    <div className="bg-gray-800 text-white pt-4 absolute w-full bottom-0">
+    <div className="bg-gray-800 text-white pt-4 w-full">
       <div className="flex px-10 justify-between gap-10">
         <div className="w-1/4 flex flex-col gap-4">
           <img src=".\src\assets\DevConnect.png" alt="" width="200px" />

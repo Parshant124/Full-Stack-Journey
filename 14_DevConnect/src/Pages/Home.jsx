@@ -1,10 +1,13 @@
 import React from 'react'
-
+import { Hero, CTASection, FeatureSection, TestimonialSection } from '../components/Home'
 
 function Home() {
   return (
     <>
-      <h1>Home</h1>
+      <Hero />
+      <FeatureSection />
+      <TestimonialSection />
+      <CTASection />
     </>
   )
 }

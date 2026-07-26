@@ -1,8 +1,13 @@
 import React from 'react'
+import { FeatureDisplay, FeatureJoin, FeatureTitle } from '../components/Features'
 
 function Features() {
   return (
-    <div>Features</div>
+    <div>
+      <FeatureTitle />
+      <FeatureDisplay />
+      <FeatureJoin />
+    </div>
   )
 }
 
