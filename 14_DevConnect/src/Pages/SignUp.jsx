@@ -2,10 +2,150 @@ import React, { useState } from "react";
 import AuthLeftSide from "./components/AuthLeftSide";
 import AuthRightBottom from "./components/AuthRightBottom";
 import { Link } from "react-router-dom";
+import { useAuth } from "../contexts";
 
 function SignUp() {
+  const [fullName, setFullName] = useState("");
+  const [validFullName, setValidFullName] = useState(true);
+  const [email, setEmail] = useState("");
+  const [validEmail, setValidEmail] = useState(true);
+  const [emailExist, setEmailExist] = useState(false);
+  const [username, setUsername] = useState("");
+  const [validUsername, setValidUsername] = useState(true);
+  const [usernameExist, setUsernameExist] = useState(false);
+  const [password, setPassword] = useState("");
+  const [validPassword, setValidPassword] = useState(true);
+  const [validPasswordLength, setValidPasswordLength] = useState(true);
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [validConfirmPassword, setValidConfirmPassword] = useState(true);
+  const [validConfirmPasswordLength, setValidConfirmPasswordLength] =
+    useState(true);
   const [hidePassword, setHidePassword] = useState("password");
   const [hideConfirmPassword, setHideConfirmPassword] = useState("password");
+  const [labelChecked, setLabelChecked] = useState(false);
+  const [checkError, setCheckError] = useState(false);
+  const [passUnmatch, setPassUnmatch] = useState(false);
+  const { Users, addUser } = useAuth();
+
+  const handleFullName = (name) => {
+    setFullName(name);
+    if (/^[A-Za-z\s]+$/.test(name)) {
+      setValidFullName(true);
+    } else {
+      setValidFullName(false);
+    }
+  };
+
+  const handleUsername = (name) => {
+    setUsername(name);
+
+    if (Users.length > 0) {
+      const exist = Users.some((user) => user.id === name);
+      if (exist) {
+        setUsernameExist(true);
+        return;
+      } else {
+        setUsernameExist(false);
+      }
+    }
+
+    if (/^[a-z0-9]+$/.test(name) && name.length) {
+      setValidUsername(true);
+    } else {
+      setValidUsername(false);
+    }
+  };
+
+  const handleEmail = (emailAddress) => {
+    setEmail(emailAddress);
+
+    const exist = Users.some((user) => user.email === emailAddress);
+    if (exist) {
+      setEmailExist(true);
+      return;
+    } else {
+      setEmailExist(false);
+    }
+
+    if (/^[^\s@]+@[^\s@]+\.com$/.test(emailAddress)) {
+      setValidEmail(true);
+    } else {
+      setValidEmail(false);
+    }
+  };
+
+  const handlePassword = (pass) => {
+    setPassword(pass);
+    if (/^[^ ]*$/.test(pass)) {
+      setValidPassword(true);
+    } else {
+      setValidPassword(false);
+    }
+
+    if (pass.length != 0 && pass.length < 8) {
+      setValidPasswordLength(false);
+    } else {
+      setValidPasswordLength(true);
+    }
+  };
+
+  const handleConfirmPassword = (pass) => {
+    setConfirmPassword(pass);
+    if (/^[^ ]*$/.test(pass)) {
+      setValidConfirmPassword(true);
+    } else {
+      setValidConfirmPassword(false);
+    }
+
+    if (pass.length != 0 && pass.length < 8) {
+      setValidConfirmPasswordLength(false);
+    } else {
+      setValidConfirmPasswordLength(true);
+    }
+
+    if (password !== pass) {
+      setPassUnmatch(true);
+    } else {
+      setPassUnmatch(false);
+    }
+  };
+
+  const handleSubmit = () => {
+    if (labelChecked) setCheckError(false);
+    if (
+      !validFullName ||
+      !validEmail ||
+      !validUsername ||
+      !validPassword ||
+      !validConfirmPassword ||
+      !labelChecked ||
+      emailExist ||
+      usernameExist
+    ) {
+      handleFullName(fullName);
+      handleEmail(email);
+      handleUsername(username);
+      handlePassword(password);
+      handleConfirmPassword(confirmPassword);
+      if (password.length < 8) setValidPasswordLength(false);
+      if (confirmPassword.length < 8) setValidConfirmPasswordLength(false);
+      if (!labelChecked) setCheckError(true);
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setPassUnmatch(true);
+      return;
+    }
+
+    addUser(username, password, email, fullName);
+    setUsername("");
+    setPassword("");
+    setEmail("");
+    setFullName("");
+    setConfirmPassword("");
+    setValidFullName(false)
+  };
 
   return (
     <div className="flex w-full min-h-screen h-fit">
@@ -41,8 +181,17 @@ function SignUp() {
           </h3>
         </div>
         <div className="flex flex-col gap-2">
-          <h2 className="text-[14px] font-semibold">Full Name</h2>
-          <div className="border-2 border-gray-300 rounded-md flex gap-4 items-center px-2 py-2">
+          <div className="flex w-full justify-between">
+            <h2 className="text-[14px] font-semibold">Full Name</h2>
+            <h4
+              className={`${validFullName ? "hidden" : "block"} text-[13px] text-red-800`}
+            >
+              error: only Alphabets are allowed
+            </h4>
+          </div>
+          <div
+            className={`border-2 ${validFullName ? "border-gray-300" : "border-red-400"} rounded-md flex gap-4 items-center px-2 py-2`}
+          >
             <div>
               <img
                 src="https://cdn-icons-png.flaticon.com/128/1077/1077114.png"
@@ -54,12 +203,28 @@ function SignUp() {
               type="text"
               placeholder="Parshant"
               className="focus:outline-none text-[14px] w-full"
+              value={fullName}
+              onChange={(e) => handleFullName(e.target.value)}
             />
           </div>
         </div>
         <div className="flex flex-col gap-2">
-          <h2 className="text-[14px] font-semibold">Email Address</h2>
-          <div className="border-2 border-gray-300 rounded-md flex gap-4 items-center px-2 py-2">
+          <div className="flex w-full justify-between">
+            <h2 className="text-[14px] font-semibold">Email Address</h2>
+            <h4
+              className={`${emailExist ? "block" : "hidden"} text-[13px] text-red-800`}
+            >
+              error: email already exists
+            </h4>
+            <h4
+              className={`${emailExist || validEmail ? "hidden" : "block"} text-[13px] text-red-800`}
+            >
+              error: not a valid Email Address
+            </h4>
+          </div>
+          <div
+            className={`border-2 ${validEmail ? "border-gray-300" : "border-red-400"} rounded-md flex gap-4 items-center px-2 py-2`}
+          >
             <div>
               <img
                 src="https://cdn-icons-png.flaticon.com/128/1077/1077114.png"
@@ -70,13 +235,29 @@ function SignUp() {
             <input
               type="email"
               placeholder="you@example.com"
+              value={email}
+              onChange={(e) => handleEmail(e.target.value)}
               className="focus:outline-none text-[14px] w-full"
             />
           </div>
         </div>
         <div className="flex flex-col gap-2">
-          <h2 className="text-[14px] font-semibold">Username</h2>
-          <div className="border-2 border-gray-300 rounded-md flex gap-4 items-center px-2 py-2">
+          <div className="flex w-full justify-between">
+            <h2 className="text-[14px] font-semibold">Username</h2>
+            <h4
+              className={`${usernameExist ? "block" : "hidden"} text-[13px] text-red-800`}
+            >
+              error: username already exists
+            </h4>
+            <h4
+              className={`${!usernameExist && validUsername ? "hidden" : "block"} text-[13px] text-red-800`}
+            >
+              error: only lowercase alphabets and numerics allowed
+            </h4>
+          </div>
+          <div
+            className={`border-2 ${validUsername ? "border-gray-300" : "border-red-400"}  rounded-md flex gap-4 items-center px-2 py-2`}
+          >
             <div>
               <img
                 src="https://cdn-icons-png.flaticon.com/128/1077/1077114.png"
@@ -86,14 +267,30 @@ function SignUp() {
             </div>
             <input
               type="text"
-              placeholder="parshant"
+              placeholder="parshant01"
               className="focus:outline-none text-[14px] w-full"
+              value={username}
+              onChange={(e) => handleUsername(e.target.value)}
             />
           </div>
         </div>
         <div className="flex flex-col gap-2">
-          <h2 className="text-[14px] font-semibold">Password</h2>
-          <div className="border-2 border-gray-300 rounded-md flex gap-4 items-center px-2 py-2">
+          <div className="flex w-full justify-between">
+            <h2 className="text-[14px] font-semibold">Password</h2>
+            <h4
+              className={`${validPassword ? "hidden" : "block"} text-[13px] text-red-800`}
+            >
+              error: no spaces allowed
+            </h4>
+            <h4
+              className={`${!validPassword || validPasswordLength ? "hidden" : "block"} text-[13px] text-red-800`}
+            >
+              error: length must be atleast 8
+            </h4>
+          </div>
+          <div
+            className={`border-2 ${validPasswordLength && validPassword ? "border-gray-300" : "border-red-400"} rounded-md flex gap-4 items-center px-2 py-2`}
+          >
             <div>
               <img
                 src="https://cdn-icons-png.flaticon.com/128/1077/1077114.png"
@@ -104,6 +301,8 @@ function SignUp() {
             <input
               type={hidePassword}
               placeholder="........"
+              value={password}
+              onChange={(e) => handlePassword(e.target.value)}
               className="focus:outline-none text-[14px] w-6/7"
             />
             <button
@@ -126,9 +325,28 @@ function SignUp() {
           </div>
         </div>
         <div className="flex flex-col gap-2">
-          <h2 className="text-[14px] font-semibold">Confirm Password</h2>
+          <div className="flex w-full justify-between">
+            <h2 className="text-[14px] font-semibold">Confirm Password</h2>
+            <h4
+              className={`${validConfirmPassword ? "hidden" : "block"} text-[13px] text-red-800`}
+            >
+              error: no spaces allowed
+            </h4>
+            <h4
+              className={`${!validConfirmPassword || validConfirmPasswordLength ? "hidden" : "block"} text-[13px] text-red-800`}
+            >
+              error: length must be atleast 8
+            </h4>
+            <h4
+              className={`${!validConfirmPassword || !validConfirmPasswordLength || !passUnmatch ? "hidden" : "block"} text-[13px] text-red-800`}
+            >
+              password not matching
+            </h4>
+          </div>
           <div>
-            <div className="border-2 border-gray-300 rounded-md flex gap-4 items-center px-2 py-2">
+            <div
+              className={`border-2 ${validConfirmPassword && validConfirmPasswordLength ? "border-gray-300" : "border-red-400"}  rounded-md flex gap-4 items-center px-2 py-2`}
+            >
               <div>
                 <img
                   src="https://cdn-icons-png.flaticon.com/128/1077/1077114.png"
@@ -139,6 +357,8 @@ function SignUp() {
               <input
                 type={hideConfirmPassword}
                 placeholder="........"
+                value={confirmPassword}
+                onChange={(e) => handleConfirmPassword(e.target.value)}
                 className="focus:outline-none text-[14px] w-6/7"
               />
               <button
@@ -161,21 +381,39 @@ function SignUp() {
             </div>
           </div>
         </div>
-        <div className="flex gap-4">
-          <input type="checkbox" name="" id="" />
-          <label>
-            I agree to the{" "}
-            <Link to="#" className="text-purple-600">
-              Terms of Service
-            </Link>{" "}
-            and{" "}
-            <Link to="#" className="text-purple-600">
-              Privacy Policy
-            </Link>
-          </label>
+        <div>
+          <div className="flex gap-4">
+            <input
+              type="checkbox"
+              name=""
+              id=""
+              checked={labelChecked}
+              onChange={() => setLabelChecked((prev) => !prev)}
+            />
+            <label>
+              I agree to the{" "}
+              <Link to="#" className="text-purple-600">
+                Terms of Service
+              </Link>{" "}
+              and{" "}
+              <Link to="#" className="text-purple-600">
+                Privacy Policy
+              </Link>
+            </label>
+          </div>
+          <div>
+            <h4
+              className={`${checkError ? "block" : "hidden"} text-[13px] text-red-800`}
+            >
+              error: must agree to the above
+            </h4>
+          </div>
         </div>
         <div className="w-full">
-          <button className="bg-purple-600 text-white text-[14px] py-2 w-full rounded hover:bg-purple-700">
+          <button
+            className="bg-purple-600 text-white text-[14px] py-2 w-full rounded hover:bg-purple-700"
+            onClick={handleSubmit}
+          >
             Create Account
           </button>
         </div>
