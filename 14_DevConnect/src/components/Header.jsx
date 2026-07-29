@@ -19,6 +19,7 @@ function Header({type}) {
       <div className="w-3/4">
         {type === "marketingNav" && <MarketingNav />}
         {type === "authNav" && <AuthNav />}
+        {type === "dashNav" && <DashboardNav />}
       </div>
     </div>
   );
