@@ -4,7 +4,9 @@ import Header from "../components/Header";
 import { AuthProvider } from "../contexts";
 
 function AuthLayout() {
-  const [Users, setUsers] = useState([]);
+  const [Users, setUsers] = useState(() => {
+    return JSON.parse(localStorage.getItem("users")) || [];
+  });
 
   const addUser = (userName, pass, email, fullName) => {
     setUsers((prev) => [
@@ -20,13 +22,6 @@ function AuthLayout() {
       ),
     );
   };
-
-  useEffect(() => {
-    const UsersData = setUsers(JSON.parse(localStorage.getItem("users")));
-    if (UsersData && UsersData.length > 0) {
-      setUsers(UsersData);
-    }
-  }, []);
 
   useEffect(() => {
     localStorage.setItem("users", JSON.stringify(Users));
