@@ -5,7 +5,7 @@ import Header from "../components/Header";
 function DashboardLayout() {
   return (
     <div className="min-h-screen flex flex-col">
-      <Header type="authNav" />
+      <Header type="dashNav" />
 
       <main className="flex-1">
         <Outlet />
