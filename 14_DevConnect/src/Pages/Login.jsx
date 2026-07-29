@@ -2,11 +2,34 @@ import React,{useState} from "react";
 import AuthLeftSide from "./components/AuthLeftSide";
 import AuthRightBottom from "./components/AuthRightBottom";
 import { Link } from "react-router-dom";
+import { useAuth } from "../contexts";
 
 function Login() {
   const[hidePassword, setHidePassword] = useState("password")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [wrongInfo, setWrongInfo] = useState(false)
+  const {Users} = useAuth()
+
+  const handleLogin = () => {
+    let valid = false;
+    for (const element of Users) {
+      if(element.email === email){
+        if(element.password === password) valid = true;
+        break;
+        }
+    }
+
+    if(!valid){
+      setWrongInfo(true);
+      return;
+    }
+    setWrongInfo(false);
+
+  
+    setEmail("");
+    setPassword("");
+  }
 
   return (
     <div className="flex w-full min-h-screen h-fit">
@@ -111,7 +134,15 @@ function Login() {
             <h2 className="text-[14px] text-gray-600">Remember me</h2>
           </div>
           <div className="w-full">
-            <button className="bg-purple-600 text-white text-[14px] py-2 w-full rounded hover:bg-purple-700">
+            <h4
+              className={`${wrongInfo ? "block" : "hidden"} text-[13px] text-red-800`}
+            >
+              error: either email or password is incorrect
+            </h4>
+            <button 
+            className="bg-purple-600 text-white text-[14px] py-2 w-full rounded hover:bg-purple-700"
+            onClick={handleLogin}    
+            >
               Log In
             </button>
           </div>
