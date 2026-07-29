@@ -1,16 +1,46 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import Header from "../components/Header";
+import { AuthProvider } from "../contexts";
 
 function AuthLayout() {
-  return (
-    <div className="min-h-screen flex flex-col">
-      <Header type="authNav"/>
+  const [Users, setUsers] = useState([]);
 
-      <main className="flex-1">
-        <Outlet />
-      </main>
-    </div>
+  const addUser = (userName, pass, email, fullName) => {
+    setUsers((prev) => [
+      ...prev,
+      { id: userName, password: pass, email: email, fullName: fullName },
+    ]);
+  };
+
+  const changePass = (userName, pass) => {
+    setUsers((prev) =>
+      prev.map((prevUser) =>
+        prevUser.id === userName ? { ...prevUser, password: pass } : prevUser,
+      ),
+    );
+  };
+
+  useEffect(() => {
+    const UsersData = setUsers(JSON.parse(localStorage.getItem("users")));
+    if (UsersData && UsersData.length > 0) {
+      setUsers(UsersData);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("users", JSON.stringify(Users));
+  }, [Users]);
+
+  return (
+    <AuthProvider value={{ Users, addUser, changePass }}>
+      <div className="min-h-screen flex flex-col">
+        <Header type="authNav" />
+        <main className="flex-1">
+          <Outlet />
+        </main>
+      </div>
+    </AuthProvider>
   );
 }
 

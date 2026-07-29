@@ -9,7 +9,7 @@ function AuthLeftSide({title, titleDesc, image, infoCards}) {
           <img src={image} alt="" width="400px" />
         </div>
         {infoCards.map((card) => (
-            <div className='flex items-center w-full gap-3 justify-center'>
+            <div className='flex items-center w-full gap-3 justify-center' key={card.title}>
               <div>
                 <img src={card.img} alt="" width="30px"/>
               </div>
