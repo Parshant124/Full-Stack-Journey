@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import AuthLeftSide from "./components/AuthLeftSide";
 import AuthRightBottom from "./components/AuthRightBottom";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts";
 
 function SignUp() {
@@ -26,6 +26,8 @@ function SignUp() {
   const [checkError, setCheckError] = useState(false);
   const [passUnmatch, setPassUnmatch] = useState(false);
   const { Users, addUser } = useAuth();
+  const navigate = useNavigate();
+
 
   const handleFullName = (name) => {
     setFullName(name);
@@ -111,6 +113,7 @@ function SignUp() {
   };
 
   const handleSubmit = () => {
+
     if (labelChecked) setCheckError(false);
     if (
       !validFullName ||
@@ -144,7 +147,9 @@ function SignUp() {
     setEmail("");
     setFullName("");
     setConfirmPassword("");
-    setValidFullName(false)
+    setValidFullName(false);
+
+    navigate("/dashboard");
   };
 
   return (

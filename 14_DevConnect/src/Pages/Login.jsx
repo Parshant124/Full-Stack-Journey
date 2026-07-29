@@ -1,7 +1,7 @@
 import React,{useState} from "react";
 import AuthLeftSide from "./components/AuthLeftSide";
 import AuthRightBottom from "./components/AuthRightBottom";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts";
 
 function Login() {
@@ -12,6 +12,7 @@ function Login() {
   const {Users} = useAuth()
 
   const handleLogin = () => {
+    const navigate = useNavigate()
     let valid = false;
     for (const element of Users) {
       if(element.email === email){
@@ -26,9 +27,9 @@ function Login() {
     }
     setWrongInfo(false);
 
-  
     setEmail("");
     setPassword("");
+    navigate("/dashboard")
   }
 
   return (
