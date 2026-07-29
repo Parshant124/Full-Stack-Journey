@@ -37,12 +37,11 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<SignUp />} />
         </Route>
-        , //{" "}
-        {/* <Route element={<DashboardLayout />}>
-          // <Route path="dashboard" element={<Dashboard />} />
-          // <Route path="projects" element={<Projects />} />
-          //{" "}
-        </Route> */}
+        ,
+        <Route element={<DashboardLayout />}>
+          <Route path="dashboard" element={<DashBoard />} />
+          <Route path="projects" element={<Projects />} />
+        </Route>
         ,
       </>,
     ),
