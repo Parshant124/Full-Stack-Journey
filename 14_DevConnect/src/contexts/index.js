@@ -1,3 +1,3 @@
-import { LoggedInProvider, useLoggedIn } from "./IsLoggedIn";
+import { AuthProvider, useAuth } from "./Authorized";
 
-export {LoggedInProvider, useLoggedIn}
+export {AuthProvider, useAuth}
