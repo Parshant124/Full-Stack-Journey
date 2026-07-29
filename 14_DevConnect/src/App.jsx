@@ -18,15 +18,11 @@ import {
   Settings,
   DashBoard,
 } from "./Pages/index";
-import { useLoggedIn } from "./contexts";
 import MarketingLayout from "./Layout/MarketingLayout";
 import AuthLayout from "./Layout/AuthLayout";
 import DashboardLayout from "./Layout/DashboardLayout";
 
 function App() {
-  const { isLoggedIn, setIsLoggedIn } = useLoggedIn();
-
-  setIsLoggedIn(false);
 
   const router = createBrowserRouter(
     createRoutesFromElements(
