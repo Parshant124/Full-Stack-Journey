@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import AuthLeftSide from "./components/AuthLeftSide";
-import AuthRightBottom from "./components/AuthRightBottom";
+import AuthLeftSide from "../components/AuthLeftSide";
+import AuthRightBottom from "../components/AuthRightBottom";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../contexts";
+import { useAuth, useCurrUser } from "../../contexts";
 
 function SignUp() {
   const [fullName, setFullName] = useState("");
@@ -27,7 +27,7 @@ function SignUp() {
   const [passUnmatch, setPassUnmatch] = useState(false);
   const { Users, addUser } = useAuth();
   const navigate = useNavigate();
-
+  const{handleCurrId, handleCurrEmail} = useCurrUser()
 
   const handleFullName = (name) => {
     setFullName(name);
@@ -113,7 +113,6 @@ function SignUp() {
   };
 
   const handleSubmit = () => {
-
     if (labelChecked) setCheckError(false);
     if (
       !validFullName ||
@@ -141,6 +140,8 @@ function SignUp() {
       return;
     }
 
+    handleCurrId(username);
+    handleCurrEmail(email)
     addUser(username, password, email, fullName);
     setUsername("");
     setPassword("");
