@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import AuthLeftSide from "../components/AuthLeftSide";
 import AuthRightBottom from "../components/AuthRightBottom";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth, useCurrUser } from "../../contexts";
+import { useAuth, useCurrUser, useCurrSessionUser } from "../../contexts";
 
 function SignUp() {
   const [fullName, setFullName] = useState("");
@@ -28,6 +28,8 @@ function SignUp() {
   const { Users, addUser } = useAuth();
   const navigate = useNavigate();
   const{handleCurrId, handleCurrEmail} = useCurrUser()
+  const {handleSessionCurrEmail, handleSessionCurrId, handleSessionCurrFullName, handleSessionUser} = useCurrSessionUser()
+  
 
   const handleFullName = (name) => {
     setFullName(name);
@@ -141,7 +143,11 @@ function SignUp() {
     }
 
     handleCurrId(username);
-    handleCurrEmail(email)
+    handleCurrEmail(email);
+    handleSessionCurrEmail(email);
+    handleSessionCurrId(username);
+    handleSessionUser(username, email, fullName);
+    handleSessionCurrFullName(fullName);
     addUser(username, password, email, fullName);
     setUsername("");
     setPassword("");

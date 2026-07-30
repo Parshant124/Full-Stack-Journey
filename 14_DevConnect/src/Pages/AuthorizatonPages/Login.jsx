@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import AuthLeftSide from "../components/AuthLeftSide";
 import AuthRightBottom from "../components/AuthRightBottom";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth, useCurrUser } from "../../contexts";
+import { useAuth, useCurrUser, useCurrSessionUser } from "../../contexts";
 
 function Login() {
   const [hidePassword, setHidePassword] = useState("password");
@@ -12,16 +12,24 @@ function Login() {
   const [rememberUser, setRememberUser] = useState(false);
   const { Users } = useAuth();
   const {handleCurrEmail, handleCurrId, handleRememberUser} = useCurrUser()
+  const {
+    handleSessionCurrEmail,
+    handleSessionCurrId,
+    handleSessionUser,
+    handleSessionCurrFullName,
+  } = useCurrSessionUser();
   const navigate = useNavigate();
 
   const handleLogin = () => {
     let valid = false;
     let userId = "";
+    let UserFullName = "";
     for (const element of Users) {
       if (element.email === email) {
         if (element.password === password) {
           valid = true;
           userId = element.id
+          UserFullName = element.fullName;
         }
         break;
       }
@@ -33,11 +41,14 @@ function Login() {
     }
     setWrongInfo(false);
     handleCurrId(userId);
-
     handleCurrEmail(email)
     if(rememberUser) handleRememberUser(userId, email);
     
-    console.log("Inside Login", userId, email)
+    handleSessionCurrEmail(email);
+    handleSessionCurrId(userId);
+    handleSessionUser(userId, email, UserFullName);
+    handleSessionCurrFullName(UserFullName);
+
     setEmail("");
     setPassword("");
     navigate("/dashboard");
