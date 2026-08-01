@@ -21,6 +21,7 @@ import {
   Tasks,
 } from "./Pages/DashBoardPages/index";
 import ComingSoon from "./Pages/ComingSoon.jsx";
+import AddProject from "./Pages/DashBoardPages/components/AddProject.jsx";
 import MarketingLayout from "./Layout/MarketingLayout";
 import AuthLayout from "./Layout/AuthLayout";
 import DashboardLayout from "./Layout/DashboardLayout";
@@ -237,6 +238,16 @@ function App() {
             element={
               !(currUserId === "" && currSessionUserId === "") ? (
                 <Tasks />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          />
+          <Route
+            path="addproject"
+            element={
+              !(currUserId === "" && currSessionUserId === "") ? (
+                <AddProject />
               ) : (
                 <Navigate to="/login" />
               )
