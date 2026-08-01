@@ -49,7 +49,7 @@ function SideBar() {
         <NavLink
           to="/myprojects"
           className={({ isActive }) =>
-            `${isActive ? "bg-purple-200 text-purple-800" : "text-black"} px-1 py-1.5 rounded-lg flex items-center gap-4`
+            `${isActive || location.pathname === "/addproject" ? "bg-purple-200 text-purple-800" : "text-black"} px-1 py-1.5 rounded-lg flex items-center gap-4`
           }
         >
           <div>
@@ -57,13 +57,13 @@ function SideBar() {
               src="https://cdn-icons-png.flaticon.com/128/9720/9720869.png"
               alt=""
               width="22px"
-              className={`${location.pathname === "/myprojects" ? "hidden" : "block"}`}
+              className={`${location.pathname === "/myprojects" || location.pathname === "/addproject" ? "hidden" : "block"}`}
             />
             <img
               src="https://cdn-icons-png.flaticon.com/128/9720/9720920.png"
               alt=""
               width="22px"
-              className={`${location.pathname === "/myprojects" ? "block" : "hidden"}`}
+              className={`${location.pathname === "/myprojects" || location.pathname === "/addproject" ? "block" : "hidden"}`}
             />
           </div>
           <h4>My Projects</h4>
@@ -158,9 +158,12 @@ function SideBar() {
         </NavLink>
       </div>
       <div className="w-full px-4">
-        <button className="bg-red-500 text-white text-center w-full py-1"
-        onClick={handleLogOut}
-        >Log Out</button>
+        <button
+          className="bg-red-500 text-white text-center w-full py-1"
+          onClick={handleLogOut}
+        >
+          Log Out
+        </button>
       </div>
     </div>
   );
