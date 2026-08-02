@@ -1,9 +1,11 @@
-import React from 'react'
+import React from "react";
 import { NavLink, Link } from "react-router-dom";
-import { useCurrSessionUser } from '../../contexts';
+import { useCurrSessionUser, useCurrUser } from "../../contexts";
 
 function DashboardNav() {
-  const {currSessionUserId} = useCurrSessionUser()
+  const { currSessionUserId } = useCurrSessionUser();
+  const { currUserId } = useCurrUser();
+
   return (
     <div className="flex w-full justify-between">
       <div className="w-3/5 flex justify-between items-center font-medium">
@@ -42,11 +44,17 @@ function DashboardNav() {
       </div>
       <NavLink to="/profile" className="">
         <div className="w-8 h-8 bg-red-500 rounded-full flex justify-center items-center">
-          <h3 className="text-white">{currSessionUserId ? currSessionUserId[0].toUpperCase() : "U"}</h3>
+          <h3 className="text-white">
+            {currSessionUserId
+              ? currSessionUserId[0].toUpperCase()
+              : currUserId
+                ? currUserId[0].toUpperCase()
+                : "U"}
+          </h3>
         </div>
       </NavLink>
     </div>
   );
 }
 
-export default DashboardNav
+export default DashboardNav;
