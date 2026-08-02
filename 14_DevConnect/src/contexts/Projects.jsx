@@ -1,20 +1,12 @@
-import React,{useContext, createContext} from "react";
+import React, { useContext, createContext } from "react";
 
 const projectContext = createContext({
-    projects: [{
-        userId : "" ,
-        name : "",
-        projectKey : "",
-        desc : "",
-        category : "",
-        visibility : "",
-        image : ""
-    }],
-    addProject : () => {}
-})
+  projects: [{}],
+  addProject: () => {},
+});
 
-export const ProjectProvider = projectContext.Provider
+export const ProjectProvider = projectContext.Provider;
 
 export const useProject = () => {
-    return useContext(projectContext)
-}
+  return useContext(projectContext);
+};
