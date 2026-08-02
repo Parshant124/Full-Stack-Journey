@@ -11,7 +11,12 @@ function Login() {
   const [wrongInfo, setWrongInfo] = useState(false);
   const [rememberUser, setRememberUser] = useState(false);
   const { Users } = useAuth();
-  const {handleCurrEmail, handleCurrId, handleRememberUser} = useCurrUser()
+  const {
+    handleCurrEmail,
+    handleCurrId,
+    handleCurrUserFullName,
+    handleRememberUser,
+  } = useCurrUser();
   const {
     handleSessionCurrEmail,
     handleSessionCurrId,
@@ -28,8 +33,8 @@ function Login() {
       if (element.email === email) {
         if (element.password === password) {
           valid = true;
-          userId = element.id
-          UserFullName = element.fullName;
+          userId = element.id;
+          userFullName = element.fullName;
         }
         break;
       }
@@ -41,13 +46,14 @@ function Login() {
     }
     setWrongInfo(false);
     handleCurrId(userId);
-    handleCurrEmail(email)
-    if(rememberUser) handleRememberUser(userId, email);
-    
+    handleCurrEmail(email);
+    handleCurrUserFullName(userFullName);
+    if (rememberUser) handleRememberUser(userId, email, userFullName);
+
     handleSessionCurrEmail(email);
     handleSessionCurrId(userId);
-    handleSessionUser(userId, email, UserFullName);
-    handleSessionCurrFullName(UserFullName);
+    handleSessionUser(userId, email, userFullName);
+    handleSessionCurrFullName(userFullName);
 
     setEmail("");
     setPassword("");
@@ -153,7 +159,11 @@ function Login() {
         </div>
         <div className="flex flex-col gap-4">
           <div className="flex gap-3">
-            <input type="checkbox" checked={rememberUser} onChange={() => setRememberUser((prev) => !prev)}/>
+            <input
+              type="checkbox"
+              checked={rememberUser}
+              onChange={() => setRememberUser((prev) => !prev)}
+            />
             <h2 className="text-[14px] text-gray-600">Remember me</h2>
           </div>
           <div className="w-full">

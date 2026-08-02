@@ -27,9 +27,14 @@ function SignUp() {
   const [passUnmatch, setPassUnmatch] = useState(false);
   const { Users, addUser } = useAuth();
   const navigate = useNavigate();
-  const{handleCurrId, handleCurrEmail} = useCurrUser()
-  const {handleSessionCurrEmail, handleSessionCurrId, handleSessionCurrFullName, handleSessionUser} = useCurrSessionUser()
-  
+  const { handleCurrId, handleCurrEmail, handleCurrUserFullName } =
+    useCurrUser();
+  const {
+    handleSessionCurrEmail,
+    handleSessionCurrId,
+    handleSessionCurrFullName,
+    handleSessionUser,
+  } = useCurrSessionUser();
 
   const handleFullName = (name) => {
     setFullName(name);
@@ -144,6 +149,7 @@ function SignUp() {
 
     handleCurrId(username);
     handleCurrEmail(email);
+    handleCurrUserFullName(fullName);
     handleSessionCurrEmail(email);
     handleSessionCurrId(username);
     handleSessionUser(username, email, fullName);
