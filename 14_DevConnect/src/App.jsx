@@ -29,14 +29,20 @@ import { CurrUserProvider, CurrSessionUserProvider } from "./contexts/index";
 
 function App() {
   const [currUserId, setCurrUserId] = useState(() => {
-    const user = JSON.parse(localStorage.getItem("currUser"))
+    const user = JSON.parse(localStorage.getItem("currUser"));
     return user?.[0] || "";
   });
 
   const [currUserEmail, setCurrUserEmail] = useState(() => {
-    const user = JSON.parse(localStorage.getItem("currUser"))
+    const user = JSON.parse(localStorage.getItem("currUser"));
     return user?.[1] || "";
   });
+
+  const [currUserFullName, setCurrUserFullName] = useState(() => {
+    const user = JSON.parse(localStorage.getItem("currUser"));
+    return user?.[2] || "";
+  });
+
   const [currSessionUserId, setcurrSessionUserId] = useState(() => {
     const user = JSON.parse(sessionStorage.getItem("sessionUser"));
     return user?.[0] || "";
@@ -46,10 +52,10 @@ function App() {
     return user?.[1] || "";
   });
 
-  const [currSessionUserFullName, setCurrSessionUserFullName] = useState(()=>{
+  const [currSessionUserFullName, setCurrSessionUserFullName] = useState(() => {
     const user = JSON.parse(sessionStorage.getItem("sessionUser"));
     return user?.[2] || "";
-  })
+  });
 
   const handleCurrId = (id) => {
     setCurrUserId(id);
@@ -57,31 +63,34 @@ function App() {
 
   const handleCurrEmail = (email) => {
     setCurrUserEmail(email);
-  };  
+  };
 
-  const handleRememberUser = (userId, userEmail) => {
+  const handleCurrUserFullNam = (name) => {
+    setCurrUserFullName(name);
+  };
+
+  const handleRememberUser = (userId, userEmail, userFullName) => {
     localStorage.setItem(
       "currUser",
-      JSON.stringify([userId, userEmail]),
+      JSON.stringify([userId, userEmail, userFullName]),
     );
   };
 
   const handleSessionCurrId = (id) => {
-    setcurrSessionUserId(id)
-  }
+    setcurrSessionUserId(id);
+  };
 
   const handleSessionCurrEmail = (email) => {
     setCurrSessionUserEmail(email);
-  }
+  };
 
   const handleSessionUser = (id, email, name) => {
-    sessionStorage.setItem("sessionUser", JSON.stringify([id, email, name]))
-  }
+    sessionStorage.setItem("sessionUser", JSON.stringify([id, email, name]));
+  };
 
   const handleSessionCurrFullName = (name) => {
-    setCurrSessionUserFullName(name)
-  }
-
+    setCurrSessionUserFullName(name);
+  };
 
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -184,7 +193,7 @@ function App() {
             }
           />
           <Route
-          path="bookmarks"
+            path="bookmarks"
             element={
               !(currUserId === "" && currSessionUserId === "") ? (
                 <Bookmarks />
@@ -194,7 +203,7 @@ function App() {
             }
           />
           <Route
-          path="connections"
+            path="connections"
             element={
               !(currUserId === "" && currSessionUserId === "") ? (
                 <Connections />
@@ -260,7 +269,17 @@ function App() {
   );
 
   return (
-    <CurrSessionUserProvider value={{currSessionUserId, currSessionUserEmail, currSessionUserFullName, handleSessionCurrEmail, handleSessionCurrId, handleSessionCurrFullName,handleSessionUser}}>
+    <CurrSessionUserProvider
+      value={{
+        currSessionUserId,
+        currSessionUserEmail,
+        currSessionUserFullName,
+        handleSessionCurrEmail,
+        handleSessionCurrId,
+        handleSessionCurrFullName,
+        handleSessionUser,
+      }}
+    >
       <CurrUserProvider
         value={{
           currUserId,
