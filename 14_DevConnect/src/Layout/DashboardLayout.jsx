@@ -1,19 +1,25 @@
-import React, {useState} from "react";
+import React, { useEffect, useState } from "react";
 import { Outlet, useLocation, useSearchParams } from "react-router-dom";
 import Header from "../components/Header";
 import SideBar from "../components/SideBar";
 import { ProjectProvider } from "../contexts";
 
 function DashboardLayout() {
-  const [projects, setProjects] = useState([]);
-  const location = useLocation()
+  const [projects, setProjects] = useState(() => {
+    return JSON.parse(localStorage.getItem("projects")) || [];
+  });
+  const location = useLocation();
 
-  const addProject = () => {
-    // 
-  }
+  const addProject = (project) => {
+    setProjects((prev) => [project, ...prev]);
+  };
+
+  useEffect(() => {
+    localStorage.setItem("projects", JSON.stringify(projects));
+  }, [projects]);
 
   return (
-    <ProjectProvider value={{projects, addProject}}>
+    <ProjectProvider value={{ projects, addProject }}>
       <div className="h-screen flex flex-col">
         <Header type="dashNav" />
 
