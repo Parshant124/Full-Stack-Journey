@@ -1,7 +1,89 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useCurrSessionUser, useCurrUser, useProject } from "../../../contexts";
 
 function AddProject() {
+  const [name, setName] = useState("");
+  const [validName, setValidName] = useState(true);
+  const [key, setKey] = useState("");
+  const [desc, setDesc] = useState("");
+  const [validDesc, setValidDesc] = useState(true);
+  const [category, setCategory] = useState("");
+  const [validCategory, setValidCategory] = useState(true);
+  const [visibility, setVisibility] = useState("Private");
+  const [image, setImage] = useState("");
+  const navigate = useNavigate();
+  const { addProject } = useProject();
+  const { currSessionUserId, currSessionUserFullName } = useCurrSessionUser();
+  const { currUserId, currUserFullName } = useCurrUser();
+
+  const handleCancel = () => {
+    setName("");
+    setKey("");
+    setDesc("");
+    setCategory("");
+    setVisibility("");
+    setImage("");
+    navigate("/myprojects");
+  };
+
+  const handleCategory = (categoryInput) => {
+    if (categoryInput === "") {
+      setValidCategory(false);
+      return false;
+    } else {
+      setValidCategory(true);
+      return true;
+    }
+  };
+
+  const handleDesc = (descInput) => {
+    if (descInput === "") {
+      setValidDesc(false);
+      return false;
+    } else {
+      setValidDesc(true);
+      return true;
+    }
+  };
+
+  const handleName = (nameInput) => {
+    if (nameInput === "") {
+      setValidName(false);
+      return false;
+    } else {
+      setValidName(true);
+      return true;
+    }
+  };
+
+  const handleCreate = () => {
+    let validateCategory = handleCategory(category);
+    let validateDesc = handleDesc(desc);
+    let validateName = handleName(name);
+
+    if (!validateCategory || !validateDesc || !validateName) {
+      return;
+    }
+
+    console.log(validCategory);
+    const project = {
+      userId: currSessionUserId || currUserId,
+      name,
+      key,
+      desc,
+      category,
+      visibility,
+      image,
+      completed: false,
+      createdOn: Date.now(),
+      creator: currSessionUserFullName || currUserFullName
+    };
+
+    addProject(project);
+    navigate("/myprojects");
+  };
+
   return (
     <div className="flex p-6 flex-col gap-6 w-full h-fit min-h-full bg-gray-50">
       <div className="flex flex-col gap-2">
@@ -9,7 +91,10 @@ function AddProject() {
           <NavLink to="/myprojects" className="text-[14px] text-gray-600">
             My Projects {">"}
           </NavLink>
-          <NavLink to="/addproject" className="text-[14px] font-medium text-purple-600">
+          <NavLink
+            to="/addproject"
+            className="text-[14px] font-medium text-purple-600"
+          >
             {" "}
             Add Project
           </NavLink>
@@ -31,7 +116,9 @@ function AddProject() {
             <input
               type="text"
               placeholder="e.g. DevConnect Web App"
-              className="text-[14px] border-2 p-1 rounded border-gray-300"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className={`text-[14px] border-2 p-1 rounded ${validName ? "border-gray-300" : "border-red-500"} `}
             />
           </div>
           <div className="w-1/2 flex flex-col">
@@ -42,6 +129,8 @@ function AddProject() {
             <input
               type="text"
               placeholder="e.g. DEVCONN"
+              value={key}
+              onChange={(e) => setKey(e.target.value)}
               className="text-[14px] border-2 p-1 rounded border-gray-300"
             />
           </div>
@@ -52,7 +141,9 @@ function AddProject() {
           </label>
           <textarea
             placeholder="Describe your project, its purpose and goals..."
-            className="text-[14px] border-2 p-1 rounded border-gray-300"
+            className={`text-[14px] border-2 p-1 rounded ${validDesc ? "border-gray-300" : "border-red-500"}`}
+            value={desc}
+            onChange={(e) => setDesc(e.target.value)}
             rows={6}
           ></textarea>
         </div>
@@ -61,7 +152,11 @@ function AddProject() {
             <label className="text-[14px] font-semibold">
               Category <span className="text-red-500">*</span>
             </label>
-            <select className="text-[14px] border-2 p-1 rounded border-gray-300">
+            <select
+              className={`text-[14px] border-2 p-1 rounded ${validCategory ? "border-gray-300" : "border-red-500"}`}
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+            >
               <option value="">Select a category</option>
               <option>Web Development</option>
               <option>Mobile App</option>
@@ -94,7 +189,11 @@ function AddProject() {
             <label className="text-[14px] font-semibold">
               Visibility <span className="text-red-500">*</span>
             </label>
-            <select className="text-[14px] border-2 p-1 rounded border-gray-300">
+            <select
+              className="text-[14px] border-2 p-1 rounded border-gray-300"
+              value={visibility}
+              onChange={(e) => setVisibility(e.target.value)}
+            >
               <option value="private" key="private">
                 Private
               </option>
@@ -110,7 +209,10 @@ function AddProject() {
             <span className="text-gray-500 font-medium">(Optional)</span>
           </label>
 
-          <label className="flex h-56 w-full cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-indigo-300 bg-indigo-50/30 transition hover:border-indigo-500 hover:bg-indigo-50">
+          <label
+            htmlFor="projectImage"
+            className="flex h-56 w-full cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-indigo-300 bg-indigo-50/30 transition hover:border-indigo-500 hover:bg-indigo-50"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -147,13 +249,20 @@ function AddProject() {
             type="file"
             accept="image/png,image/jpeg,image/jpg,image/webp"
             className="hidden"
+            onChange={(e) => setImage(e.target.files[0])}
           />
         </div>
         <div className="flex justify-end gap-4">
-          <button className="border-2 px-4 py-1.5 text-[13px] border-gray-300 bg-white text-black rounded-md transition hover:border-purple-600 hover:bg-purple-600 hover:text-white">
+          <button
+            className="border-2 px-4 py-1.5 text-[13px] border-gray-300 bg-white text-black rounded-md transition hover:border-purple-600 hover:bg-purple-600 hover:text-white"
+            onClick={handleCancel}
+          >
             Cancle
           </button>
-          <button className="border-2 px-4 py-1.5 text-[13px] border-purple-600 bg-purple-600 text-white rounded-md transition hover:border-gray-300 hover:bg-white hover:text-black">
+          <button
+            className="border-2 px-4 py-1.5 text-[13px] border-purple-600 bg-purple-600 text-white rounded-md transition hover:border-gray-300 hover:bg-white hover:text-black"
+            onClick={handleCreate}
+          >
             Create Project
           </button>
         </div>
