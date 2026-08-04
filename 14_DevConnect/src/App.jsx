@@ -65,7 +65,7 @@ function App() {
     setCurrUserEmail(email);
   };
 
-  const handleCurrUserFullNam = (name) => {
+  const handleCurrUserFullName = (name) => {
     setCurrUserFullName(name);
   };
 
@@ -284,9 +284,11 @@ function App() {
         value={{
           currUserId,
           currUserEmail,
+          currUserFullName,
           handleCurrId,
           handleCurrEmail,
           handleRememberUser,
+          handleCurrUserFullName
         }}
       >
         <RouterProvider router={router} />
