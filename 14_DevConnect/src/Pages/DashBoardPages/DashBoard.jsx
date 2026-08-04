@@ -1,5 +1,5 @@
 import React from 'react'
-import { useCurrSessionUser } from '../../contexts';
+import { useCurrSessionUser, useCurrUser, useProject } from '../../contexts';
 import DashInfoCards from './components/DashInfoCards';
 import DashGraph from './components/DashGraph';
 import DashTasks from './components/DashTasks';
@@ -7,6 +7,11 @@ import DashTasks from './components/DashTasks';
 function DashBoard() {
   const {currSessionUserFullName} = useCurrSessionUser()
   const firstWord = currSessionUserFullName.substring(0, currSessionUserFullName.indexOf(" ") === -1 ? currSessionUserFullName.length : currSessionUserFullName.indexOf(" "));
+  const {projects} = useProject()
+  const { currSessionUserId } = useCurrSessionUser();
+  const { currUserId } = useCurrUser();
+
+  const myProjects = projects.filter((prev) => prev.userId === currUserId || prev.userId === currSessionUserId)
   return (
     <div className="overflow-y-auto h-full p-4 gap-6 flex flex-col bg-gray-50">
       <div
@@ -33,7 +38,7 @@ function DashBoard() {
         <DashInfoCards
           image="https://cdn-icons-png.flaticon.com/256/7457/7457274.png"
           title="Total Projects"
-          data="12"
+          data={myProjects.length}
           bgColor="purple-200"
           linkTo="/myprojects"
         />
