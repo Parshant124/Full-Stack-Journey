@@ -34,7 +34,7 @@ function Login() {
         if (element.password === password) {
           valid = true;
           userId = element.id;
-          userFullName = element.fullName;
+          UserFullName = element.fullName;
         }
         break;
       }
@@ -47,13 +47,13 @@ function Login() {
     setWrongInfo(false);
     handleCurrId(userId);
     handleCurrEmail(email);
-    handleCurrUserFullName(userFullName);
-    if (rememberUser) handleRememberUser(userId, email, userFullName);
+    handleCurrUserFullName(UserFullName);
+    if (rememberUser) handleRememberUser(userId, email, UserFullName);
 
     handleSessionCurrEmail(email);
     handleSessionCurrId(userId);
-    handleSessionUser(userId, email, userFullName);
-    handleSessionCurrFullName(userFullName);
+    handleSessionUser(userId, email, UserFullName);
+    handleSessionCurrFullName(UserFullName);
 
     setEmail("");
     setPassword("");
