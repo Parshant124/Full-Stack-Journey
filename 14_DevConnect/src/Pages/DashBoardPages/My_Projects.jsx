@@ -8,7 +8,7 @@ function My_Projects() {
   const[showType, setShowType] = useState("All")
 
   return (
-    <div className="p-6 flex flex-col gap-4">
+    <div className="p-6 flex flex-col gap-4 bg-gray-100 h-full">
       <div className="flex justify-between items-center">
         <div>
           <h2 className="text-2xl font-bold">My Projects</h2>
@@ -28,7 +28,7 @@ function My_Projects() {
       <div className="flex justify-between">
         <input
           type="text"
-          className="border-2 px-2 py-1 text-[14px] rounded-md border-gray-300 w-1/2"
+          className="border-2 px-2 py-1 text-[14px] rounded-md bg-white border-gray-300 w-1/2"
           placeholder="Search projects"
         />
         <div className="flex gap-6">
@@ -50,7 +50,7 @@ function My_Projects() {
           </button>
         </div>
       </div>
-        <div>
+        <div className='p-4'>
           <ShowMyProjects type={showType} />
         </div>
     </div>
