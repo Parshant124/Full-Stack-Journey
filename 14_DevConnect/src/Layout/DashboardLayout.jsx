@@ -14,12 +14,20 @@ function DashboardLayout() {
     setProjects((prev) => [project, ...prev]);
   };
 
+  const toggleComplete = (id, projectName) => {
+    setProjects((prev) => prev.userId === id ? ( prev.name === projectName ? {...prev, completed: !prev.completed} : prev ): prev)
+  }
+
+  const deleteProject = (id, projectName) => {
+    setProjects((prev) => prev.filter((currProject) => !(currProject.userId === id && currProject.name === projectName)))
+  }
+
   useEffect(() => {
     localStorage.setItem("projects", JSON.stringify(projects));
   }, [projects]);
 
   return (
-    <ProjectProvider value={{ projects, addProject }}>
+    <ProjectProvider value={{ projects, addProject, toggleComplete, deleteProject }}>
       <div className="h-screen flex flex-col">
         <Header type="dashNav" />
 

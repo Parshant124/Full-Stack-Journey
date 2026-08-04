@@ -3,7 +3,8 @@ import React, { useContext, createContext } from "react";
 const projectContext = createContext({
   projects: [{}],
   addProject: () => {},
-  toggleComplete: () => {}
+  toggleComplete: () => {},
+  deleteProject: () => {}
 });
 
 export const ProjectProvider = projectContext.Provider;
