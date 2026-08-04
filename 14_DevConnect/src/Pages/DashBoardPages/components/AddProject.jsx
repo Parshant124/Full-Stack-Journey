@@ -74,10 +74,10 @@ function AddProject() {
       desc,
       category,
       visibility,
+      creator: currSessionUserFullName || currUserFullName,
       image,
       completed: false,
       createdOn: Date.now(),
-      creator: currSessionUserFullName || currUserFullName
     };
 
     addProject(project);
