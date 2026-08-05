@@ -1,10 +1,12 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {NavLink} from 'react-router-dom'
 import { useProject } from '../../contexts';
 import ShowMyProjects from './components/ShowMyProjects'
+import ShowSearchMyProject from './components/ShowSearchMyProject';
 
 function My_Projects() {
   const[addingProject, setAddingProject] = useState(false)
+  const[searchValue, setSearchValue] = useState("")
   const[showType, setShowType] = useState("All")
 
   return (
@@ -30,6 +32,8 @@ function My_Projects() {
           type="text"
           className="border-2 px-2 py-1 text-[14px] rounded-md bg-white border-gray-300 w-1/2"
           placeholder="Search projects"
+          value={searchValue}
+          onChange={(e) => setSearchValue(e.target.value)}
         />
         <div className="flex gap-6">
           <button
@@ -51,7 +55,8 @@ function My_Projects() {
         </div>
       </div>
         <div className='p-4'>
-          <ShowMyProjects type={showType} />
+          {(!searchValue && <ShowMyProjects type={showType} />)}
+          {(searchValue && <ShowSearchMyProject type={showType} value={searchValue} />)}
         </div>
     </div>
   );
