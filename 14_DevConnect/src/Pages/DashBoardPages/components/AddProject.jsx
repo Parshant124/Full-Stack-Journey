@@ -16,6 +16,7 @@ function AddProject() {
   const { addProject } = useProject();
   const { currSessionUserId, currSessionUserFullName } = useCurrSessionUser();
   const { currUserId, currUserFullName } = useCurrUser();
+  const [cancel, setCancel] = useState(false)
 
   const handleCancel = () => {
     setName("");
@@ -85,7 +86,7 @@ function AddProject() {
   };
 
   return (
-    <div className="flex p-6 flex-col gap-6 w-full h-fit min-h-full bg-gray-50">
+    <div className="relative flex p-6 flex-col gap-6 w-full h-fit min-h-full bg-gray-50">
       <div className="flex flex-col gap-2">
         <div>
           <NavLink to="/myprojects" className="text-[14px] text-gray-600">
@@ -194,10 +195,10 @@ function AddProject() {
               value={visibility}
               onChange={(e) => setVisibility(e.target.value)}
             >
-              <option value="private" key="private">
+              <option value="Private" key="private">
                 Private
               </option>
-              <option value="public" key="public">
+              <option value="Public" key="public">
                 Public
               </option>
             </select>
@@ -255,7 +256,7 @@ function AddProject() {
         <div className="flex justify-end gap-4">
           <button
             className="border-2 px-4 py-1.5 text-[13px] border-gray-300 bg-white text-black rounded-md transition hover:border-purple-600 hover:bg-purple-600 hover:text-white"
-            onClick={handleCancel}
+            onClick={() => setCancel(true)}
           >
             Cancle
           </button>
@@ -265,6 +266,23 @@ function AddProject() {
           >
             Create Project
           </button>
+        </div>
+      </div>
+      <div
+        className={`${cancel ? "block" : "hidden"} absolute w-full h-full flex justify-center items-center bg-black/10 top-0 left-0`}
+      >
+        <div className="bg-white p-4 rounded-lg shadow-lg">
+          <h2 className="text-black text-3xl font-bold">Are you Sure?</h2>
+          <div className="flex justify-between p-4">
+            <button className="bg-red-500 text-white px-2 py-1 rounded-md flex flex-col"
+            onClick={() => handleCancel}>
+              Yes <span className="text-[12px]">{"(Cancel)"}</span>
+            </button>
+            <button className="bg-purple-600 text-white px-2 py-1 rounded-md flex flex-col"
+            onClick={() => setCancel(false)}>
+              No <span className="text-[12px]">{"(Stay)"}</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>
