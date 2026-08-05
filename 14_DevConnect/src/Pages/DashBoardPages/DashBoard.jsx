@@ -1,17 +1,42 @@
-import React from 'react'
-import { useCurrSessionUser, useCurrUser, useProject } from '../../contexts';
-import DashInfoCards from './components/DashInfoCards';
-import DashGraph from './components/DashGraph';
-import DashTasks from './components/DashTasks';
+import React from "react";
+import {
+  useCurrSessionUser,
+  useCurrUser,
+  useProject,
+  useTasks,
+} from "../../contexts";
+import DashInfoCards from "./components/DashInfoCards";
+import DashGraph from "./components/DashGraph";
+import DashTasks from "./components/DashTasks";
 
 function DashBoard() {
-  const {currSessionUserFullName} = useCurrSessionUser()
-  const firstWord = currSessionUserFullName.substring(0, currSessionUserFullName.indexOf(" ") === -1 ? currSessionUserFullName.length : currSessionUserFullName.indexOf(" "));
-  const {projects} = useProject()
+  const { currSessionUserFullName } = useCurrSessionUser();
+  const { projects } = useProject();
+  const { tasks } = useTasks();
   const { currSessionUserId } = useCurrSessionUser();
-  const { currUserId } = useCurrUser();
+  const { currUserId, currUserFullName } = useCurrUser();
 
-  const myProjects = projects.filter((prev) => prev.userId === currUserId || prev.userId === currSessionUserId)
+    const firstWord = currSessionUserFullName.substring(
+      0,
+      currSessionUserFullName.indexOf(" ") === -1
+        ? currSessionUserFullName.length
+        : currSessionUserFullName.indexOf(" "),
+    ) || currUserFullName.substring(
+      0,
+      currUserFullName.indexOf(" ") === -1
+        ? currUserFullName.length
+        : currUserFullName.indexOf(" "),
+      );
+
+  const myProjects = projects.filter(
+    (prev) => prev.userId === currUserId || prev.userId === currSessionUserId,
+  );
+  const myTasks = tasks.filter(
+    (prev) => prev.userId === currUserId || prev.userId === currSessionUserId,
+  );
+  const myCompletedTasks = myTasks.filter(
+    (prev) => prev.completed
+  )
   return (
     <div className="overflow-y-auto h-full p-4 gap-6 flex flex-col bg-gray-50">
       <div
@@ -21,7 +46,7 @@ function DashBoard() {
         className="w-full h-40 flex items-center p-4 justify-between rounded-lg shadow-lg"
       >
         <div>
-          <h2 className="font-bold text-2xl">Welcome back,{firstWord}</h2>
+          <h2 className="font-bold text-2xl">Welcome back, {firstWord}</h2>
           <h4 className="text-[14px] text-gray-600">
             Let's build something important today.
           </h4>
@@ -43,21 +68,21 @@ function DashBoard() {
           linkTo="/myprojects"
         />
         <DashInfoCards
-          image="https://cdn-icons-png.flaticon.com/256/7457/7457274.png"
+          image="https://cdn-icons-png.flaticon.com/128/190/190411.png"
           title="Task Completed"
-          data="34"
+          data={myCompletedTasks.length}
           bgColor="green-200"
           linkTo="/tasks"
         />
         <DashInfoCards
-          image="https://cdn-icons-png.flaticon.com/256/7457/7457274.png"
+          image="https://cdn-icons-png.flaticon.com/128/12196/12196745.png"
           title="Task Pending"
-          data="3"
+          data={myTasks.length - myCompletedTasks.length}
           bgColor="blue-200"
           linkTo="/tasks"
         />
         <DashInfoCards
-          image="https://cdn-icons-png.flaticon.com/256/7457/7457274.png"
+          image="https://cdn-icons-png.flaticon.com/128/3437/3437297.png"
           title="Connections"
           data="128"
           bgColor="orange-200"
@@ -78,4 +103,4 @@ function DashBoard() {
   );
 }
 
-export default DashBoard
+export default DashBoard;
