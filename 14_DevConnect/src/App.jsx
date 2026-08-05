@@ -25,6 +25,7 @@ import AddProject from "./Pages/DashBoardPages/components/AddProject.jsx";
 import MarketingLayout from "./Layout/MarketingLayout";
 import AuthLayout from "./Layout/AuthLayout";
 import DashboardLayout from "./Layout/DashboardLayout";
+import AddTask from "./Pages/DashBoardPages/components/AddTask.jsx";
 import { CurrUserProvider, CurrSessionUserProvider } from "./contexts/index";
 
 function App() {
@@ -262,6 +263,16 @@ function App() {
               )
             }
           />
+          <Route
+            path="addtask"
+            element={
+              !(currUserId === "" && currSessionUserId === "") ? (
+                <AddTask />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          />
         </Route>
         ,
       </>,
@@ -288,7 +299,7 @@ function App() {
           handleCurrId,
           handleCurrEmail,
           handleRememberUser,
-          handleCurrUserFullName
+          handleCurrUserFullName,
         }}
       >
         <RouterProvider router={router} />
