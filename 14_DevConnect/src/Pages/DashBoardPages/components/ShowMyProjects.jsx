@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useCurrSessionUser, useCurrUser, useProject } from "../../../contexts";
-import { NavLink } from "react-router-dom";
 
 function ShowMyProjects({ type }) {
   const [openProject, setOpenProject] = useState(null);
@@ -85,7 +84,7 @@ function ShowMyProjects({ type }) {
                 {currProject.visibility}{" "}
               </h4>
               <div
-                ref={openProject === currProject.id ? dropdownRef : null}
+                ref={openProject === currProject.name ? dropdownRef : null}
                 className="flex flex-col items-center relative"
               >
                 <img
@@ -94,21 +93,37 @@ function ShowMyProjects({ type }) {
                   width="16px"
                   onClick={() =>
                     setOpenProject(
-                      openProject === currProject.id ? null : currProject.id,
+                      openProject === currProject.name
+                        ? null
+                        : currProject.name,
                     )
                   }
                 />
 
-                {openProject === currProject.id && (
+                {openProject === currProject.name && (
                   <div
-                    className={`  absolute top-5 right-0 text-nowrap bg-gray-200 px-2 py-1`}
+                    className={`flex flex-col absolute top-5 right-0 text-nowrap bg-white px-2 py-2 gap-2 rounded-lg shadow-md outline-1 outline-gray-400`}
                   >
-                    <h2>
-                      {currProject.completed
-                        ? "Mark as Not Completed"
-                        : "Mark as Completed"}
-                    </h2>
-                    <button>Delete Project</button>
+                    <button
+                      onClick={() =>
+                        toggleComplete(currProject.userId, currProject.name)
+                      }
+                      className="border-b-2 border-gray-400 pb-2"
+                    >
+                      {currProject.completed ? (
+                        <span className="text-blue-600">Mark as Incompleted</span>
+                      ) : (
+                        <span className="text-green-800">Mark as Completed</span>
+                      )}
+                    </button>
+                    <button
+                      onClick={() =>
+                        deleteProject(currProject.userId, currProject.name)
+                      }
+                      className="text-red-500"
+                    >
+                      Delete Project
+                    </button>
                   </div>
                 )}
               </div>
