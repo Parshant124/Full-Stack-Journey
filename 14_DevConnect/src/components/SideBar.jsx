@@ -3,6 +3,7 @@ import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { useCurrUser, useCurrSessionUser } from "../contexts";
 
 function SideBar() {
+  const [logOut, setLogOut] = useState(false)
   const navigate = useNavigate()
   const {handleCurrEmail, handleCurrId, handleRememberUser} = useCurrUser()
   const { handleSessionCurrId, handleSessionCurrEmail, handleSessionUser, handleSessionCurrFullName } = useCurrSessionUser();
@@ -22,7 +23,7 @@ function SideBar() {
   }
 
   return (
-    <div className="overflow-y-auto h-full border-r-2 border-gray-400 flex flex-col justify-between py-4">
+    <div className="relative overflow-y-auto h-full border-r-2 border-gray-400 flex flex-col justify-between py-4">
       <div className="flex flex-col px-2 gap-4 font-medium">
         <NavLink
           to="/dashboard"
@@ -159,11 +160,38 @@ function SideBar() {
       </div>
       <div className="w-full px-4">
         <button
-          className="bg-red-500 text-white text-center w-full py-1"
-          onClick={handleLogOut}
+          className="flex items-center gap-4 bg-red-500 text-white text-center w-full py-1 px-4"
+          onClick={() => setLogOut(true)}
         >
+          <img
+            src="https://cdn-icons-png.flaticon.com/128/10313/10313098.png"
+            alt=""
+            width="25"
+            className=""
+          />
           Log Out
         </button>
+      </div>
+      <div
+        className={`${logOut ? "block" : "hidden"} absolute w-full h-full flex justify-center items-baseline-last bg-black/10 top-0 left-0`}
+      >
+        <div className="bg-white p-2 rounded-lg shadow-lg absolute bottom-15">
+          <h2 className="text-black text-2xl font-bold">Are you Sure?</h2>
+          <div className="flex justify-between p-2">
+            <button
+              className="bg-red-500 text-white px-2 py-1 rounded-md flex flex-col"
+              onClick={handleLogOut}
+            >
+              Yes
+            </button>
+            <button
+              className="bg-purple-600 text-white px-2 py-1 rounded-md flex flex-col"
+              onClick={() => setLogOut(false)}
+            >
+              No
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
