@@ -57,7 +57,7 @@ function AddTask() {
 
     const task = {
       userId: currSessionUserId || currUserId,
-      taskId: Date.now,
+      taskId: Date.now(),
       taskName: name,
       taskDesc: desc,
       creator: currSessionUserFullName || currUserFullName,
