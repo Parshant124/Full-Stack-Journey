@@ -404,11 +404,11 @@ function SignUp() {
             <input
               type="checkbox"
               name=""
-              id=""
+              id="agree"
               checked={labelChecked}
               onChange={() => setLabelChecked((prev) => !prev)}
             />
-            <label>
+            <label htmlFor="agree">
               I agree to the{" "}
               <Link to="#" className="text-purple-600">
                 Terms of Service

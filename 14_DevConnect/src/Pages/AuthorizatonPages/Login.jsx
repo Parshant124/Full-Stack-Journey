@@ -163,8 +163,11 @@ function Login() {
               type="checkbox"
               checked={rememberUser}
               onChange={() => setRememberUser((prev) => !prev)}
+              id="remember"
             />
-            <h2 className="text-[14px] text-gray-600">Remember me</h2>
+            <label htmlFor="remember" className="text-[14px] text-gray-600">
+              Remember me
+            </label>
           </div>
           <div className="w-full">
             <h4
