@@ -4,6 +4,7 @@ import { CurrSessionUserProvider, useCurrSessionUser} from "./CurrSessionUser"
 import { ProjectProvider, useProject } from "./Projects";
 import { TasksProvider, useTasks } from "./Tasks";
 import { ConnectionProvider, useConnection } from "./Connections";
+import { BookMarkProvider, useBookMark } from "./Bookmark";
 
 export {AuthProvider, useAuth}
 export { CurrUserProvider, useCurrUser };
@@ -11,3 +12,4 @@ export {CurrSessionUserProvider, useCurrSessionUser};
 export { ProjectProvider, useProject };
 export { TasksProvider, useTasks };
 export { ConnectionProvider, useConnection };
+export { BookMarkProvider, useBookMark };
