@@ -7,7 +7,7 @@ import {
 } from "../../../contexts";
 import ShowConnectionCard from "./ShowConnectionCard";
 
-function ShowMyConnections({showType}) {
+function ShowMyConnections({ showType }) {
   const { connections, addConnection } = useConnection();
   const { currSessionUserId } = useCurrSessionUser();
   const { currUserId } = useCurrUser();
@@ -21,23 +21,37 @@ function ShowMyConnections({showType}) {
       conn.senderId === userId ? conn.receiverId : conn.senderId,
     );
 
-  const allUsers = Users.map((user) => user.id);
+  const allUsers = Users.map((user) => user.id).filter(
+    (user) => user !== userId,
+  );
 
-  const otherUsers = allUsers.filter((user) => user !== userId);
+  const otherUsers = allUsers.filter(
+    (user) => !connectedUsers.includes(user),
+  );
 
-  const toShow = showType === "All" ? allUsers : (showType === "Connected" ? connectedUsers : otherUsers)
-  return <div>
-    {toShow.length == 0 ? (
+  const toShow =
+    showType === "all"
+      ? allUsers
+      : showType === "connected"
+        ? connectedUsers
+        : otherUsers;
+
+  return (
+    <div>
+      {toShow.length == 0 ? (
         <div className="h-full w-full text-center text-3xl">
           {" "}
           Nothing to show{" "}
         </div>
       ) : (
-        toShow.map((user) => <div className="bg-white p-4 rounded-lg">
-            <ShowConnectionCard userId = {user} />
-        </div>)
-    )}
-  </div>;
+        toShow.map((user) => (
+          <div className="bg-white p-4 rounded-lg">
+            <ShowConnectionCard userId={user} />
+          </div>
+        ))
+      )}
+    </div>
+  );
 }
 
 export default ShowMyConnections;

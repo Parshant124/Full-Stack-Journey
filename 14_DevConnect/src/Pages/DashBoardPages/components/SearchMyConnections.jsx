@@ -7,7 +7,7 @@ import {
 } from "../../../contexts";
 import ShowConnectionCard from "./ShowConnectionCard";
 
-function SearchMyConnections({ value }) {
+function SearchMyConnections({ value, showType }) {
   const { connections, addConnection } = useConnection();
   const { currSessionUserId } = useCurrSessionUser();
   const { currUserId } = useCurrUser();
@@ -21,13 +21,20 @@ function SearchMyConnections({ value }) {
       conn.senderId === userId ? conn.receiverId : conn.senderId,
     );
 
-  const allUsers = Users.map((user) => user.id);
-
-  const otherUsers = allUsers.filter(
+  const allUsers = Users.map((user) => user.id).filter(
     (user) => user !== userId,
   );
 
-  const filteredConnections = otherUsers.filter((user) => {
+  const otherUsers = allUsers.filter((user) => !connectedUsers.includes(user));
+
+  const toShow =
+    showType === "all"
+      ? allUsers
+      : showType === "connected"
+        ? connectedUsers
+        : otherUsers;
+
+  const filteredConnections = toShow.filter((user) => {
     const userInfo = Users.filter((curr) => curr.id === user);
 
     return userInfo[0].fullName.trim().toLowerCase().includes(value.toLowerCase());
