@@ -16,24 +16,29 @@ function ShowConnectionCard({ userId }) {
   const userInfo = Users.filter((curr) => curr.id === userId);
   const currId = currUserId || currSessionUserId;
 
-  const [connected, setConnected] = useState(() => {
+  const [connected, setConnected] = useState(1)
+
+  useEffect(() => {
     const filtered = pendingRequest.filter(
       (prev) =>
         (prev.sender === userId && prev.receiver === currId) ||
         (prev.sender === currId && prev.receiver === userId),
     );
-
-    return filtered.length > 0 ? (filtered[0].sender === currId ? 2 : 3) : 1;
-  });
+    setConnected(
+      filtered.length > 0 ? (filtered[0].sender === currId ? 2 : 3) : 1,
+    );
+  }, [currId, userId, pendingRequest]);
 
   useEffect(() => {
-    const checkConnected = connections.filter((prev) => 
-      (prev.senderId === userId && prev.receiverId === currId) ||
-    (prev.senderId === currId && prev.receiverId === userId)
-    )
+    const checkConnected = connections.filter(
+      (prev) =>
+        (prev.senderId === userId && prev.receiverId === currId) ||
+        (prev.senderId === currId && prev.receiverId === userId),
+    );
 
-    if(checkConnected.length > 0) setConnected(4)
-  }, [])
+    if (checkConnected.length > 0) setConnected(4);
+  }, [currId, userId, connections]);
+
   const handleConnect = () => {
     if(!(connected == 1 || connected == 2)) return
     if (connected == 2) {
