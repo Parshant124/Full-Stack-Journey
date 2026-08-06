@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+import ShowMyTasks from "./components/ShowMyTasks";
 
 function Tasks() {
     const[showType, setShowType] = useState("All")
@@ -43,6 +44,7 @@ function Tasks() {
           </button>
         </div>
       </div>
+      < ShowMyTasks type={showType} />
     </div>
   );
 }
