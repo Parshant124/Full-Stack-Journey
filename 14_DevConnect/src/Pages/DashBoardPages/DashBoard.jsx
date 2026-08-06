@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  useConnection,
   useCurrSessionUser,
   useCurrUser,
   useProject,
@@ -10,33 +11,40 @@ import DashGraph from "./components/DashGraph";
 import DashTasks from "./components/DashTasks";
 
 function DashBoard() {
-  const { currSessionUserFullName } = useCurrSessionUser();
   const { projects } = useProject();
   const { tasks } = useTasks();
-  const { currSessionUserId } = useCurrSessionUser();
+  const { currSessionUserId, currSessionUserFullName } = useCurrSessionUser();
   const { currUserId, currUserFullName } = useCurrUser();
+  const { connections } = useConnection();
 
-    const firstWord = currSessionUserFullName.substring(
+  const firstWord =
+    currSessionUserFullName.substring(
       0,
       currSessionUserFullName.indexOf(" ") === -1
         ? currSessionUserFullName.length
         : currSessionUserFullName.indexOf(" "),
-    ) || currUserFullName.substring(
+    ) ||
+    currUserFullName.substring(
       0,
       currUserFullName.indexOf(" ") === -1
         ? currUserFullName.length
         : currUserFullName.indexOf(" "),
-      );
+    );
+
+  const userId = currSessionUserId || currUserId;
 
   const myProjects = projects.filter(
-    (prev) => prev.userId === currUserId || prev.userId === currSessionUserId,
+    (prev) => prev.userId === userId || prev.userId === userId,
   );
   const myTasks = tasks.filter(
-    (prev) => prev.userId === currUserId || prev.userId === currSessionUserId,
+    (prev) => prev.userId === userId || prev.userId === userId,
   );
-  const myCompletedTasks = myTasks.filter(
-    (prev) => prev.completed
-  )
+  const myCompletedTasks = myTasks.filter((prev) => prev.completed);
+  const connectedUsers = connections
+    .filter((conn) => conn.senderId === userId || conn.receiverId === userId)
+    .map((conn) =>
+      conn.senderId === userId ? conn.receiverId : conn.senderId,
+    ) || [];
   return (
     <div className="overflow-y-auto h-full p-4 gap-6 flex flex-col bg-gray-50">
       <div
@@ -84,7 +92,7 @@ function DashBoard() {
         <DashInfoCards
           image="https://cdn-icons-png.flaticon.com/128/3437/3437297.png"
           title="Connections"
-          data="128"
+          data={connectedUsers.length}
           bgColor="orange-200"
           linkTo="/connections"
         />
