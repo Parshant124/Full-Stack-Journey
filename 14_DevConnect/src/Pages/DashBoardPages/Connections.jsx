@@ -4,7 +4,8 @@ import SearchMyConnections from "./components/SearchMyConnections";
 
 function Connections() {
   const [searchValue, setSearchValue] = useState("");
-  const [showType, setShowType] = useState("All");
+  const [showType, setShowType] = useState("all");
+
 
   return (
     <div className="p-6 flex flex-col gap-4 bg-gray-100 h-full">
