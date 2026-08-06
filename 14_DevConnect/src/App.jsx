@@ -26,7 +26,11 @@ import MarketingLayout from "./Layout/MarketingLayout";
 import AuthLayout from "./Layout/AuthLayout";
 import DashboardLayout from "./Layout/DashboardLayout";
 import AddTask from "./Pages/DashBoardPages/components/AddTask.jsx";
-import { CurrUserProvider, CurrSessionUserProvider } from "./contexts/index";
+import {
+  CurrUserProvider,
+  CurrSessionUserProvider,
+  AuthProvider,
+} from "./contexts/index";
 
 function App() {
   const [currUserId, setCurrUserId] = useState(() => {
@@ -57,6 +61,29 @@ function App() {
     const user = JSON.parse(sessionStorage.getItem("sessionUser"));
     return user?.[2] || "";
   });
+
+  const [Users, setUsers] = useState(() => {
+    return JSON.parse(localStorage.getItem("users")) || [];
+  });
+
+  const addUser = (userName, pass, email, fullName) => {
+    setUsers((prev) => [
+      ...prev,
+      { id: userName, password: pass, email: email, fullName: fullName },
+    ]);
+  };
+
+  const changePass = (userName, pass) => {
+    setUsers((prev) =>
+      prev.map((prevUser) =>
+        prevUser.id === userName ? { ...prevUser, password: pass } : prevUser,
+      ),
+    );
+  };
+
+  useEffect(() => {
+    localStorage.setItem("users", JSON.stringify(Users));
+  }, [Users]);
 
   const handleCurrId = (id) => {
     setCurrUserId(id);
@@ -280,31 +307,33 @@ function App() {
   );
 
   return (
-    <CurrSessionUserProvider
-      value={{
-        currSessionUserId,
-        currSessionUserEmail,
-        currSessionUserFullName,
-        handleSessionCurrEmail,
-        handleSessionCurrId,
-        handleSessionCurrFullName,
-        handleSessionUser,
-      }}
-    >
-      <CurrUserProvider
+    <AuthProvider value={{ Users, addUser, changePass }}>
+      <CurrSessionUserProvider
         value={{
-          currUserId,
-          currUserEmail,
-          currUserFullName,
-          handleCurrId,
-          handleCurrEmail,
-          handleRememberUser,
-          handleCurrUserFullName,
+          currSessionUserId,
+          currSessionUserEmail,
+          currSessionUserFullName,
+          handleSessionCurrEmail,
+          handleSessionCurrId,
+          handleSessionCurrFullName,
+          handleSessionUser,
         }}
       >
-        <RouterProvider router={router} />
-      </CurrUserProvider>
-    </CurrSessionUserProvider>
+        <CurrUserProvider
+          value={{
+            currUserId,
+            currUserEmail,
+            currUserFullName,
+            handleCurrId,
+            handleCurrEmail,
+            handleRememberUser,
+            handleCurrUserFullName,
+          }}
+        >
+          <RouterProvider router={router} />
+        </CurrUserProvider>
+      </CurrSessionUserProvider>
+    </AuthProvider>
   );
 }
 
