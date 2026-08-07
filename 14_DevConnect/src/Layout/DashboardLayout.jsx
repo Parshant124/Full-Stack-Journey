@@ -3,6 +3,7 @@ import { Outlet, useLocation, useSearchParams } from "react-router-dom";
 import Header from "../components/Header";
 import SideBar from "../components/SideBar";
 import {
+  BookMarkProvider,
   ConnectionProvider,
   ProjectProvider,
   TasksProvider,
@@ -21,6 +22,9 @@ function DashboardLayout() {
   const [pendingRequest, setPendingRequest] = useState(() => {
     return JSON.parse(localStorage.getItem("requests")) || [];
   });
+  const [bookmarks, setBookmarks] = useState(() => {
+    return JSON.parse(localStorage.getItem("bookmarks")) || [];
+  })
 
   const location = useLocation();
 
@@ -115,38 +119,62 @@ function DashboardLayout() {
     );
   }
 
-  return (
-    <ConnectionProvider
-      value={{ connections, pendingRequest, addRequest, deleteRequest, addConnection, deleteConnection }}
-    >
-      <TasksProvider
-        value={{ tasks, addTasks, toggleCompleteTask, deleteTask }}
-      >
-        <ProjectProvider
-          value={{ projects, addProject, toggleComplete, deleteProject }}
-        >
-          <div className="h-screen flex flex-col">
-            <Header type="dashNav" />
+  const addBookMark = (user, project) => {
+    const exist = bookmarks.filter((prev) => prev.user === user && prev.project === project)
 
-            <main
-              className={`flex-1 ${location.pathname === "/profile" ? "block" : "hidden"}`}
-            >
-              <Outlet />
-            </main>
-            <div
-              className={`flex w-full h-full flex-1 ${location.pathname !== "/profile" ? "block" : "hidden"} overflow-hidden`}
-            >
-              <aside className="w-1/6 overflow-y-auto">
-                <SideBar />
-              </aside>
-              <main className="w-5/6 flex-1 overflow-y-auto">
+    if(exist.length > 0) return;
+    setBookmarks((prev) => [{user, project}, ...prev])
+  }
+
+  const removeBookMark = (user, project) => {
+    setBookmarks((prev) => prev.filter((currBookMark) => !(currBookMark.user === user && currBookMark.project === project)))
+  }
+
+  useEffect(() => {
+    localStorage.setItem("bookmarks", JSON.stringify(bookmarks))
+  }, [bookmarks])
+
+  return (
+    <BookMarkProvider value={{bookmarks, addBookMark, removeBookMark}}>
+      <ConnectionProvider
+        value={{
+          connections,
+          pendingRequest,
+          addRequest,
+          deleteRequest,
+          addConnection,
+          deleteConnection,
+        }}
+      >
+        <TasksProvider
+          value={{ tasks, addTasks, toggleCompleteTask, deleteTask }}
+        >
+          <ProjectProvider
+            value={{ projects, addProject, toggleComplete, deleteProject }}
+          >
+            <div className="h-screen flex flex-col">
+              <Header type="dashNav" />
+
+              <main
+                className={`flex-1 ${location.pathname === "/profile" ? "block" : "hidden"}`}
+              >
                 <Outlet />
               </main>
+              <div
+                className={`flex w-full h-full flex-1 ${location.pathname !== "/profile" ? "block" : "hidden"} overflow-hidden`}
+              >
+                <aside className="w-1/6 overflow-y-auto">
+                  <SideBar />
+                </aside>
+                <main className="w-5/6 flex-1 overflow-y-auto">
+                  <Outlet />
+                </main>
+              </div>
             </div>
-          </div>
-        </ProjectProvider>
-      </TasksProvider>
-    </ConnectionProvider>
+          </ProjectProvider>
+        </TasksProvider>
+      </ConnectionProvider>
+    </BookMarkProvider>
   );
 }
 
