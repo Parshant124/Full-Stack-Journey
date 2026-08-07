@@ -1,11 +1,12 @@
 import React from "react";
-import { useAuth, useCurrSessionUser, useCurrUser, useProject } from "../../contexts";
+import { useAuth, useBookMark, useCurrSessionUser, useCurrUser, useProject } from "../../contexts";
 
 function Projects() {
   const { projects } = useProject();
   const { currSessionUserId } = useCurrSessionUser();
   const { currUserId } = useCurrUser();
   const { Users } = useAuth();
+  const { bookmarks, addBookMark, removeBookMark } = useBookMark()
 
   const currId = currSessionUserId || currUserId;
 
@@ -16,6 +17,15 @@ function Projects() {
 
     return userInfo[0].fullName
   }
+
+  const checkBookMarked = (projectId) => {
+    const exist = bookmarks.filter(
+      (prev) => prev.user === currId && prev.project === projectId,
+    );
+
+    return exist.length > 0 ? true : false;
+  }
+
   return (
     <div className="p-6 flex flex-col gap-4 bg-gray-100 h-fit min-h-full">
       <div>
@@ -49,15 +59,30 @@ function Projects() {
                 <h4 className="text-[14px] text-gray-600">{project.desc}</h4>
               </div>
               <div>
-                <img
-                  src="https://cdn-icons-png.flaticon.com/128/25/25667.png"
-                  alt=""
-                  width="20px"
-                />
+                {checkBookMarked(project.createdOn) ? (
+                  <img
+                    src="https://cdn-icons-png.flaticon.com/128/102/102279.png"
+                    alt=""
+                    width="20px"
+                    onClick={() => removeBookMark(currId, project.createdOn)}
+                  />
+                ) : (
+                  <img
+                    src="https://cdn-icons-png.flaticon.com/128/25/25667.png"
+                    alt=""
+                    width="20px"
+                    onClick={() => addBookMark(currId, project.createdOn)}
+                  />
+                )}
               </div>
             </div>
             <div>
-              <h4 className="text-[14px]">Creator : <span className="text-purple-600">{ownerFullName(project.userId)}</span></h4>
+              <h4 className="text-[14px]">
+                Creator :{" "}
+                <span className="text-purple-600">
+                  {ownerFullName(project.userId)}
+                </span>
+              </h4>
             </div>
           </div>
         ))}
