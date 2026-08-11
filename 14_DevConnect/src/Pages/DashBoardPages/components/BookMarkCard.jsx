@@ -1,13 +1,72 @@
-import React from 'react'
-import { useProject } from '../../../contexts'
+import React, { useState } from "react";
+import { useBookMark, useCurrSessionUser, useCurrUser, useProject } from "../../../contexts";
 
-function BookMarkCard({projectId}) {
-    const{projects} = useProject()
+function BookMarkCard({ projectId }) {
+  const [showConfirmMsg, setShowConfirmMsg] = useState(false);
+  const { projects } = useProject();
+  const {removeBookMark} = useBookMark();
+  const {currUserId} = useCurrUser();
+  const {currSessionUserId} = useCurrSessionUser();
 
-    const currProject = projects.filter((project) => project.createdOn === projectId)
+  const currId = currSessionUserId || currUserId;
+
+  const currProject = projects.filter(
+    (project) => project.createdOn === projectId,
+  );
+
   return (
-    <div>{currProject[0].name}</div>
-  )
+    <div className="p-2 flex items-center border-b border-gray-300 pb-6 justify-between relative">
+      <div className="flex items-center gap-4">
+        <div className="bg-purple-200 p-1 rounded-lg">
+          <img
+            src="https://cdn-icons-png.flaticon.com/256/6596/6596459.png"
+            alt=""
+            width="35px"
+          />
+        </div>
+        <div>
+          <h2 className="font-semibold text-[14px]">{currProject[0].name}</h2>
+          <h4 className="text-gray-600 text-[14px]">{currProject[0].desc}</h4>
+        </div>
+      </div>
+      <div className="flex items-center gap-4 w-1/3 justify-between">
+        <h4 className="text-gray-600 px-2 py-1 text-[14px] rounded-md">
+          {currProject[0].userId}
+        </h4>
+        <h4 className="bg-purple-200 text-purple-800 text-[14px] px-2 py-1 rounded-md">
+          {currProject[0].category}
+        </h4>
+        <div onClick={() => setShowConfirmMsg(true)}>
+          <img
+            src="https://cdn-icons-png.flaticon.com/128/4942/4942539.png"
+            alt=""
+            width="25px"
+          />
+        </div>
+      </div>
+      <div
+        className={`${showConfirmMsg ? "flex" : "hidden"} absolute bg-black/4 w-full h-full justify-center items-center flex-col`}
+      >
+        <div className="w-50 text-center bg-white font-semibold p-2 text-[14px] rounded-lg">
+          <h2>Are you Sure to remove the BookMark?</h2>
+          <div className="flex justify-around">
+            <button
+              className="bg-red-600 text-white px-1 py-0.5 w-10"
+              onClick={() => removeBookMark(currId, currProject[0].createdOn)}
+            >
+              Yes
+            </button>
+            <button
+              className="bg-purple-600 text-white px-1 py-0.5 w-10"
+              onClick={() => setShowConfirmMsg(false)}
+            >
+              No
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
 
-export default BookMarkCard
+export default BookMarkCard;
