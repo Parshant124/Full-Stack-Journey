@@ -31,7 +31,7 @@ function My_Projects() {
         <input
           type="text"
           className="border-2 px-2 py-1 text-[14px] rounded-md bg-white border-gray-300 w-1/2"
-          placeholder="Search projects"
+          placeholder="Search projects..."
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
         />
