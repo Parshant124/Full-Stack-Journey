@@ -14,7 +14,7 @@ function Bookmarks() {
 
   
   return (
-    <div className="p-6 flex flex-col gap-4 bg-gray-100 h-full">
+    <div className="p-4 flex flex-col gap-4 bg-gray-100 h-full">
       <div>
         <h2 className="text-2xl font-bold">BookMarks</h2>
         <h4 className="text-[14px] text-gray-600">
@@ -30,7 +30,7 @@ function Bookmarks() {
           onChange={(e) => setSearchValue(e.target.value)}
         />
       </div>
-      <div>
+      <div className="bg-white p-6 rounded-lg">
         {myBookMarks.length > 0 ? myBookMarks.map((bookmark) => <BookMarkCard projectId={bookmark.project} />) : "nothing"}
       </div>
     </div>
