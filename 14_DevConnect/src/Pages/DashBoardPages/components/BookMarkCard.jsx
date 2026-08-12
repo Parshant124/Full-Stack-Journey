@@ -1,12 +1,17 @@
 import React, { useState } from "react";
-import { useBookMark, useCurrSessionUser, useCurrUser, useProject } from "../../../contexts";
+import {
+  useBookMark,
+  useCurrSessionUser,
+  useCurrUser,
+  useProject,
+} from "../../../contexts";
 
 function BookMarkCard({ projectId }) {
   const [showConfirmMsg, setShowConfirmMsg] = useState(false);
   const { projects } = useProject();
-  const {removeBookMark} = useBookMark();
-  const {currUserId} = useCurrUser();
-  const {currSessionUserId} = useCurrSessionUser();
+  const { removeBookMark } = useBookMark();
+  const { currUserId } = useCurrUser();
+  const { currSessionUserId } = useCurrSessionUser();
 
   const currId = currSessionUserId || currUserId;
 
@@ -30,13 +35,17 @@ function BookMarkCard({ projectId }) {
         </div>
       </div>
       <div className="flex items-center gap-4 w-1/3 justify-between">
-        <h4 className="text-gray-600 px-2 py-1 text-[14px] rounded-md">
-          {currProject[0].userId}
-        </h4>
-        <h4 className="bg-purple-200 text-purple-800 text-[14px] px-2 py-1 rounded-md">
-          {currProject[0].category}
-        </h4>
-        <div onClick={() => setShowConfirmMsg(true)}>
+        <div className="w-1/4">
+          <h4 className="text-gray-600 px-2 py-1 text-[14px] rounded-md">
+            {currProject[0].userId}
+          </h4>
+        </div>
+        <div className="w-1/2">
+          <h4 className="bg-purple-200 w-fit text-purple-800 text-[14px] px-2 py-1 rounded-md">
+            {currProject[0].category}
+          </h4>
+        </div>
+        <div onClick={() => setShowConfirmMsg(true)} className="cursor-pointer">
           <img
             src="https://cdn-icons-png.flaticon.com/128/4942/4942539.png"
             alt=""
@@ -45,9 +54,9 @@ function BookMarkCard({ projectId }) {
         </div>
       </div>
       <div
-        className={`${showConfirmMsg ? "flex" : "hidden"} absolute bg-black/4 w-full h-full justify-center items-center flex-col`}
+        className={`${showConfirmMsg ? "flex" : "hidden"} absolute w-full h-screen justify-center items-center flex-col`}
       >
-        <div className="w-50 text-center bg-white font-semibold p-2 text-[14px] rounded-lg">
+        <div className="w-50 text-center bg-white font-semibold p-2 text-[14px] rounded-lg shadow-lg">
           <h2>Are you Sure to remove the BookMark?</h2>
           <div className="flex justify-around">
             <button
