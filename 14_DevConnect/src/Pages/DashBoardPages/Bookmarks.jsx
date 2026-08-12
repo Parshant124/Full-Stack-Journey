@@ -31,7 +31,15 @@ function Bookmarks() {
         />
       </div>
       <div className="bg-white p-6 rounded-lg">
-        {myBookMarks.length > 0 ? myBookMarks.map((bookmark) => <BookMarkCard projectId={bookmark.project} />) : "nothing"}
+        {myBookMarks.length > 0 ? (
+          myBookMarks.map((bookmark) => (
+            <BookMarkCard projectId={bookmark.project} />
+          ))
+        ) : (
+          <div className="flex items-center justify-center">
+            <h4 className="text-3xl font-bold text-gray-500">Nothing...</h4>
+          </div>
+        )}
       </div>
     </div>
   );
