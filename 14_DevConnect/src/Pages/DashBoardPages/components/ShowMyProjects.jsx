@@ -52,14 +52,14 @@ function ShowMyProjects({ type }) {
             className="flex items-center justify-around pb-8 border-b-2 border-gray-300"
           >
             <div className="flex w-2/3 gap-4">
-              <div className="bg-purple-900 p-1 rounded">
+              <div className="bg-purple-900 p-1 rounded flex h-12 w-12">
                 <img
                   src={
                     currProject.image ||
                     `https://cdn-icons-png.flaticon.com/128/2241/2241791.png`
                   }
                   alt=""
-                  width="40px"
+                  className="w-full h-full"
                 />
               </div>
               <div>

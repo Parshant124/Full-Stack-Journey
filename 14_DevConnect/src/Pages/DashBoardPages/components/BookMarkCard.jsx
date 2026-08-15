@@ -24,31 +24,30 @@ function BookMarkCard({ projectId }) {
       {currProject && (
         <div className="p-2 flex items-center border-b border-gray-300 pb-6 justify-between relative">
           <div className="flex items-center gap-4">
-            <div className="bg-purple-200 p-1 rounded-lg">
+            <div className="bg-purple-300 p-1 rounded flex h-12 w-12">
               <img
-                src="https://cdn-icons-png.flaticon.com/256/6596/6596459.png"
+                src={
+                  currProject.image ||
+                  "https://cdn-icons-png.flaticon.com/256/6596/6596459.png"
+                }
                 alt=""
-                width="35px"
+                className="w-full h-full"
               />
             </div>
             <div>
-              <h2 className="font-semibold text-[14px]">
-                {currProject[0].name}
-              </h2>
-              <h4 className="text-gray-600 text-[14px]">
-                {currProject[0].desc}
-              </h4>
+              <h2 className="font-semibold text-[14px]">{currProject.name}</h2>
+              <h4 className="text-gray-600 text-[14px]">{currProject.desc}</h4>
             </div>
           </div>
           <div className="flex items-center gap-4 w-1/3 justify-between">
             <div className="w-1/4">
               <h4 className="text-gray-600 px-2 py-1 text-[14px] rounded-md">
-                {currProject[0].userId}
+                {currProject.userId}
               </h4>
             </div>
             <div className="w-1/2">
               <h4 className="bg-purple-200 w-fit text-purple-800 text-[14px] px-2 py-1 rounded-md">
-                {currProject[0].category}
+                {currProject.category}
               </h4>
             </div>
             <div
@@ -70,9 +69,7 @@ function BookMarkCard({ projectId }) {
               <div className="flex justify-around">
                 <button
                   className="bg-red-600 text-white px-1 py-0.5 w-10"
-                  onClick={() =>
-                    removeBookMark(currId, currProject[0].createdOn)
-                  }
+                  onClick={() => removeBookMark(currId, currProject.createdOn)}
                 >
                   Yes
                 </button>
