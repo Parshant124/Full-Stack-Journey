@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useCurrSessionUser, useCurrUser, useProject } from "../../../contexts";
 
 function AddProject() {
+
   const [name, setName] = useState("");
   const [validName, setValidName] = useState(true);
   const [key, setKey] = useState("");
@@ -16,7 +17,7 @@ function AddProject() {
   const { addProject } = useProject();
   const { currSessionUserId, currSessionUserFullName } = useCurrSessionUser();
   const { currUserId, currUserFullName } = useCurrUser();
-  const [cancel, setCancel] = useState(false)
+  const [cancel, setCancel] = useState(false);
 
   const handleCancel = () => {
     setName("");
@@ -58,6 +59,23 @@ function AddProject() {
     }
   };
 
+  const handleImage = (e) => {
+    const file = e.target.files[0];
+
+    console.log("FILE:", file);
+
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      setImage(reader.result);
+    };
+    console.log("Image stored", image);
+
+    reader.readAsDataURL(file);
+  };
+
   const handleCreate = () => {
     let validateCategory = handleCategory(category);
     let validateDesc = handleDesc(desc);
@@ -67,7 +85,6 @@ function AddProject() {
       return;
     }
 
-    console.log(validCategory);
     const project = {
       userId: currSessionUserId || currUserId,
       name,
@@ -76,7 +93,7 @@ function AddProject() {
       category,
       visibility,
       creator: currSessionUserFullName || currUserFullName,
-      image,
+      image: image,
       completed: false,
       createdOn: Date.now(),
     };
@@ -250,7 +267,7 @@ function AddProject() {
             type="file"
             accept="image/png,image/jpeg,image/jpg,image/webp"
             className="hidden"
-            onChange={(e) => setImage(e.target.files[0])}
+            onChange={handleImage}
           />
         </div>
         <div className="flex justify-end gap-4">
@@ -274,12 +291,16 @@ function AddProject() {
         <div className="bg-white p-4 rounded-lg shadow-lg">
           <h2 className="text-black text-3xl font-bold">Are you Sure?</h2>
           <div className="flex justify-between p-4">
-            <button className="bg-red-500 text-white px-2 py-1 rounded-md flex flex-col"
-            onClick={() => handleCancel}>
+            <button
+              className="bg-red-500 text-white px-2 py-1 rounded-md flex flex-col"
+              onClick={handleCancel}
+            >
               Yes <span className="text-[12px]">{"(Cancel)"}</span>
             </button>
-            <button className="bg-purple-600 text-white px-2 py-1 rounded-md flex flex-col"
-            onClick={() => setCancel(false)}>
+            <button
+              className="bg-purple-600 text-white px-2 py-1 rounded-md flex flex-col"
+              onClick={() => setCancel(false)}
+            >
               No <span className="text-[12px]">{"(Stay)"}</span>
             </button>
           </div>

@@ -24,7 +24,7 @@ function DashboardLayout() {
   });
   const [bookmarks, setBookmarks] = useState(() => {
     return JSON.parse(localStorage.getItem("bookmarks")) || [];
-  })
+  });
 
   const location = useLocation();
 
@@ -49,7 +49,9 @@ function DashboardLayout() {
           !(currProject.userId === id && currProject.createdOn === projectId),
       ),
     );
-    setBookmarks((prev) => prev.filter((project) => project.project !== projectId))
+    setBookmarks((prev) =>
+      prev.filter((project) => project.project !== projectId),
+    );
   };
 
   useEffect(() => {
@@ -105,8 +107,8 @@ function DashboardLayout() {
   }, [pendingRequest]);
 
   const addRequest = (sender, receiver) => {
-    setPendingRequest((prev) => [{sender, receiver}, ...prev])
-  }
+    setPendingRequest((prev) => [{ sender, receiver }, ...prev]);
+  };
 
   const deleteRequest = (sender, receiver) => {
     setPendingRequest((prev) =>
@@ -118,25 +120,32 @@ function DashboardLayout() {
           ),
       ),
     );
-  }
+  };
 
   const addBookMark = (user, project) => {
-    const exist = bookmarks.filter((prev) => prev.user === user && prev.project === project)
+    const exist = bookmarks.filter(
+      (prev) => prev.user === user && prev.project === project,
+    );
 
-    if(exist.length > 0) return;
-    setBookmarks((prev) => [{user, project}, ...prev])
-  }
+    if (exist.length > 0) return;
+    setBookmarks((prev) => [{ user, project }, ...prev]);
+  };
 
   const removeBookMark = (user, project) => {
-    setBookmarks((prev) => prev.filter((currBookMark) => !(currBookMark.user === user && currBookMark.project === project)))
-  }
+    setBookmarks((prev) =>
+      prev.filter(
+        (currBookMark) =>
+          !(currBookMark.user === user && currBookMark.project === project),
+      ),
+    );
+  };
 
   useEffect(() => {
-    localStorage.setItem("bookmarks", JSON.stringify(bookmarks))
-  }, [bookmarks])
+    localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+  }, [bookmarks]);
 
   return (
-    <BookMarkProvider value={{bookmarks, addBookMark, removeBookMark}}>
+    <BookMarkProvider value={{ bookmarks, addBookMark, removeBookMark }}>
       <ConnectionProvider
         value={{
           connections,
@@ -155,22 +164,22 @@ function DashboardLayout() {
           >
             <div className="h-screen flex flex-col">
               <Header type="dashNav" />
-
-              <main
-                className={`flex-1 ${location.pathname === "/profile" ? "block" : "hidden"}`}
-              >
-                <Outlet />
-              </main>
-              <div
-                className={`flex w-full h-full flex-1 ${location.pathname !== "/profile" ? "block" : "hidden"} overflow-hidden`}
-              >
-                <aside className="w-1/6 overflow-y-auto">
-                  <SideBar />
-                </aside>
-                <main className="w-5/6 flex-1 overflow-y-auto">
+              {location.pathname === "/profile" ? (
+                <main>
                   <Outlet />
                 </main>
-              </div>
+              ) : (
+                <div
+                  className={`flex w-full h-full flex-1 overflow-hidden`}
+                >
+                  <aside className="w-1/6 overflow-y-auto">
+                    <SideBar />
+                  </aside>
+                  <main className="w-5/6 flex-1 overflow-y-auto">
+                    <Outlet />
+                  </main>
+                </div>
+              )}
             </div>
           </ProjectProvider>
         </TasksProvider>
