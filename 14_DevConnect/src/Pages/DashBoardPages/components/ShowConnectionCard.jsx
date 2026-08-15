@@ -13,7 +13,7 @@ function ShowConnectionCard({ userId }) {
   const { connections, pendingRequest, addRequest, deleteRequest, addConnection, deleteConnection } =
     useConnection();
 
-  const userInfo = Users.filter((curr) => curr.id === userId);
+  const userInfo = Users.find((curr) => curr.id === userId);
   const currId = currUserId || currSessionUserId;
 
   const [connected, setConnected] = useState(1)
@@ -79,7 +79,7 @@ function ShowConnectionCard({ userId }) {
           />
         </div>
         <div>
-          <h2 className="font-semibold ">{userInfo[0].fullName}</h2>
+          <h2 className="font-semibold ">{userInfo.fullName}</h2>
           <h4 className="text-[14px] text-gray-600">
             {userInfo.about || "User about not given"}
           </h4>
