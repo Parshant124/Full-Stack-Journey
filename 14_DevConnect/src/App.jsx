@@ -81,6 +81,27 @@ function App() {
     );
   };
 
+  const changeBio = (userId, bio) => {
+    setUsers((prev) =>
+      prev.map((user) => (user.id === userId ? { ...user, about: bio } : user)),
+    );
+  };
+
+  const changeImage = (userId, image) => {
+    setUsers((prev) =>
+      prev.map((user) =>
+        user.id === userId ? { ...user, image: image } : user,
+      ),
+    );
+  };
+
+  const changeFullName = (userId, fullName) => {
+    setUsers((prev) =>
+      prev.map((user) =>
+        user.id === userId ? { ...user, fullName: fullName } : user,
+      ),
+    );
+  };
   useEffect(() => {
     localStorage.setItem("users", JSON.stringify(Users));
   }, [Users]);
@@ -307,7 +328,16 @@ function App() {
   );
 
   return (
-    <AuthProvider value={{ Users, addUser, changePass }}>
+    <AuthProvider
+      value={{
+        Users,
+        addUser,
+        changePass,
+        changeBio,
+        changeImage,
+        changeFullName,
+      }}
+    >
       <CurrSessionUserProvider
         value={{
           currSessionUserId,
