@@ -109,7 +109,7 @@ function ShowSearchMyProject({ type, value }) {
                   >
                     <button
                       onClick={() =>
-                        toggleComplete(currProject.userId, currProject.name)
+                        toggleComplete(currProject.userId, currProject.createdOn)
                       }
                       className="border-b-2 border-gray-400 pb-2"
                     >
@@ -125,7 +125,7 @@ function ShowSearchMyProject({ type, value }) {
                     </button>
                     <button
                       onClick={() =>
-                        deleteProject(currProject.userId, currProject.name)
+                        deleteProject(currProject.userId, currProject.createdOn)
                       }
                       className="text-red-500"
                     >
