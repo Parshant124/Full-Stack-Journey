@@ -32,23 +32,24 @@ function DashboardLayout() {
     setProjects((prev) => [project, ...prev]);
   };
 
-  const toggleComplete = (id, projectName) => {
+  const toggleComplete = (id, projectId) => {
     setProjects((prev) =>
       prev.map((currProject) =>
-        currProject.userId === id && currProject.name === projectName
+        currProject.userId === id && currProject.createdOn === projectId
           ? { ...currProject, completed: !currProject.completed }
           : currProject,
       ),
     );
   };
 
-  const deleteProject = (id, projectName) => {
+  const deleteProject = (id, projectId) => {
     setProjects((prev) =>
       prev.filter(
         (currProject) =>
-          !(currProject.userId === id && currProject.name === projectName),
+          !(currProject.userId === id && currProject.createdOn === projectId),
       ),
     );
+    setBookmarks((prev) => prev.filter((project) => project.project !== projectId))
   };
 
   useEffect(() => {
