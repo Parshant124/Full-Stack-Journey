@@ -1,10 +1,15 @@
 import React from "react";
 import { NavLink, Link } from "react-router-dom";
-import { useCurrSessionUser, useCurrUser } from "../../contexts";
+import { useAuth, useCurrSessionUser, useCurrUser } from "../../contexts";
 
 function DashboardNav() {
   const { currSessionUserId } = useCurrSessionUser();
   const { currUserId } = useCurrUser();
+  const { Users } = useAuth();
+
+  const currUser = currUserId || currSessionUserId;
+
+  const userInfo = Users.find((user) => user.id === currUser);
 
   return (
     <div className="flex w-full justify-between">
@@ -43,14 +48,22 @@ function DashboardNav() {
         </NavLink>
       </div>
       <NavLink to="/profile" className="">
-        <div className="w-8 h-8 bg-red-500 rounded-full flex justify-center items-center">
-          <h3 className="text-white">
-            {currSessionUserId
-              ? currSessionUserId[0].toUpperCase()
-              : currUserId
-                ? currUserId[0].toUpperCase()
-                : "U"}
-          </h3>
+        <div>
+          {userInfo.image ? (
+            <div className="w-12 h-12 flex">
+              <img
+                src={userInfo.image}
+                alt=""
+                className="w-full h-full object-cover rounded-full"
+              />
+            </div>
+          ) : (
+            <div className="w-10 h-10 bg-red-500 rounded-full flex justify-center items-center">
+              <h3 className="text-white">
+                {currUser ? userInfo.id[0].toUpperCase() : "U"}
+              </h3>
+            </div>
+          )}
         </div>
       </NavLink>
     </div>

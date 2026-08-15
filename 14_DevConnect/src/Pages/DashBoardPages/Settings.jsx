@@ -83,6 +83,23 @@ function Settings() {
     navigate("/dashboard");
   };
 
+  const handleImage = (e) => {
+    const file = e.target.files[0];
+
+    console.log("FILE:", file);
+
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      setImage(reader.result);
+    };
+    console.log("Image stored", image);
+
+    reader.readAsDataURL(file);
+  };
+
   return (
     <div className="p-4 flex flex-col gap-4 bg-gray-100 h-full">
       <div>
@@ -126,6 +143,10 @@ function Settings() {
               <div>
                 <img src={currUser.image} alt="" />
               </div>
+            ) : image ? (
+              <div className="w-20 h-20 flex">
+                <img src={image} alt=""  className="rounded-full w-full h-full object-cover"/>
+              </div>
             ) : (
               <div className="bg-red-500 rounded-full w-20 h-20 flex justify-center items-center">
                 <h3 className="text-white text-4xl">
@@ -137,7 +158,16 @@ function Settings() {
                 </h3>
               </div>
             )}
-            <h4 className="font-semibold text-[14px]">Change Photo</h4>
+            <label htmlFor="userImage" className="font-semibold text-[14px]">
+              Change Photo
+            </label>
+            <input
+              id="userImage"
+              type="file"
+              accept="image/png,image/jpeg,image/jpg,image/webp"
+              className="hidden"
+              onChange={handleImage}
+            />
           </div>
         </div>
         <div className="flex flex-col gap-4">

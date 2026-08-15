@@ -68,14 +68,14 @@ function ShowConnectionCard({ userId }) {
   return (
     <div className="flex w-full justify-between border-b-2 pb-4 border-gray-300">
       <div className="flex gap-4 items-center">
-        <div>
+        <div className="h-12 w-12 flex">
           <img
             src={
               userInfo.image ||
               "https://cdn-icons-png.flaticon.com/128/4140/4140037.png"
             }
             alt=""
-            width="40px"
+            className="w-full h-full object-cover rounded-full"
           />
         </div>
         <div>
