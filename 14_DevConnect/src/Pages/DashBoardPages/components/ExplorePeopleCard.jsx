@@ -22,11 +22,11 @@ function ExplorePeopleCard({ user, requestReceive, requestSent }) {
   return (
     <div className="flex justify-between items-center pt-4 pb-4 border-b-2 border-gray-300">
       <div className="flex gap-4 items-center">
-        <div className="w-10 h-10">
+        <div className="w-10 h-10 flex">
           <img
             src={userInfo.image || "https://cdn-icons-png.flaticon.com/128/4333/4333609.png"}
             alt=""
-            className="w-full h-full rounded-full"
+            className="w-full h-full rounded-full object-cover"
           />
         </div>
         <div>
