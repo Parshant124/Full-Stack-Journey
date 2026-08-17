@@ -6,7 +6,7 @@ import {
   useCurrUser,
 } from "../../../contexts";
 
-function ExplorePeopleCard({ user, requestReceive }) {
+function ExplorePeopleCard({ user, requestReceive, requestSent }) {
   const { Users } = useAuth();
   const { currSessionUserId } = useCurrSessionUser();
   const { currUserId } = useCurrUser();
@@ -14,14 +14,19 @@ function ExplorePeopleCard({ user, requestReceive }) {
 
   const userInfo = Users.find((currUser) => currUser.id === user);
   const userId = currSessionUserId || currUserId;
+
+  const handleAdd = () => {
+    addConnection(user, userId);
+    deleteRequest(user, userId);
+  }
   return (
     <div className="flex justify-between items-center pt-4 pb-4 border-b-2 border-gray-300">
       <div className="flex gap-4 items-center">
         <div className="w-10 h-10">
           <img
-            src="https://cdn-icons-png.flaticon.com/128/4333/4333609.png"
+            src={userInfo.image || "https://cdn-icons-png.flaticon.com/128/4333/4333609.png"}
             alt=""
-            className="w-full h-full"
+            className="w-full h-full rounded-full"
           />
         </div>
         <div>
@@ -34,7 +39,7 @@ function ExplorePeopleCard({ user, requestReceive }) {
           {requestReceive ? (
             <div className="flex gap-4">
               <button className="text-[14px] font-semibold text-green-700 border-2 border-green-300 px-2 py-1 rounded-md"
-              onClick={() => addConnection(userId, user)}
+              onClick={handleAdd}
               >
                 Accept
               </button>
@@ -45,6 +50,7 @@ function ExplorePeopleCard({ user, requestReceive }) {
               </button>
             </div>
           ) : (
+            requestSent ? "Request is sent" :
             <button className="text-[14px] font-semibold text-purple-700 border-2 border-purple-300 px-2 py-1 rounded-md"
             onClick={() => addRequest(userId, user)}
             >
