@@ -29,9 +29,9 @@ function Explore() {
   const requestReceived = pendingRequest
     .filter((request) => request.receiver === userId)
     .map((user) => user.sender);
-  const requestSent = pendingRequest.filter(
-    (request) => request.sender === userId,
-  ).map((user) => user.receiver);
+  const requestSent = pendingRequest
+    .filter((request) => request.sender === userId)
+    .map((user) => user.receiver);
   const otherUsers = allUsers.filter(
     (user) => !connectedUsers.includes(user) && !requestSent.includes(user),
   );
@@ -90,6 +90,7 @@ function Explore() {
                   <ExplorePeopleCard
                     user={user}
                     requestReceive={requestReceived.includes(user)}
+                    requestSent={requestSent.includes(user)}
                   />
                 </div>
               ))
