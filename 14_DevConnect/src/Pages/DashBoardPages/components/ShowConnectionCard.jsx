@@ -10,13 +10,19 @@ function ShowConnectionCard({ userId }) {
   const { Users } = useAuth();
   const { currSessionUserId } = useCurrSessionUser();
   const { currUserId } = useCurrUser();
-  const { connections, pendingRequest, addRequest, deleteRequest, addConnection, deleteConnection } =
-    useConnection();
+  const {
+    connections,
+    pendingRequest,
+    addRequest,
+    deleteRequest,
+    addConnection,
+    deleteConnection,
+  } = useConnection();
 
   const userInfo = Users.find((curr) => curr.id === userId);
   const currId = currUserId || currSessionUserId;
 
-  const [connected, setConnected] = useState(1)
+  const [connected, setConnected] = useState(1);
 
   useEffect(() => {
     const filtered = pendingRequest.filter(
@@ -40,7 +46,6 @@ function ShowConnectionCard({ userId }) {
   }, [currId, userId, connections]);
 
   const handleConnect = () => {
-    if(!(connected == 1 || connected == 2)) return
     if (connected == 2) {
       deleteRequest(currId, userId);
     } else if (connected == 1) {
@@ -52,21 +57,24 @@ function ShowConnectionCard({ userId }) {
   const handleAccept = () => {
     addConnection(currId, userId);
     deleteRequest(currId, userId);
-    setConnected(4)
+    setConnected(4);
   };
 
   const handleReject = () => {
     deleteRequest(currId, userId);
-    setConnected(1)
+    setConnected(1);
   };
 
   const handleDisconnect = () => {
     deleteConnection(currId, userId);
-    setConnected(1)
-  }
+    setConnected(1);
+  };
 
   return (
-    <div className="flex w-full justify-between border-b-2 pb-4 border-gray-300">
+    <div
+      className="flex w-full justify-between border-b-2 pb-4 border-gray-300"
+      key={userId}
+    >
       <div className="flex gap-4 items-center">
         <div className="h-12 w-12 flex">
           <img
@@ -86,42 +94,50 @@ function ShowConnectionCard({ userId }) {
         </div>
       </div>
       <div>
-        <button
-          className={`${connected === 1 ? "block" : "hidden"} font-semibold text-white bg-purple-700 px-3 py-2 rounded-lg text-[14px]`}
-          onClick={handleConnect}
-        >
-          Connect
-        </button>
-        <button
-          className={`${connected === 2 ? "block" : "hidden"} font-semibold text-purple-800 border-2 bg-white px-2 py-2 rounded-lg text-[14px]`}
-          onClick={handleConnect}
-        >
-          Request Sent
-        </button>
-        <div
-          className={`${connected === 3 ? "block" : "hidden"} flex gap-4 font-semibold text-green-800 bg-white rounded-lg text-[14px]`}
-        >
+        {connected == 1 && (
           <button
-            onClick={handleAccept}
-            className="text-green-800 border-2 bg-white px-2 py-2 rounded-lg"
+            className={`font-semibold text-white bg-purple-700 px-3 py-2 rounded-lg text-[14px]`}
+            onClick={handleConnect}
           >
-            {" "}
-            Accept{" "}
+            Connect
           </button>
+        )}
+        {connected == 2 && (
           <button
-            onClick={handleReject}
-            className="text-red-600 border-2 bg-white px-2 py-2 rounded-lg"
+            className={`font-semibold text-purple-800 border-2 bg-white px-2 py-2 rounded-lg text-[14px]`}
+            onClick={handleConnect}
           >
-            {" "}
-            Reject{" "}
+            Request Sent
           </button>
-        </div>
-        <button
-          className={`${connected === 4 ? "block" : "hidden"} font-semibold text-green-800 border-2 bg-white px-2 py-2 rounded-lg text-[14px]`}
-          onClick={handleDisconnect}
-        >
-          Connected
-        </button>
+        )}
+        {connected == 3 && (
+          <div
+            className={`flex gap-4 font-semibold text-green-800 bg-white rounded-lg text-[14px]`}
+          >
+            <button
+              onClick={handleAccept}
+              className="text-green-800 border-2 bg-white px-2 py-2 rounded-lg"
+            >
+              {" "}
+              Accept{" "}
+            </button>
+            <button
+              onClick={handleReject}
+              className="text-red-600 border-2 bg-white px-2 py-2 rounded-lg"
+            >
+              {" "}
+              Reject{" "}
+            </button>
+          </div>
+        )}
+        {connected == 4 && (
+          <button
+            className={`font-semibold text-green-800 border-2 bg-white px-2 py-2 rounded-lg text-[14px]`}
+            onClick={handleDisconnect}
+          >
+            Connected
+          </button>
+        )}
       </div>
     </div>
   );
