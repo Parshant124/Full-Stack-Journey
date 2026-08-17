@@ -33,7 +33,7 @@ function Explore() {
     .filter((request) => request.sender === userId)
     .map((user) => user.receiver);
   const otherUsers = allUsers.filter(
-    (user) => !connectedUsers.includes(user) && !requestSent.includes(user),
+    (user) => !connectedUsers.includes(user) && !requestSent.includes(user) && !requestReceived.includes(user),
   );
 
   return (
@@ -55,7 +55,7 @@ function Explore() {
           name=""
           id=""
           placeholder="Search people, projects..."
-          className="text-[14px]"
+          className="text-[14px] w-full outline-none"
         />
       </div>
       <div className="flex gap-2">
