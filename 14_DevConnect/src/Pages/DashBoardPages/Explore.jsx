@@ -2,17 +2,22 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import {
   useAuth,
+  useBookMark,
   useConnection,
   useCurrSessionUser,
   useCurrUser,
+  useProject,
 } from "../../contexts";
 import ExplorePeopleCard from "./components/ExplorePeopleCard";
+import ExploreProjectCard from "./components/ExploreProjectCard";
 
 function Explore() {
   const { Users } = useAuth();
   const { connections, pendingRequest } = useConnection();
   const { currSessionUserId } = useCurrSessionUser();
   const { currUserId } = useCurrUser();
+  const { projects } = useProject();
+  const { bookmarks } = useBookMark();
 
   const userId = currSessionUserId || currUserId;
 
@@ -33,8 +38,21 @@ function Explore() {
     .filter((request) => request.sender === userId)
     .map((user) => user.receiver);
   const otherUsers = allUsers.filter(
-    (user) => !connectedUsers.includes(user) && !requestSent.includes(user) && !requestReceived.includes(user),
+    (user) =>
+      !connectedUsers.includes(user) &&
+      !requestSent.includes(user) &&
+      !requestReceived.includes(user),
   );
+
+  const othersProject = projects.filter(
+    (project) => userId !== project.userId && project.visibility === "Public",
+  );
+
+  const toShowProject = othersProject.slice(0, 5);
+
+  const myBookMarks = bookmarks
+    .filter((bookmark) => bookmark.user === userId)
+    .map((project) => project.project);
 
   return (
     <div className="p-4 flex flex-col gap-4 bg-gray-100 h-full w-full">
@@ -75,7 +93,7 @@ function Explore() {
           Projects
         </NavLink>
       </div>
-      <div className="w-full flex gap-6 h-full">
+      <div className="w-full flex gap-6 h-108">
         <div className="w-1/2 bg-white p-4 flex flex-col gap-4 rounded-lg shadow-md">
           <div className="flex justify-between">
             <h2 className="font-semibold">People to follow</h2>
@@ -86,13 +104,11 @@ function Explore() {
           <div className="w-full h-full">
             {otherUsers.length ? (
               otherUsers.map((user) => (
-                <div key={user}>
-                  <ExplorePeopleCard
-                    user={user}
-                    requestReceive={requestReceived.includes(user)}
-                    requestSent={requestSent.includes(user)}
-                  />
-                </div>
+                <ExplorePeopleCard
+                  user={user}
+                  requestReceive={requestReceived.includes(user)}
+                  requestSent={requestSent.includes(user)}
+                />
               ))
             ) : (
               <div className="flex w-full justify-center items-center h-full">
@@ -101,12 +117,26 @@ function Explore() {
             )}
           </div>
         </div>
-        <div className="w-1/2 bg-white p-4 rounded-lg shadow-md">
+        <div className="w-1/2 bg-white p-4 flex flex-col gap-4 rounded-lg shadow-md">
           <div className="flex justify-between">
-            <h2 className="font-semibold text-[14px]">Trending Projects</h2>
+            <h2 className="font-semibold">Trending Projects</h2>
             <NavLink to="/projects" className="text-purple-600 text-[14px]">
               View all
             </NavLink>
+          </div>
+          <div className="w-full h-full">
+            {toShowProject.length ? (
+              toShowProject.map((project) => (
+                <ExploreProjectCard
+                  project={project}
+                  bookmarked={myBookMarks.includes(project.createdOn)}
+                />
+              ))
+            ) : (
+              <div className="flex w-full justify-center items-center h-full">
+                <h4 className="text-3xl font-bold text-gray-600">Nothing...</h4>
+              </div>
+            )}
           </div>
         </div>
       </div>
