@@ -318,7 +318,7 @@ function Settings() {
             </div>
             <div className="flex flex-col w-2/5">
               <label htmlFor="domain" className="font-semibold text-[14px]">
-                Select domain
+                Select course
               </label>
               <select
                 name=""
