@@ -89,7 +89,7 @@ function ShowConnectionCard({ userId }) {
         <div>
           <h2 className="font-semibold ">{userInfo.fullName}</h2>
           <h4 className="text-[14px] text-gray-600">
-            {userInfo.about || "User about not given"}
+            {userInfo.bio || "User bio not given"}
           </h4>
         </div>
       </div>
