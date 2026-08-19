@@ -88,7 +88,7 @@ function Settings() {
   };
 
   const handleAbout = (about) => {
-    if (about.length > 100) {
+    if (about.length > 200) {
       setValidAbout(false);
       return;
     }
@@ -281,7 +281,7 @@ function Settings() {
             <h4
               className={`text-[12px] font-semibold text-right ${validAbout ? "text-purple-600" : "text-red-600"}`}
             >
-              {aboutValue.length} / 100
+              {aboutValue.length} / 200
             </h4>
           </div>
           <div className="flex flex-col">
