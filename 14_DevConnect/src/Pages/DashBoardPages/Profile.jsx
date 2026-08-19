@@ -166,22 +166,74 @@ function Profile() {
         </NavLink>
       </div>
       <div className="flex py-4 gap-4">
-        <div className="w-1/2 p-4 bg-white rounded-lg shadow-lg flex gap-4 flex-col">
-          <div className="flex items-center gap-2">
+        <div className="w-1/2 p-4 bg-white rounded-lg shadow-lg flex flex-col">
+          <div className="flex flex-col gap-4 border-b-2 border-gray-300 pb-4">
+            <div className="flex items-center gap-2">
+              <div className="w-6 h-6">
+                <img
+                  src="https://cdn-icons-png.flaticon.com/128/14627/14627400.png"
+                  alt=""
+                />
+              </div>
+              <h4 className="font-semibold text-[14px]">About me</h4>
+            </div>
+            <h2 className="text-[14px]">{userInfo.about}</h2>
+          </div>
+          <div className="flex flex-col gap-4 py-4">
+            <div className="flex gap-2 items-center">
+              <div className="w-6 h-6">
+                <img
+                  src="https://cdn-icons-png.flaticon.com/128/5352/5352120.png"
+                  alt=""
+                />
+              </div>
+              <div>
+                <h2 className="text-[14px] font-semibold">College</h2>
+                <h4 className="text-gray-600 text-[14px]">
+                  {userInfo.college || "not given"}
+                </h4>
+              </div>
+            </div>
+            <div className="flex gap-2 items-center">
+              <div className="w-6 h-6">
+                <img
+                  src="https://cdn-icons-png.flaticon.com/128/3645/3645392.png"
+                  alt=""
+                />
+              </div>
+              <div>
+                <h2 className="text-[14px] font-semibold">Education</h2>
+                <h4 className="text-gray-600 text-[14px]">
+                  {userInfo.course || "not given"}
+                </h4>
+              </div>
+            </div>
+            <div className="flex gap-2 items-center">
+              <div className="w-6 h-6">
+                <img
+                  src="https://cdn-icons-png.flaticon.com/128/732/732200.png"
+                  alt=""
+                />
+              </div>
+              <div>
+                <h2 className="text-[14px] font-semibold">Email</h2>
+                <h4 className="text-gray-600 text-[14px]">
+                  {userInfo.email || "not given"}
+                </h4>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="w-1/2 p-4 bg-white rounded-lg shadow-lg">
+          <div className="flex gap-2 items-center">
             <div className="w-6 h-6">
               <img
-                src="https://cdn-icons-png.flaticon.com/128/14627/14627400.png"
+                src="https://cdn-icons-png.flaticon.com/128/11471/11471391.png"
                 alt=""
               />
             </div>
-            <h4 className="font-semibold text-[14px]">About me</h4>
+            <h3 className="text-[14px] font-semibold">Recent Projects</h3>
           </div>
-          <h2 className="text-[14px]">
-            {userInfo.about}
-          </h2>
-        </div>
-        <div className="w-1/2 p-4 bg-white rounded-lg shadow-lg">
-          Recent Projects
         </div>
       </div>
     </div>
