@@ -6,7 +6,11 @@ export const AuthContext = createContext({
     changePass: (userId, pass) => {},
     changeBio: (userId, bio) => {},
     changeImage: (userId, image) => {},
-    changeFullName: (userId, fullName) => {}
+    changeFullName: (userId, fullName) => {},
+    changeAbout: (userId, about) => {},
+    changeDomain: (userId, domain) => {},
+    changeCourse: (userId, course) => {},
+    changeCollege: (usedId, college) => {}
 })
 
 export const AuthProvider = AuthContext.Provider

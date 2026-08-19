@@ -83,9 +83,23 @@ function App() {
 
   const changeBio = (userId, bio) => {
     setUsers((prev) =>
-      prev.map((user) => (user.id === userId ? { ...user, about: bio } : user)),
+      prev.map((user) => (user.id === userId ? { ...user, bio: bio } : user)),
     );
   };
+  
+  const changeAbout = (userId, about) => {
+    setUsers((prev) =>
+      prev.map((user) => (user.id === userId ? { ...user, about: about } : user)),
+    );
+  }
+
+  const changeDomain = (userId, domain) => {
+    setUsers((prev) =>
+      prev.map((user) =>
+        user.id === userId ? { ...user, domain: domain } : user,
+      ),
+    );
+  }
 
   const changeImage = (userId, image) => {
     setUsers((prev) =>
@@ -99,6 +113,22 @@ function App() {
     setUsers((prev) =>
       prev.map((user) =>
         user.id === userId ? { ...user, fullName: fullName } : user,
+      ),
+    );
+  };
+
+  const changeCourse = (userId, course) => {
+    setUsers((prev) =>
+      prev.map((user) =>
+        user.id === userId ? { ...user, course: course } : user,
+      ),
+    );
+  };
+
+  const changeCollege = (userId, college) => {
+    setUsers((prev) =>
+      prev.map((user) =>
+        user.id === userId ? { ...user, college: college } : user,
       ),
     );
   };
@@ -336,6 +366,10 @@ function App() {
         changeBio,
         changeImage,
         changeFullName,
+        changeAbout,
+        changeDomain,
+        changeCollege,
+        changeCourse
       }}
     >
       <CurrSessionUserProvider
