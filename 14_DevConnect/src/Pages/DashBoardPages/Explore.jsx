@@ -97,7 +97,10 @@ function Explore() {
         <div className="w-1/2 bg-white p-4 flex flex-col gap-4 rounded-lg shadow-md">
           <div className="flex justify-between">
             <h2 className="font-semibold">People to follow</h2>
-            <NavLink to="/connections" className="text-purple-800 text-[14px]">
+            <NavLink
+              to="/connections"
+              className="text-purple-600 text-[14px] hover:underline underline-offset-2"
+            >
               View all
             </NavLink>
           </div>
@@ -120,7 +123,10 @@ function Explore() {
         <div className="w-1/2 bg-white p-4 flex flex-col gap-4 rounded-lg shadow-md">
           <div className="flex justify-between">
             <h2 className="font-semibold">Trending Projects</h2>
-            <NavLink to="/projects" className="text-purple-600 text-[14px]">
+            <NavLink
+              to="/projects"
+              className="text-purple-600 text-[14px] hover:underline underline-offset-2"
+            >
               View all
             </NavLink>
           </div>
