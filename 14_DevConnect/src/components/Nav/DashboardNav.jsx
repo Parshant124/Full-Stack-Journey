@@ -12,7 +12,7 @@ function DashboardNav() {
   const userInfo = Users.find((user) => user.id === currUser);
 
   return (
-    <div className="flex w-full justify-between">
+    <div className="flex w-full justify-between py-2">
       <div className="w-3/5 flex justify-between items-center font-medium">
         <NavLink
           to="/dashboard"
