@@ -31,6 +31,8 @@ import {
   CurrSessionUserProvider,
   AuthProvider,
 } from "./contexts/index";
+import User from "./Pages/DashBoardPages/User.jsx";
+import UserProject from "./Pages/DashBoardPages/UserProject.jsx";
 
 function App() {
   const [currUserId, setCurrUserId] = useState(() => {
@@ -86,12 +88,14 @@ function App() {
       prev.map((user) => (user.id === userId ? { ...user, bio: bio } : user)),
     );
   };
-  
+
   const changeAbout = (userId, about) => {
     setUsers((prev) =>
-      prev.map((user) => (user.id === userId ? { ...user, about: about } : user)),
+      prev.map((user) =>
+        user.id === userId ? { ...user, about: about } : user,
+      ),
     );
-  }
+  };
 
   const changeDomain = (userId, domain) => {
     setUsers((prev) =>
@@ -99,7 +103,7 @@ function App() {
         user.id === userId ? { ...user, domain: domain } : user,
       ),
     );
-  }
+  };
 
   const changeImage = (userId, image) => {
     setUsers((prev) =>
@@ -351,6 +355,29 @@ function App() {
               )
             }
           />
+          <Route
+            path="user"
+            element={
+              !(currUserId === "" && currSessionUserId === "") ? (
+                <User />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          >
+            <Route
+              path=":userName"
+              element={
+                !(currUserId === "" && currSessionUserId === "") ? (
+                  <User />
+                ) : (
+                  <Navigate to="/login" />
+                )
+              }
+            >
+              {/* <Route path="/project" element={<UserProject />} /> */}
+            </Route>
+          </Route>
         </Route>
         ,
       </>,
@@ -369,7 +396,7 @@ function App() {
         changeAbout,
         changeDomain,
         changeCollege,
-        changeCourse
+        changeCourse,
       }}
     >
       <CurrSessionUserProvider
