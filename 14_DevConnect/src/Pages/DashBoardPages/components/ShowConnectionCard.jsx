@@ -5,6 +5,7 @@ import {
   useCurrSessionUser,
   useCurrUser,
 } from "../../../contexts";
+import { NavLink } from "react-router-dom";
 
 function ShowConnectionCard({ userId }) {
   const { Users } = useAuth();
@@ -75,7 +76,7 @@ function ShowConnectionCard({ userId }) {
       className="flex w-full justify-between border-b-2 pb-4 border-gray-300"
       key={userId}
     >
-      <div className="flex gap-4 items-center">
+      <NavLink to={`/user/${userInfo.id}`} className="flex gap-4 items-center">
         <div className="h-12 w-12 flex">
           <img
             src={
@@ -92,7 +93,7 @@ function ShowConnectionCard({ userId }) {
             {userInfo.bio || "User bio not given"}
           </h4>
         </div>
-      </div>
+      </NavLink>
       <div>
         {connected == 1 && (
           <button
