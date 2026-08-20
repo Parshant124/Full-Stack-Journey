@@ -235,24 +235,29 @@ function Profile() {
             </div>
             <h3 className="text-[14px] font-semibold">Recent Projects</h3>
           </div>
-          <div className="flex justify-between items-center">
+          <div className="flex w-full gap-6 overflow-hidden">
             {showProjects.length ? (
               showProjects.map((project) => (
-                <div key={project.createdOn} className="w-50  hover:bg-gray-200 rounded-xl p-2">
-                  <div className="h-30 flex">
+                <div
+                  key={project.createdOn}
+                  className="flex-1 min-w-0 flex flex-col rounded-xl overflow-hidden hover:bg-gray-200 p-2"
+                >
+                  <div className="w-full aspect-video overflow-hidden">
                     <img
                       src={
                         project.image ||
-                        `https://images.pexels.com/photos/37893956/pexels-photo-37893956.jpeg`
+                        "https://images.pexels.com/photos/37893956/pexels-photo-37893956.jpeg"
                       }
                       alt=""
-                      className="rounded-t-xl"
+                      className="w-full h-full object-cover rounded-t-xl"
                     />
                   </div>
-                  <h2 className="text-lg font-bold whitespace-nowrap overflow-hidden text-ellipsis">
+
+                  <h2 className="text-lg font-bold truncate text-center">
                     {project.name}
                   </h2>
-                  <h4 className="text-[14px] text-gray-600 whitespace-nowrap overflow-hidden text-ellipsis line-clamp-2 text-center">
+
+                  <h4 className="text-[14px] text-gray-600 line-clamp-2 text-center">
                     {project.desc}
                   </h4>
                 </div>
@@ -261,17 +266,20 @@ function Profile() {
               <h3 className="text-gray-600 text-2xl font-bold">Nothing...</h3>
             )}
           </div>
-          <NavLink to="/myprojects" className="flex justify-end py-2">
-          <div className="flex items-center gap-2 hover:border-b-2 w-fit border-purple-400">
-            <h4 className="text-[14px] text-purple-600">View all</h4>
-            <div className="w-5">
-              <img
-                src="https://cdn-icons-png.flaticon.com/128/11573/11573863.png"
-                alt=""
-              />
-            </div>
-            </div>
-          </NavLink>
+
+          {showProjects.length > 3 && (
+            <NavLink to="/myprojects" className="flex justify-end py-2">
+              <div className="flex items-center gap-2 hover:border-b-2 w-fit border-purple-400">
+                <h4 className="text-[14px] text-purple-600">View all</h4>
+                <div className="w-5">
+                  <img
+                    src="https://cdn-icons-png.flaticon.com/128/11573/11573863.png"
+                    alt=""
+                  />
+                </div>
+              </div>
+            </NavLink>
+          )}
         </div>
       </div>
     </div>
