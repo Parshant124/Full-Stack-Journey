@@ -212,18 +212,18 @@ function Settings() {
             </div>
           </div>
           <div className="bg-gray-100 p-4 rounded-lg flex flex-col items-center gap-4">
-            {currUser.image ? (
+            {image ? (
               <div className="h-22 w-22 flex">
                 <img
-                  src={currUser.image}
+                  src={image}
                   alt=""
                   className="w-full h-full rounded-full object-cover"
                 />
               </div>
-            ) : image ? (
+            ) : currUser.image ? (
               <div className="w-20 h-20 flex">
                 <img
-                  src={image}
+                  src={currUser.image}
                   alt=""
                   className="rounded-full w-full h-full object-cover"
                 />
