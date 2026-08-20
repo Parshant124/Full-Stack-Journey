@@ -32,6 +32,7 @@ function Profile() {
     );
 
   const myProjects = projects.filter((project) => project.userId === userId);
+  const showProjects = myProjects.slice(0, 3);
 
   const taskCompleted = tasks.filter(
     (task) => task.userId === userId && task.completed,
@@ -224,7 +225,7 @@ function Profile() {
             </div>
           </div>
         </div>
-        <div className="w-1/2 p-4 bg-white rounded-lg shadow-lg">
+        <div className="w-1/2 p-4 bg-white rounded-lg shadow-lg flex flex-col gap-4">
           <div className="flex gap-2 items-center">
             <div className="w-6 h-6">
               <img
@@ -234,6 +235,43 @@ function Profile() {
             </div>
             <h3 className="text-[14px] font-semibold">Recent Projects</h3>
           </div>
+          <div className="flex justify-between items-center">
+            {showProjects.length ? (
+              showProjects.map((project) => (
+                <div key={project.createdOn} className="w-50  hover:bg-gray-200 rounded-xl p-2">
+                  <div className="h-30 flex">
+                    <img
+                      src={
+                        project.image ||
+                        `https://images.pexels.com/photos/37893956/pexels-photo-37893956.jpeg`
+                      }
+                      alt=""
+                      className="rounded-t-xl"
+                    />
+                  </div>
+                  <h2 className="text-lg font-bold whitespace-nowrap overflow-hidden text-ellipsis">
+                    {project.name}
+                  </h2>
+                  <h4 className="text-[14px] text-gray-600 whitespace-nowrap overflow-hidden text-ellipsis line-clamp-2 text-center">
+                    {project.desc}
+                  </h4>
+                </div>
+              ))
+            ) : (
+              <h3 className="text-gray-600 text-2xl font-bold">Nothing...</h3>
+            )}
+          </div>
+          <NavLink to="/myprojects" className="flex justify-end py-2">
+          <div className="flex items-center gap-2 hover:border-b-2 w-fit border-purple-400">
+            <h4 className="text-[14px] text-purple-600">View all</h4>
+            <div className="w-5">
+              <img
+                src="https://cdn-icons-png.flaticon.com/128/11573/11573863.png"
+                alt=""
+              />
+            </div>
+            </div>
+          </NavLink>
         </div>
       </div>
     </div>
