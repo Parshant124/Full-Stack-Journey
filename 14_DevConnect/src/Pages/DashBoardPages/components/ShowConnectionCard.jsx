@@ -76,7 +76,7 @@ function ShowConnectionCard({ userId }) {
       className="flex w-full justify-between border-b-2 pb-4 border-gray-300"
       key={userId}
     >
-      <NavLink to={`/user/${userInfo.id}`} className="flex gap-4 items-center">
+      <NavLink to={`/profile/${userInfo.id}`} className="flex gap-4 items-center">
         <div className="h-12 w-12 flex">
           <img
             src={
