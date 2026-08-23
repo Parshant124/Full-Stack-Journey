@@ -44,7 +44,10 @@ function Profile() {
           <div className="flex gap-4 items-center">
             <div className="h-45 w-45 flex">
               <img
-                src={userInfo.image}
+                src={
+                  userInfo.image ||
+                  `https://images.pexels.com/photos/38453533/pexels-photo-38453533.jpeg`
+                }
                 alt=""
                 className="w-full h-full object-cover rounded-full border-2 p-1 border-purple-600"
               />
