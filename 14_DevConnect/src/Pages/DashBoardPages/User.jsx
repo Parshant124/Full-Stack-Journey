@@ -15,7 +15,14 @@ function User() {
   const { userName } = useParams();
   const { Users } = useAuth();
   const userInfo = Users.find((user) => user.id === userName);
-  const { connections, pendingRequest, addConnection, deleteConnection, deleteRequest, addRequest } = useConnection();
+  const {
+    connections,
+    pendingRequest,
+    addConnection,
+    deleteConnection,
+    deleteRequest,
+    addRequest,
+  } = useConnection();
   const { tasks } = useTasks();
   const { projects } = useProject();
   const { currSessionUserId } = useCurrSessionUser();
@@ -63,34 +70,34 @@ function User() {
 
   const handleRemoveConnection = () => {
     setShowMessage(true);
-  }
+  };
 
   const handleYesRemove = () => {
     setShowMessage(false);
     deleteConnection(currId, userId);
     setConnectionStatus(4);
-  }
+  };
 
   const handleDeleteRequest = () => {
-   deleteRequest(userId, currId);
-   setConnectionStatus(4);
-  }
+    deleteRequest(userId, currId);
+    setConnectionStatus(4);
+  };
 
   const handleAcceptRequest = () => {
     deleteRequest(userId, currId);
     addConnection(userId, currId);
     setConnectionStatus(1);
-  }
+  };
 
   const handleRejectRequest = () => {
     deleteRequest(userId, currId);
     setConnectionStatus(4);
-  }
+  };
 
   const handleConnect = () => {
     addRequest(currId, userId);
     setConnectionStatus(2);
-  }
+  };
   return (
     <div className="p-4 bg-gray-100 min-h-full relative">
       <div className="bg-white p-4 rounded-lg shadow-lg">
@@ -121,17 +128,6 @@ function User() {
               <h4 className="text-[14px]">{userInfo.bio || ""}</h4>
             </div>
           </div>
-          <NavLink
-            to="/setting"
-            className="text-[14px] text-purple-800 border-2 border-purple-600 h-fit px-2 py-1 rounded-lg flex gap-2"
-          >
-            <img
-              src="https://cdn-icons-png.flaticon.com/128/2040/2040510.png"
-              alt=""
-              className="w-5 h-5"
-            />
-            <h4>Edit Profile</h4>
-          </NavLink>
         </div>
         <div className="border-b-2 pb-4 border-gray-300 flex justify-center pt-2">
           {connectionStatus === 1 && (
@@ -153,19 +149,25 @@ function User() {
           )}
           {connectionStatus === 3 && (
             <div className="w-1/2 flex justify-around">
-              <button className="w-1/3 border-2 text-green-800 px-4 py-2 rounded-md font-semibold"
-              onClick={handleAcceptRequest}>
+              <button
+                className="w-1/3 border-2 text-green-800 px-4 py-2 rounded-md font-semibold"
+                onClick={handleAcceptRequest}
+              >
                 Accept
               </button>
-              <button className="w-1/3 border-2 text-red-600 px-4 py-2 rounded-md font-semibold"
-              onClick={handleRejectRequest}>
+              <button
+                className="w-1/3 border-2 text-red-600 px-4 py-2 rounded-md font-semibold"
+                onClick={handleRejectRequest}
+              >
                 Reject
               </button>
             </div>
           )}
           {connectionStatus === 4 && (
-            <button className="border-2 w-full py-2 bg-purple-600 text-white rounded-lg font-semibold"
-            onClick={handleConnect}>
+            <button
+              className="border-2 w-full py-2 bg-purple-600 text-white rounded-lg font-semibold"
+              onClick={handleConnect}
+            >
               Connect
             </button>
           )}
