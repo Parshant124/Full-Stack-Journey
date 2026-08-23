@@ -24,8 +24,10 @@ function User() {
         : connection.receiverId,
     );
 
-  const myProjects = projects.filter((project) => project.userId === userId);
-  const showProjects = myProjects.slice(0, 3);
+  const myProjects = projects.filter(
+    (project) => project.userId === userId,
+  );
+  const showProjects = myProjects.filter((project) => project.visibility === "Public").slice(0, 3);
 
   const taskCompleted = tasks.filter(
     (task) => task.userId === userId && task.completed,
@@ -50,9 +52,9 @@ function User() {
                 <h2 className="font-bold text-3xl">{userInfo.fullName}</h2>
                 <div className="flex gap-4 items-center">
                   <h4 className="text-gray-600">@{userInfo.id}</h4>
-                  <h4 className="bg-purple-200 text-purple-700 text-[14px] py-1 px-2 rounded-full">
-                    {userInfo.domain || ""}
-                  </h4>
+                  {userInfo.domain && <h4 className="bg-purple-200 text-purple-700 text-[14px] py-1 px-2 rounded-full">
+                    {userInfo.domain}
+                  </h4>}
                 </div>
               </div>
               <h4 className="text-[14px]">{userInfo.bio || ""}</h4>
@@ -126,7 +128,7 @@ function User() {
           <h4>Overview</h4>
         </div>
         <NavLink
-          to="/myprojects"
+          to={`/projects/${userName}`}
           className="w-1/4 flex justify-center text-gray-600 gap-2 items-center"
         >
           <div className="w-6 h-6">
@@ -138,7 +140,7 @@ function User() {
           <h4>Projects</h4>
         </NavLink>
         <NavLink
-          to="/tasks"
+          to={`/tasks/${userName}`}
           className="w-1/4 flex justify-center text-gray-600 gap-2 items-center"
         >
           <div className="w-6 h-6">
@@ -150,7 +152,7 @@ function User() {
           <h4>Tasks</h4>
         </NavLink>
         <NavLink
-          to="/connections"
+          to={`/connections/${userName}`}
           className="w-1/4 flex justify-center text-gray-600 gap-2 items-center"
         >
           <div className="w-6 h-6">
@@ -231,12 +233,13 @@ function User() {
             </div>
             <h3 className="text-[14px] font-semibold">Recent Projects</h3>
           </div>
-          <div className="flex w-full gap-6 overflow-hidden">
-            {showProjects.length ? (
+          <div className="flex gap-6 w-full overflow-hidden">
+            {showProjects.length > 0 ? (
               showProjects.map((project) => (
                 <div
                   key={project.createdOn}
-                  className="flex-1 min-w-0 flex flex-col rounded-xl overflow-hidden hover:bg-gray-200 p-2"
+                  title={project.name}
+                  className="flex-[0_0_calc((100%-3rem)/3)] min-w-0 flex flex-col rounded-xl overflow-hidden hover:bg-gray-200"
                 >
                   <div className="w-full aspect-video overflow-hidden">
                     <img
@@ -245,7 +248,7 @@ function User() {
                         "https://images.pexels.com/photos/37893956/pexels-photo-37893956.jpeg"
                       }
                       alt=""
-                      className="w-full h-full object-cover rounded-t-xl"
+                      className="w-full h-full object-cover"
                     />
                   </div>
 
@@ -262,17 +265,19 @@ function User() {
               <h3 className="text-gray-600 text-2xl font-bold">Nothing...</h3>
             )}
           </div>
-          {showProjects.length > 3 && <NavLink to="/myprojects" className="flex justify-end py-2">
-            <div className="flex items-center gap-2 hover:border-b-2 w-fit border-purple-400">
-              <h4 className="text-[14px] text-purple-600">View all</h4>
-              <div className="w-5">
-                <img
-                  src="https://cdn-icons-png.flaticon.com/128/11573/11573863.png"
-                  alt=""
-                />
+          {showProjects.length > 3 && (
+            <NavLink to="/myprojects" className="flex justify-end py-2">
+              <div className="flex items-center gap-2 hover:border-b-2 w-fit border-purple-400">
+                <h4 className="text-[14px] text-purple-600">View all</h4>
+                <div className="w-5">
+                  <img
+                    src="https://cdn-icons-png.flaticon.com/128/11573/11573863.png"
+                    alt=""
+                  />
+                </div>
               </div>
-            </div>
-          </NavLink>}
+            </NavLink>
+          )}
         </div>
       </div>
     </div>
