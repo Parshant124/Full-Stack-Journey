@@ -1,15 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-import { useAuth, useConnection, useProject, useTasks } from "../../contexts";
+import {
+  useAuth,
+  useConnection,
+  useCurrSessionUser,
+  useCurrUser,
+  useProject,
+  useTasks,
+} from "../../contexts";
 import { NavLink } from "react-router-dom";
 
 function User() {
+  const [showMessage, setShowMessage] = useState(false);
   const { userName } = useParams();
   const { Users } = useAuth();
   const userInfo = Users.find((user) => user.id === userName);
-  const { connections } = useConnection();
+  const { connections, pendingRequest, addConnection, deleteConnection, deleteRequest, addRequest } = useConnection();
   const { tasks } = useTasks();
   const { projects } = useProject();
+  const { currSessionUserId } = useCurrSessionUser();
+  const { currUserId } = useCurrUser();
+  const currId = currSessionUserId || currUserId;
 
   const userId = userInfo.id;
 
@@ -20,28 +31,76 @@ function User() {
     )
     .map((connection) =>
       connection.senderId === userId
-        ? connection.senderId
-        : connection.receiverId,
+        ? connection.receiverId
+        : connection.senderId,
     );
+  const requestSent = pendingRequest
+    .filter((request) => request.sender === currId)
+    .map((request) => request.receiver);
 
-  const myProjects = projects.filter(
-    (project) => project.userId === userId,
-  );
-  const showProjects = myProjects.filter((project) => project.visibility === "Public").slice(0, 3);
+  const requestReceived = pendingRequest
+    .filter((request) => request.receiver === currId)
+    .map((request) => request.sender);
+
+  const [connectionStatus, setConnectionStatus] = useState(() => {
+    return myConnection.includes(currId)
+      ? 1
+      : requestSent.includes(userId)
+        ? 2
+        : requestReceived.includes(userId)
+          ? 3
+          : 4;
+  });
+
+  const myProjects = projects.filter((project) => project.userId === userId);
+  const showProjects = myProjects
+    .filter((project) => project.visibility === "Public")
+    .slice(0, 3);
 
   const taskCompleted = tasks.filter(
     (task) => task.userId === userId && task.completed,
   );
+
+  const handleRemoveConnection = () => {
+    setShowMessage(true);
+  }
+
+  const handleYesRemove = () => {
+    setShowMessage(false);
+    deleteConnection(currId, userId);
+    setConnectionStatus(4);
+  }
+
+  const handleDeleteRequest = () => {
+   deleteRequest(userId, currId);
+   setConnectionStatus(4);
+  }
+
+  const handleAcceptRequest = () => {
+    deleteRequest(userId, currId);
+    addConnection(userId, currId);
+    setConnectionStatus(1);
+  }
+
+  const handleRejectRequest = () => {
+    deleteRequest(userId, currId);
+    setConnectionStatus(4);
+  }
+
+  const handleConnect = () => {
+    addRequest(currId, userId);
+    setConnectionStatus(2);
+  }
   return (
-    <div className="p-4 bg-gray-100 h-screen">
+    <div className="p-4 bg-gray-100 min-h-full relative">
       <div className="bg-white p-4 rounded-lg shadow-lg">
-        <div className="flex justify-between border-b-2 pb-8 border-gray-300">
+        <div className="flex justify-between">
           <div className="flex gap-4 items-center">
             <div className="h-45 w-45 flex">
               <img
                 src={
                   userInfo.image ||
-                  `https://images.pexels.com/photos/13649224/pexels-photo-13649224.jpeg`
+                  `https://images.pexels.com/photos/13737923/pexels-photo-13737923.jpeg`
                 }
                 alt=""
                 className="w-full h-full object-cover rounded-full border-2 p-1 border-purple-600"
@@ -52,9 +111,11 @@ function User() {
                 <h2 className="font-bold text-3xl">{userInfo.fullName}</h2>
                 <div className="flex gap-4 items-center">
                   <h4 className="text-gray-600">@{userInfo.id}</h4>
-                  {userInfo.domain && <h4 className="bg-purple-200 text-purple-700 text-[14px] py-1 px-2 rounded-full">
-                    {userInfo.domain}
-                  </h4>}
+                  {userInfo.domain && (
+                    <h4 className="bg-purple-200 text-purple-700 text-[14px] py-1 px-2 rounded-full">
+                      {userInfo.domain}
+                    </h4>
+                  )}
                 </div>
               </div>
               <h4 className="text-[14px]">{userInfo.bio || ""}</h4>
@@ -71,6 +132,43 @@ function User() {
             />
             <h4>Edit Profile</h4>
           </NavLink>
+        </div>
+        <div className="border-b-2 pb-4 border-gray-300 flex justify-center pt-2">
+          {connectionStatus === 1 && (
+            <button
+              className="border-2 w-full py-2  text-green-800 rounded-lg font-semibold"
+              onClick={handleRemoveConnection}
+            >
+              Connected
+            </button>
+          )}
+
+          {connectionStatus === 2 && (
+            <button
+              className="border-2 w-full py-2  text-purple-600 rounded-lg font-semibold"
+              onClick={handleDeleteRequest}
+            >
+              Request Sent
+            </button>
+          )}
+          {connectionStatus === 3 && (
+            <div className="w-1/2 flex justify-around">
+              <button className="w-1/3 border-2 text-green-800 px-4 py-2 rounded-md font-semibold"
+              onClick={handleAcceptRequest}>
+                Accept
+              </button>
+              <button className="w-1/3 border-2 text-red-600 px-4 py-2 rounded-md font-semibold"
+              onClick={handleRejectRequest}>
+                Reject
+              </button>
+            </div>
+          )}
+          {connectionStatus === 4 && (
+            <button className="border-2 w-full py-2 bg-purple-600 text-white rounded-lg font-semibold"
+            onClick={handleConnect}>
+              Connect
+            </button>
+          )}
         </div>
         <div className="flex justify-around pt-4">
           <div className="flex gap-2 items-center border-r-2 w-1/3 justify-center border-gray-300">
@@ -278,6 +376,31 @@ function User() {
               </div>
             </NavLink>
           )}
+        </div>
+      </div>
+      <div
+        className={`absolute h-screen w-full -top-1 -left-1 ${showMessage ? "flex" : "hidden"} flex-col items-center justify-center`}
+      >
+        <div className="bg-white flex flex-col gap-4 p-4 shadow-lg rounded-lg w-80">
+          <h2 className="text-xl font-semibold">
+            Are you sure to remove{" "}
+            <span className="text-purple-600">{userInfo.fullName}</span> as a
+            Connection?
+          </h2>
+          <div className="flex justify-around">
+            <button
+              className="border-2 rounded-lg text-red-600 px-2 py-1 font-semibold"
+              onClick={handleYesRemove}
+            >
+              Yes
+            </button>
+            <button
+              className="border-2 rounded-lg text-green-800 px-2 py-1 font-semibold"
+              onClick={() => setShowMessage(false)}
+            >
+              No
+            </button>
+          </div>
         </div>
       </div>
     </div>
