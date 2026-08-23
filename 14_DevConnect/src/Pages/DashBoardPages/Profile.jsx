@@ -235,12 +235,13 @@ function Profile() {
             </div>
             <h3 className="text-[14px] font-semibold">Recent Projects</h3>
           </div>
-          <div className="flex w-full gap-6 overflow-hidden">
-            {showProjects.length ? (
+          <div className="flex gap-6 w-full overflow-hidden">
+            {showProjects.length > 0 ? (
               showProjects.map((project) => (
                 <div
                   key={project.createdOn}
-                  className="flex-1 min-w-0 flex flex-col rounded-xl overflow-hidden hover:bg-gray-200 p-2"
+                  title={project.name}
+                  className="flex-[0_0_calc((100%-3rem)/3)] min-w-0 flex flex-col rounded-xl overflow-hidden hover:bg-gray-200"
                 >
                   <div className="w-full aspect-video overflow-hidden">
                     <img
@@ -249,7 +250,7 @@ function Profile() {
                         "https://images.pexels.com/photos/37893956/pexels-photo-37893956.jpeg"
                       }
                       alt=""
-                      className="w-full h-full object-cover rounded-t-xl"
+                      className="w-full h-full object-cover"
                     />
                   </div>
 
