@@ -19,6 +19,10 @@ function BookMarkCard({ projectId }) {
     (project) => project.createdOn === projectId,
   );
 
+  const handleRemove = () => {
+    removeBookMark(currId, currProject.createdOn);
+    setShowConfirmMsg(false);
+  };
   return (
     <div>
       {currProject && (
@@ -69,7 +73,7 @@ function BookMarkCard({ projectId }) {
               <div className="flex justify-around">
                 <button
                   className="bg-red-600 text-white px-1 py-0.5 w-10"
-                  onClick={() => removeBookMark(currId, currProject.createdOn)}
+                  onClick={handleRemove}
                 >
                   Yes
                 </button>
