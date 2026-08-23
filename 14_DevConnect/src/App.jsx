@@ -33,6 +33,8 @@ import {
 } from "./contexts/index";
 import User from "./Pages/DashBoardPages/User.jsx";
 import UserProject from "./Pages/DashBoardPages/UserProject.jsx";
+import UserConnections from "./Pages/DashBoardPages/UserConnections.jsx";
+import UserTask from "./Pages/DashBoardPages/UserTask.jsx";
 
 function App() {
   const [currUserId, setCurrUserId] = useState(() => {
@@ -256,10 +258,32 @@ function App() {
             }
           />
           <Route
+            path="projects/:userName"
+            element={
+              !(currUserId === "" && currSessionUserId === "") ? (
+                <UserProject />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          />
+          
+          <Route
             path="profile"
             element={
               !(currUserId === "" && currSessionUserId === "") ? (
                 <Profile />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          />
+
+          <Route
+            path="profile/:userName"
+            element={
+              !(currUserId === "" && currSessionUserId === "") ? (
+                <User />
               ) : (
                 <Navigate to="/login" />
               )
@@ -290,6 +314,16 @@ function App() {
             element={
               !(currUserId === "" && currSessionUserId === "") ? (
                 <Connections />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          />
+          <Route
+            path="connections/:userName"
+            element={
+              !(currUserId === "" && currSessionUserId === "") ? (
+                <UserConnections />
               ) : (
                 <Navigate to="/login" />
               )
@@ -336,6 +370,16 @@ function App() {
             }
           />
           <Route
+            path="tasks/:userName"
+            element={
+              !(currUserId === "" && currSessionUserId === "") ? (
+                <UserTask />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          />
+          <Route
             path="addproject"
             element={
               !(currUserId === "" && currSessionUserId === "") ? (
@@ -355,29 +399,6 @@ function App() {
               )
             }
           />
-          <Route
-            path="user"
-            element={
-              !(currUserId === "" && currSessionUserId === "") ? (
-                <User />
-              ) : (
-                <Navigate to="/login" />
-              )
-            }
-          >
-            <Route
-              path=":userName"
-              element={
-                !(currUserId === "" && currSessionUserId === "") ? (
-                  <User />
-                ) : (
-                  <Navigate to="/login" />
-                )
-              }
-            >
-              {/* <Route path="/project" element={<UserProject />} /> */}
-            </Route>
-          </Route>
         </Route>
         ,
       </>,
