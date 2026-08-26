@@ -13,7 +13,7 @@ function UserTask() {
 
   return (
     <div>
-      <div className="p-4 flex justify-between">
+      <div className="p-4 flex justify-between h-full">
         <div>
           <h2 className="text-2xl font-bold">
             <span className="text-purple-600">{userInfo.fullName}'s</span> Tasks
@@ -41,7 +41,9 @@ function UserTask() {
             </div>
           ))
         ) : (
-          <div>"Nothing</div>
+          <div className="h-full flex items-center justify-center text-3xl font-bold text-gray-600">
+            Nothing...
+          </div>
         )}
       </div>
     </div>
