@@ -1,13 +1,17 @@
 import React from "react";
 import { NavLink, Link } from "react-router-dom";
-import { useAuth, useCurrSessionUser, useCurrUser } from "../../contexts";
+import { useAuth, useCurrSessionUser, useCurrUser, useNotification } from "../../contexts";
 
 function DashboardNav() {
   const { currSessionUserId } = useCurrSessionUser();
   const { currUserId } = useCurrUser();
   const { Users } = useAuth();
+  const { notifications } = useNotification();
 
+  
   const currUser = currUserId || currSessionUserId;
+  
+  const myNotification = notifications.filter((noti) => noti.to == currUser && !noti.read);
 
   const userInfo = Users.find((user) => user.id === currUser);
 
@@ -38,14 +42,17 @@ function DashboardNav() {
         >
           Explore
         </NavLink>
-        <NavLink
-          to="/notifications"
-          className={({ isActive }) =>
-            `${isActive ? "text-purple-800 underline underline-offset-8" : "text-gray-700"} cursor-pointer`
-          }
-        >
-          Notifications
-        </NavLink>
+        <div className="relative">
+          <NavLink
+            to="/notifications"
+            className={({ isActive }) =>
+              `${isActive ? "text-purple-800 underline underline-offset-8" : "text-gray-700"} cursor-pointer`
+            }
+          >
+            Notifications
+          </NavLink>
+            {myNotification.length > 0 && <h4 className="absolute bottom-2 -right-2 text-[12px] rounded-full bg-red-600 text-white h-4 w-4 text-center">{myNotification.length}</h4>}
+        </div>
       </div>
       <NavLink to="/profile" className="">
         <div>
