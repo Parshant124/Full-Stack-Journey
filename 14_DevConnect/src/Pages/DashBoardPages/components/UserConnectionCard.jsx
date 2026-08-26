@@ -2,7 +2,7 @@ import React,{useState} from 'react'
 import { useAuth, useConnection, useCurrSessionUser, useCurrUser } from '../../../contexts'
 import { NavLink } from 'react-router-dom';
 
-function UserConnectionCard({userId}) {
+function UserConnectionCard({userId, currUser}) {
       const [showMessage, setShowMessage] = useState(false);
       const {connections, pendingRequest, addConnection, addRequest, deleteConnection, deleteRequest} = useConnection();
         const { currSessionUserId } = useCurrSessionUser();
@@ -90,7 +90,7 @@ function UserConnectionCard({userId}) {
           </h4>
         </div>
       </NavLink>
-      <div className="flex">
+      {!currUser && <div className="flex">
         {connectionStatus === 1 && (
           <button
             className="border-2 w-full py-1 px-2 text-green-800 rounded-lg font-semibold"
@@ -132,7 +132,7 @@ function UserConnectionCard({userId}) {
             Connect
           </button>
         )}
-      </div>
+      </div>}
       <div
         className={`absolute w-full -top-1 -left-1 ${showMessage ? "flex" : "hidden"} flex-col items-center justify-center`}
       >
