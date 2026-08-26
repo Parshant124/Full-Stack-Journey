@@ -1,7 +1,7 @@
 import { createContext, useContext } from "react";
 
 const Notification = createContext({
-  notification: [
+  notifications: [
     {
       type: "follow request/request accepted/connection project/project bookmarked",
       image: "",
@@ -10,7 +10,7 @@ const Notification = createContext({
       date: "",
       time: "",
       read: false,
-      id,
+      id: "",
     },
   ],
   addNotification: (noti) => {},

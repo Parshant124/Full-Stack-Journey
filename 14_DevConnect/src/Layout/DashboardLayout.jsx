@@ -167,7 +167,7 @@ function DashboardLayout() {
   return (
     <NotificationProvider
       value={{
-        notification,
+        notifications,
         addNotification,
         removeNotification,
         modifyRead,
