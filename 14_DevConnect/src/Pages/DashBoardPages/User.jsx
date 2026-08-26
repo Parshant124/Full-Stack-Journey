@@ -9,7 +9,7 @@ import {
   useProject,
   useTasks,
 } from "../../contexts";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 function User() {
   const [showMessage, setShowMessage] = useState(false);
@@ -17,6 +17,7 @@ function User() {
   const { Users } = useAuth();
   const { addNotification } = useNotification();
   const userInfo = Users.find((user) => user.id === userName);
+  const navigate = useNavigate();
   const {
     connections,
     pendingRequest,
@@ -32,6 +33,10 @@ function User() {
   const currId = currSessionUserId || currUserId;
 
   const userId = userInfo.id;
+
+  if(userId === currId){
+    navigate("/profile");
+  }
 
   const myConnection = connections
     .filter(
