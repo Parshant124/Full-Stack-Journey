@@ -1,8 +1,37 @@
 import React from "react";
-import { useBookMark } from "../../../contexts";
+import { useAuth, useBookMark, useNotification } from "../../../contexts";
 
 function UserProjectCard({ project, bookmarked, userId }) {
-    const {addBookMark, removeBookMark} = useBookMark()
+  const {addBookMark, removeBookMark} = useBookMark();
+  const { Users } = useAuth();
+  const { addNotification } = useNotification();
+
+  const handleAddBookMark = () => {
+    const currUser = Users.find((user) => user.id === userId);
+
+    const now = new Date();
+    const noti = {
+      type: "project bookmarked",
+      // userImage: currUser.image || "",
+      // projectImage: project.image || "",
+      msg: `${currUser.fullName || "User"} bookmarked your project ${project.name}`,
+      to: project.userId,
+      read: false,
+      id: Date.now(),
+      date:
+        `${String(now.getDate()).padStart(2, "0")}/` +
+        `${String(now.getMonth() + 1).padStart(2, "0")}/` +
+        `${now.getFullYear()}`,
+      time:
+        `${String(now.getHours()).padStart(2, "0")}:` +
+        `${String(now.getMinutes()).padStart(2, "0")}`,
+    };
+
+    addNotification(noti);
+
+    addBookMark(userId, project.createdOn);
+  };
+
   return (
     <div className="w-80 bg-white p-2 rounded-md shadow-lg flex flex-col gap-2">
       <div className="h-55 flex w-full">
@@ -39,10 +68,7 @@ function UserProjectCard({ project, bookmarked, userId }) {
               />
             </div>
           ) : (
-            <div
-              className="h-7 flex"
-              onClick={() => addBookMark(userId, project.createdOn)}
-            >
+            <div className="h-7 flex" onClick={handleAddBookMark}>
               <img
                 src="https://cdn-icons-png.flaticon.com/128/3106/3106777.png"
                 alt=""

@@ -4,6 +4,7 @@ import {
   useBookMark,
   useCurrSessionUser,
   useCurrUser,
+  useNotification,
   useProject,
 } from "../../../contexts";
 
@@ -13,6 +14,7 @@ function ShowProject() {
   const { currUserId } = useCurrUser();
   const { Users } = useAuth();
   const { bookmarks, addBookMark, removeBookMark } = useBookMark();
+  const { addNotification } = useNotification();
 
   const currId = currSessionUserId || currUserId;
 
@@ -34,13 +36,42 @@ function ShowProject() {
     return exist.length > 0 ? true : false;
   };
 
+  const handleAddBookMark = (project) => {
+    const currUser = Users.find((user) => user.id === currId);
+
+    const now = new Date();
+    const noti = {
+      type: "project bookmarked",
+      // userImage: currUser.image || "",
+      // projectImage: project.image || "",
+      msg: `${currUser.fullName || "User"} bookmarked your project ${project.name}`,
+      to: project.userId,
+      read: false,
+      id: Date.now(),
+      date:
+        `${String(now.getDate()).padStart(2, "0")}/` +
+        `${String(now.getMonth() + 1).padStart(2, "0")}/` +
+        `${now.getFullYear()}`,
+      time:
+        `${String(now.getHours()).padStart(2, "0")}:` +
+        `${String(now.getMinutes()).padStart(2, "0")}`,
+    };
+
+    addNotification(noti);
+
+    addBookMark(currId, project.createdOn);
+  };
+
   return (
     <div className="flex gap-4 flex-wrap">
       {showProjects.map((project) => (
         <div className="bg-white p-8 w-[30%] h-90 min-h-fit rounded-lg shadow-lg flex flex-col gap-4">
           <div className="flex justify-center w-full h-50">
             <img
-              src={project.image ||"https://images.pexels.com/photos/373543/pexels-photo-373543.jpeg?_gl=1*etdg79*_ga*NzY2MzQyMzk1LjE3NjE3NTY5ODI.*_ga_8JE65Q40S6*czE3ODYwMTM3ODIkbzE2JGcxJHQxNzg2MDEzODI0JGoxOCRsMCRoMA.."}
+              src={
+                project.image ||
+                "https://images.pexels.com/photos/373543/pexels-photo-373543.jpeg?_gl=1*etdg79*_ga*NzY2MzQyMzk1LjE3NjE3NTY5ODI.*_ga_8JE65Q40S6*czE3ODYwMTM3ODIkbzE2JGcxJHQxNzg2MDEzODI0JGoxOCRsMCRoMA.."
+              }
               alt=""
               className="w-full h-full object-fill"
             />
@@ -63,7 +94,7 @@ function ShowProject() {
                   src="https://cdn-icons-png.flaticon.com/128/25/25667.png"
                   alt=""
                   width="20px"
-                  onClick={() => addBookMark(currId, project.createdOn)}
+                  onClick={() => handleAddBookMark(project)}
                 />
               )}
             </div>

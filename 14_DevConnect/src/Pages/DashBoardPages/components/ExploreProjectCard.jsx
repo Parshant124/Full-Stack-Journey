@@ -1,12 +1,46 @@
 import React from "react";
-import { useBookMark, useCurrSessionUser, useCurrUser } from "../../../contexts";
+import {
+  useAuth,
+  useBookMark,
+  useCurrSessionUser,
+  useCurrUser,
+  useNotification,
+} from "../../../contexts";
 
 function ExploreProjectCard({ project, bookmarked }) {
   const { addBookMark, removeBookMark } = useBookMark();
-  const {currSessionUserId} = useCurrSessionUser();
-  const {currUserId} = useCurrUser();
+  const { Users } = useAuth();
+  const { currSessionUserId } = useCurrSessionUser();
+  const { currUserId } = useCurrUser();
+  const { addNotification } = useNotification();
 
   const userId = currSessionUserId || currUserId;
+
+  const handleAddBookMark = () => {
+    const currUser = Users.find((user) => user.id === userId);
+
+    const now = new Date();
+    const noti = {
+      type: "project bookmarked",
+      // userImage: currUser.image || "",
+      // projectImage: project.image || "",
+      msg: `${currUser.fullName || "User"} bookmarked your project ${project.name}`,
+      to: project.userId,
+      read: false,
+      id: Date.now(),
+      date:
+        `${String(now.getDate()).padStart(2, "0")}/` +
+        `${String(now.getMonth() + 1).padStart(2, "0")}/` +
+        `${now.getFullYear()}`,
+      time:
+        `${String(now.getHours()).padStart(2, "0")}:` +
+        `${String(now.getMinutes()).padStart(2, "0")}`,
+    };
+
+    addNotification(noti);
+
+    addBookMark(userId, project.createdOn);
+  };
   return (
     <div className="flex justify-between items-center pt-4 pb-4 border-b-2 border-gray-300">
       <div className="flex gap-4 items-center">
@@ -39,10 +73,7 @@ function ExploreProjectCard({ project, bookmarked }) {
           </button>
         )}
         {!bookmarked && (
-          <button
-            className="h-6 w-6 flex"
-            onClick={() => addBookMark(userId, project.createdOn)}
-          >
+          <button className="h-6 w-6 flex" onClick={handleAddBookMark}>
             <img
               src="https://cdn-icons-png.flaticon.com/128/25/25667.png"
               alt=""
