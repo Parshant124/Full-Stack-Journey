@@ -5,6 +5,7 @@ import SideBar from "../components/SideBar";
 import {
   BookMarkProvider,
   ConnectionProvider,
+  NotificationProvider,
   ProjectProvider,
   TasksProvider,
 } from "../contexts";
@@ -24,6 +25,9 @@ function DashboardLayout() {
   });
   const [bookmarks, setBookmarks] = useState(() => {
     return JSON.parse(localStorage.getItem("bookmarks")) || [];
+  });
+  const [notifications, setNotification] = useState(() => {
+    return JSON.parse(localStorage.getItem("notifications")) || [];
   });
 
   const location = useLocation();
@@ -144,47 +148,71 @@ function DashboardLayout() {
     localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
   }, [bookmarks]);
 
+  const addNotification = (notification) => {
+    setNotification((prev) => [{...notification, id: Date.now()}, ...prev]);
+  }
+
+  const removeNotification = (notiId) => {
+    setNotification((prev) => prev.filter((notification) => notification.id === notiId))
+  }
+
+  const modifyRead = (notiId) => {
+    setNotification((prev) => prev.map((notification) => notification.id === notiId ? {...notification, read = true} : notification));
+  }
+
+  const modifyReadAll = () => {
+    setNotification((prev) => prev.map((notification) => notification.to === user ? {...notification, read = true} : notification))
+  }
+
   return (
-    <BookMarkProvider value={{ bookmarks, addBookMark, removeBookMark }}>
-      <ConnectionProvider
-        value={{
-          connections,
-          pendingRequest,
-          addRequest,
-          deleteRequest,
-          addConnection,
-          deleteConnection,
-        }}
-      >
-        <TasksProvider
-          value={{ tasks, addTasks, toggleCompleteTask, deleteTask }}
+    <NotificationProvider
+      value={{
+        notification,
+        addNotification,
+        removeNotification,
+        modifyRead,
+        modifyReadAll,
+      }}
+    >
+      <BookMarkProvider value={{ bookmarks, addBookMark, removeBookMark }}>
+        <ConnectionProvider
+          value={{
+            connections,
+            pendingRequest,
+            addRequest,
+            deleteRequest,
+            addConnection,
+            deleteConnection,
+          }}
         >
-          <ProjectProvider
-            value={{ projects, addProject, toggleComplete, deleteProject }}
+          <TasksProvider
+            value={{ tasks, addTasks, toggleCompleteTask, deleteTask }}
           >
-            <div className="h-screen flex flex-col">
-              <Header type="dashNav" />
-              {location.pathname === "/profile" ? (
-                <main>
-                  <Outlet />
-                </main>
-              ) : (
-                <div
-                  className={`flex w-full h-full flex-1 overflow-hidden`}
-                >
-                  <aside className="w-1/6 overflow-y-auto">
-                    <SideBar />
-                  </aside>
-                  <main className="w-5/6 flex-1 overflow-y-auto">
+            <ProjectProvider
+              value={{ projects, addProject, toggleComplete, deleteProject }}
+            >
+              <div className="h-screen flex flex-col">
+                <Header type="dashNav" />
+                {location.pathname === "/profile" ? (
+                  <main>
                     <Outlet />
                   </main>
-                </div>
-              )}
-            </div>
-          </ProjectProvider>
-        </TasksProvider>
-      </ConnectionProvider>
-    </BookMarkProvider>
+                ) : (
+                  <div className={`flex w-full h-full flex-1 overflow-hidden`}>
+                    <aside className="w-1/6 overflow-y-auto">
+                      <SideBar />
+                    </aside>
+                    <main className="w-5/6 flex-1 overflow-y-auto">
+                      <Outlet />
+                    </main>
+                  </div>
+                )}
+              </div>
+            </ProjectProvider>
+          </TasksProvider>
+        </ConnectionProvider>
+      </BookMarkProvider>
+    </NotificationProvider>
   );
 }
 
