@@ -57,9 +57,9 @@ function Profile() {
                 <h2 className="font-bold text-3xl">{userInfo.fullName}</h2>
                 <div className="flex gap-4 items-center">
                   <h4 className="text-gray-600">@{userInfo.id}</h4>
-                  <h4 className="bg-purple-200 text-purple-700 text-[14px] py-1 px-2 rounded-full">
-                    {userInfo.domain || ""}
-                  </h4>
+                  {userInfo.domain && <h4 className="bg-purple-200 text-purple-700 text-[14px] py-1 px-2 rounded-full">
+                    {userInfo.domain}
+                  </h4>}
                 </div>
               </div>
               <h4 className="text-[14px]">{userInfo.bio || ""}</h4>
