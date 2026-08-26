@@ -147,21 +147,29 @@ function DashboardLayout() {
   useEffect(() => {
     localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
   }, [bookmarks]);
+  
+  useEffect(() => {
+    localStorage.setItem("notifications", JSON.stringify(notifications));
+  }, [notifications]);
 
   const addNotification = (notification) => {
-    setNotification((prev) => [{...notification, id: Date.now()}, ...prev]);
+    setNotification((prev) => [notification, ...prev]);
   }
 
   const removeNotification = (notiId) => {
-    setNotification((prev) => prev.filter((notification) => notification.id === notiId))
+    setNotification((prev) => prev.filter((notification) => notification.id !== notiId))
   }
 
   const modifyRead = (notiId) => {
     setNotification((prev) => prev.map((notification) => notification.id === notiId ? {...notification, read : true} : notification));
   }
 
-  const modifyReadAll = () => {
+  const modifyReadAll = (user) => {
     setNotification((prev) => prev.map((notification) => notification.to === user ? {...notification, read : true} : notification))
+  }
+
+  const deleteRead = (user) => {
+    setNotification((prev) => prev.filter((notification) => !(notification.to === user && notification.read)))
   }
 
   return (
@@ -172,6 +180,7 @@ function DashboardLayout() {
         removeNotification,
         modifyRead,
         modifyReadAll,
+        deleteRead
       }}
     >
       <BookMarkProvider value={{ bookmarks, addBookMark, removeBookMark }}>
