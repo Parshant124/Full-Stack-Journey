@@ -8,7 +8,7 @@ import {
 import ShowConnectionCard from "./ShowConnectionCard";
 
 function ShowMyConnections({ showType }) {
-  const { connections, addConnection } = useConnection();
+  const { connections } = useConnection();
   const { currSessionUserId } = useCurrSessionUser();
   const { currUserId } = useCurrUser();
   const { Users } = useAuth();

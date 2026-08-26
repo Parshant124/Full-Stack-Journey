@@ -5,6 +5,7 @@ import {
   useConnection,
   useCurrSessionUser,
   useCurrUser,
+  useNotification,
   useProject,
   useTasks,
 } from "../../contexts";
@@ -14,6 +15,7 @@ function User() {
   const [showMessage, setShowMessage] = useState(false);
   const { userName } = useParams();
   const { Users } = useAuth();
+  const { addNotification } = useNotification();
   const userInfo = Users.find((user) => user.id === userName);
   const {
     connections,
@@ -84,6 +86,25 @@ function User() {
   };
 
   const handleAcceptRequest = () => {
+    const now = new Date();
+    const currInfo = Users.find((user) => user.id === currId);
+    const noti = {
+      type: "request accepted",
+      // userImage: currInfo.image || "",
+      msg: `${currInfo.fullName || "User"} accepted your connection request.`,
+      to: userInfo.id,
+      read: false,
+      date:
+        `${String(now.getDate()).padStart(2, "0")}/` +
+        `${String(now.getMonth() + 1).padStart(2, "0")}/` +
+        `${now.getFullYear()}`,
+      time:
+        `${String(now.getHours()).padStart(2, "0")}:` +
+        `${String(now.getMinutes()).padStart(2, "0")}`,
+      nav: `/profile/${currId}`,
+    };
+
+    addNotification(noti);
     deleteRequest(userId, currId);
     addConnection(userId, currId);
     setConnectionStatus(1);
@@ -95,6 +116,25 @@ function User() {
   };
 
   const handleConnect = () => {
+    const now = new Date();
+    const currInfo = Users.find((user) => user.id === currId);
+    const noti = {
+      type: "request accepted",
+      // userImage: currInfo.image || "",
+      msg: `${currInfo.fullName || "User"} sent you a connection request.`,
+      to: userId,
+      read: false,
+      date:
+        `${String(now.getDate()).padStart(2, "0")}/` +
+        `${String(now.getMonth() + 1).padStart(2, "0")}/` +
+        `${now.getFullYear()}`,
+      time:
+        `${String(now.getHours()).padStart(2, "0")}:` +
+        `${String(now.getMinutes()).padStart(2, "0")}`,
+      nav: `/profile/${currId}`,
+    };
+
+    addNotification(noti);
     addRequest(currId, userId);
     setConnectionStatus(2);
   };

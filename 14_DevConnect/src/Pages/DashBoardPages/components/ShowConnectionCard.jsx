@@ -4,6 +4,7 @@ import {
   useConnection,
   useCurrSessionUser,
   useCurrUser,
+  useNotification,
 } from "../../../contexts";
 import { NavLink } from "react-router-dom";
 
@@ -19,6 +20,7 @@ function ShowConnectionCard({ userId }) {
     addConnection,
     deleteConnection,
   } = useConnection();
+  const { addNotification } = useNotification()
 
   const userInfo = Users.find((curr) => curr.id === userId);
   const currId = currUserId || currSessionUserId;
@@ -50,12 +52,50 @@ function ShowConnectionCard({ userId }) {
     if (connected == 2) {
       deleteRequest(currId, userId);
     } else if (connected == 1) {
+      const now = new Date();
+      const currInfo = Users.find((user) => user.id === currId);
+      const noti = {
+        type: "request accepted",
+        // userImage: currInfo.image || "",
+        msg: `${currInfo.fullName || "User"} sent you a connection request.`,
+        to: userId,
+        read: false,
+        date:
+          `${String(now.getDate()).padStart(2, "0")}/` +
+          `${String(now.getMonth() + 1).padStart(2, "0")}/` +
+          `${now.getFullYear()}`,
+        time:
+          `${String(now.getHours()).padStart(2, "0")}:` +
+          `${String(now.getMinutes()).padStart(2, "0")}`,
+        nav: `/profile/${currId}`,
+      };
+
+      addNotification(noti);
       addRequest(currId, userId);
     }
     setConnected((prev) => (prev == 1 ? 2 : 1));
   };
 
   const handleAccept = () => {
+    const now = new Date();
+    const currInfo = Users.find((user) => user.id === currId);
+    const noti = {
+      type: "request accepted",
+      // userImage: currInfo.image || "",
+      msg: `${currInfo.fullName || "User"} accepted your connection request.`,
+      to: userInfo.id,
+      read: false,
+      date:
+        `${String(now.getDate()).padStart(2, "0")}/` +
+        `${String(now.getMonth() + 1).padStart(2, "0")}/` +
+        `${now.getFullYear()}`,
+      time:
+        `${String(now.getHours()).padStart(2, "0")}:` +
+        `${String(now.getMinutes()).padStart(2, "0")}`,
+      nav: `/profile/${currId}`,
+    };
+
+    addNotification(noti);
     addConnection(currId, userId);
     deleteRequest(currId, userId);
     setConnected(4);
