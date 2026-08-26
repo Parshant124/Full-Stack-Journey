@@ -4,6 +4,7 @@ import {
   useBookMark,
   useCurrSessionUser,
   useCurrUser,
+  useNotification,
   useProject,
 } from "../../../contexts";
 
@@ -13,6 +14,7 @@ function SeachProject({value}) {
   const { currUserId } = useCurrUser();
   const { Users } = useAuth();
   const { bookmarks, addBookMark, removeBookMark } = useBookMark();
+  const {addNotification} = useNotification();
 
   const currId = currSessionUserId || currUserId;
 
@@ -36,7 +38,32 @@ function SeachProject({value}) {
 
     return exist ? true : false;
   };
+ const handleAddBookMark = (currId, project) => {
+    const currUser = Users.find((user) => user.id === currId);
 
+    const now = new Date();
+    const noti = {
+      type: "project bookmarked",
+      // userImage: currUser.image || "",
+      // projectImage: project.image || "",
+      msg: `${currUser.fullName || "User"} bookmarked your project ${project.name}`,
+      to: project.userId,
+      read: false,
+      id: Date.now(),
+      date:
+        `${String(now.getDate()).padStart(2, "0")}/` +
+        `${String(now.getMonth() + 1).padStart(2, "0")}/` +
+        `${now.getFullYear()}`,
+      time:
+        `${String(now.getHours()).padStart(2, "0")}:` +
+        `${String(now.getMinutes()).padStart(2, "0")}`,
+      nav: `/profile/${currUser.id}`,
+    };
+
+    addNotification(noti);
+
+    addBookMark(currId, project.createdOn);
+  };
   return (
     <div className="flex gap-4 flex-wrap">
       {showProjects.map((project) => (
@@ -69,7 +96,7 @@ function SeachProject({value}) {
                   src="https://cdn-icons-png.flaticon.com/128/25/25667.png"
                   alt=""
                   width="20px"
-                  onClick={() => addBookMark(currId, project.createdOn)}
+                  onClick={() => handleAddBookMark(currId, project)}
                 />
               )}
             </div>
