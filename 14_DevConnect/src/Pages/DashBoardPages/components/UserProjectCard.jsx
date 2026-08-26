@@ -25,6 +25,7 @@ function UserProjectCard({ project, bookmarked, userId }) {
       time:
         `${String(now.getHours()).padStart(2, "0")}:` +
         `${String(now.getMinutes()).padStart(2, "0")}`,
+      nav: `/profile/${currUser.id}`,
     };
 
     addNotification(noti);

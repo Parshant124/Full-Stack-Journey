@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import { useNotification } from "../../../contexts";
+import { NavLink } from "react-router-dom";
 
 function NotificationCard({
   notification,
@@ -32,7 +33,7 @@ function NotificationCard({
       } rounded-md flex justify-between`}
     >
       <div className="w-2/3 flex items-center gap-4">
-        <div className="h-12 w-12">
+        <NavLink to={notification.nav} className="h-12 w-12">
           <img
             src={
               notification.userImage ||
@@ -41,7 +42,7 @@ function NotificationCard({
             alt=""
             className="h-full w-full rounded-full object-cover"
           />
-        </div>
+        </NavLink>
 
         <h4
           className={`${
