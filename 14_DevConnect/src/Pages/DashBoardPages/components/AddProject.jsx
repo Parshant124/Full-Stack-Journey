@@ -1,9 +1,15 @@
 import React, { useEffect, useState, useRef } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { useCurrSessionUser, useCurrUser, useProject } from "../../../contexts";
+import {
+  useConnection,
+  useCurrSessionUser,
+  useCurrUser,
+  useNotification,
+  useProject,
+  useAuth
+} from "../../../contexts";
 
 function AddProject() {
-
   const [name, setName] = useState("");
   const [validName, setValidName] = useState(true);
   const [key, setKey] = useState("");
@@ -13,11 +19,16 @@ function AddProject() {
   const [validCategory, setValidCategory] = useState(true);
   const [visibility, setVisibility] = useState("Private");
   const [image, setImage] = useState("");
+  const [cancel, setCancel] = useState(false);
+
   const navigate = useNavigate();
+
   const { addProject } = useProject();
+  const { connections } = useConnection();
+  const { addNotification } = useNotification();
   const { currSessionUserId, currSessionUserFullName } = useCurrSessionUser();
   const { currUserId, currUserFullName } = useCurrUser();
-  const [cancel, setCancel] = useState(false);
+  const {Users} = useAuth();
 
   const handleCancel = () => {
     setName("");
@@ -62,8 +73,6 @@ function AddProject() {
   const handleImage = (e) => {
     const file = e.target.files[0];
 
-    console.log("FILE:", file);
-
     if (!file) return;
 
     const reader = new FileReader();
@@ -71,7 +80,6 @@ function AddProject() {
     reader.onload = () => {
       setImage(reader.result);
     };
-    console.log("Image stored", image);
 
     reader.readAsDataURL(file);
   };
@@ -97,6 +105,38 @@ function AddProject() {
       completed: false,
       createdOn: Date.now(),
     };
+
+    if (visibility === "Public") {
+      const currId = currSessionUserId || currUserId;
+
+      const myConnections = connections
+        .filter((connection) => connection.senderId === currId || connection.receiverId === currId)
+        .map((connection) =>
+          connection.senderId === currId ? connection.receiverId : connection.senderId,
+        );
+
+      myConnections.map((userId) => {
+        const now = new Date();
+        const currInfo = Users.find((user) => user.id === currId);
+        const noti = {
+          type: "project created",
+          // userImage: currInfo.image || "",
+          msg: `${currInfo.fullName || "User"} created a new Project ${name}`,
+          to: userId,
+          read: false,
+          date:
+            `${String(now.getDate()).padStart(2, "0")}/` +
+            `${String(now.getMonth() + 1).padStart(2, "0")}/` +
+            `${now.getFullYear()}`,
+          time:
+            `${String(now.getHours()).padStart(2, "0")}:` +
+            `${String(now.getMinutes()).padStart(2, "0")}`,
+          nav: `/profile/${currId}`,
+        };
+
+        addNotification(noti);
+      });
+    }
 
     addProject(project);
     navigate("/myprojects");
