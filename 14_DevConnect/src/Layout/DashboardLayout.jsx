@@ -157,11 +157,11 @@ function DashboardLayout() {
   }
 
   const modifyRead = (notiId) => {
-    setNotification((prev) => prev.map((notification) => notification.id === notiId ? {...notification, read = true} : notification));
+    setNotification((prev) => prev.map((notification) => notification.id === notiId ? {...notification, read : true} : notification));
   }
 
   const modifyReadAll = () => {
-    setNotification((prev) => prev.map((notification) => notification.to === user ? {...notification, read = true} : notification))
+    setNotification((prev) => prev.map((notification) => notification.to === user ? {...notification, read : true} : notification))
   }
 
   return (
