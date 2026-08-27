@@ -49,7 +49,7 @@ function Projects() {
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
           placeholder="Search projects..."
-          className=" text-[14px] border-2 border-gray-300 px-2 py-1 rounded-lg w-1/3"
+          className=" text-[14px] border-2 border-gray-300 px-2 py-1 rounded-lg w-100 bg-white"
         />
       </div>
       <div>

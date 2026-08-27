@@ -67,7 +67,7 @@ function SeachProject({value}) {
   return (
     <div className="flex gap-4 flex-wrap">
       {showProjects.map((project) => (
-        <div className="bg-white p-8 w-[30%] h-90 min-h-fit rounded-lg shadow-lg flex flex-col gap-4">
+        <div className="bg-white p-8 w-80 h-90 min-h-fit rounded-lg shadow-lg flex flex-col gap-4">
           <div className="flex justify-center w-full h-50">
             <img
               src={
