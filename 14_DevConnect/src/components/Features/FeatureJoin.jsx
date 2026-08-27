@@ -4,17 +4,16 @@ import {Link} from 'react-router-dom'
 function FeatureJoin() {
   return (
     <div className="p-4">
-      <div className="w-full bg-purple-100 border border-blue-400/30 items-center flex justify-between p-4 rounded-lg shadow-lg gap-8">
-        <div className="flex items-center gap-4 w-1/3">
-          <div className="p-2 bg-blue-300 rounded-full w-fit h-fit">
+      <div className="w-full bg-purple-100 border border-blue-400/30 items-center flex justify-between p-4 rounded-lg shadow-lg gap-8 flex-col lg:flex-row">
+        <div className="flex items-center gap-4 ">
+          <div className="p-2 bg-blue-300 rounded-full w-20 h-20">
             <img
               src="https://cdn-icons-png.flaticon.com/128/10584/10584843.png"
               alt=""
-              width="70px"
-              className="bg-purple-500 p-1 rounded-full"
+              className="bg-purple-500 p-1 rounded-full w-full h-full object-cover"
             />
           </div>
-          <div>
+          <div className='sm:w-120 w-fit'>
             <h2 className="font-bold text-lg">
               Built for developers, by developers
             </h2>
