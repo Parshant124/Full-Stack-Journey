@@ -59,13 +59,13 @@ function ShowMyTasks({type}) {
                 className="w-5"
               />
               <div>
-                <h2 className="font-semibold">{currTask.taskName}</h2>
-                <h4 className="text-[14px] text-gray-600">
+                <h2 className="font-semibold line-clamp-1">{currTask.taskName}</h2>
+                <h4 className="text-[14px] text-gray-600 line-clamp-2">
                   {currTask.taskDesc}
                 </h4>
               </div>
             </div>
-            <div className="flex w-1/3 justify-between items-center">
+            <div className="flex w-1/2 justify-between items-center">
               <h4 className="text-[14px] text-gray-600">{currTask.userId}</h4>
               <h4 className="text-[14px] text-gray-600">
                 {currTask.createdOn}

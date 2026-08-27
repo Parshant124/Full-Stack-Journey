@@ -89,9 +89,9 @@ function AddTask() {
         </div>
       </div>
       <div className="w-full flex flex-col h-full shadow-lg bg-white rounded-lg p-4 gap-4">
-        <div className="w-1/2 flex flex-col">
+        <div className="flex flex-col">
           <label className="text-[14px] font-semibold">
-            Project Name <span className="text-red-500">*</span>
+            Task Name <span className="text-red-500">*</span>
           </label>
           <input
             type="text"

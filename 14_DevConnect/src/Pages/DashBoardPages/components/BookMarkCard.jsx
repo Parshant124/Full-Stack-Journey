@@ -16,7 +16,7 @@ function BookMarkCard({ projectId }) {
   const currId = currSessionUserId || currUserId;
 
   const currProject = projects.find(
-    (project) => project.createdOn === projectId,
+    (project) => project.createdOn === projectId && project.visibility === "Public",
   );
 
   const handleRemove = () => {
@@ -26,8 +26,8 @@ function BookMarkCard({ projectId }) {
   return (
     <div>
       {currProject && (
-        <div className="p-2 flex items-center border-b border-gray-300 pb-6 justify-between relative">
-          <div className="flex items-center gap-4">
+        <div className="p-2 flex items-center border-b border-gray-300 pb-6 justify-between">
+          <div className="w-1/2 flex items-center gap-4">
             <div className="bg-purple-300 p-1 rounded flex h-12 w-12">
               <img
                 src={
@@ -35,57 +35,37 @@ function BookMarkCard({ projectId }) {
                   "https://cdn-icons-png.flaticon.com/256/6596/6596459.png"
                 }
                 alt=""
-                className="w-full h-full"
+                className="w-full h-full object-cover"
               />
             </div>
             <div>
-              <h2 className="font-semibold text-[14px]">{currProject.name}</h2>
-              <h4 className="text-gray-600 text-[14px]">{currProject.desc}</h4>
+              <h2 className="font-semibold text-[14px] line-clamp-1">{currProject.name}</h2>
+              <h4 className="text-gray-600 text-[14px] line-clamp-1">{currProject.desc}</h4>
             </div>
           </div>
-          <div className="flex items-center gap-4 w-1/3 justify-between">
+          <div className="flex items-center gap-4 w-1/2 justify-between">
             <div className="w-1/4">
               <h4 className="text-gray-600 px-2 py-1 text-[14px] rounded-md">
                 {currProject.userId}
               </h4>
             </div>
-            <div className="w-1/2">
-              <h4 className="bg-purple-200 w-fit text-purple-800 text-[14px] px-2 py-1 rounded-md">
+            <div className="max-w-fit w-1/2 flex justify-start">
+              <h4 className="bg-purple-200 text-purple-800 text-[14px] px-2 py-1 rounded-md truncate">
                 {currProject.category}
               </h4>
             </div>
             <div
               onClick={() => setShowConfirmMsg(true)}
-              className="cursor-pointer"
+              className="cursor-pointer w-5"
             >
               <img
                 src="https://cdn-icons-png.flaticon.com/128/4942/4942539.png"
                 alt=""
-                width="25px"
+                className="w-full object-cover"
               />
             </div>
           </div>
-          <div
-            className={`${showConfirmMsg ? "flex" : "hidden"} absolute w-full h-screen justify-center items-center flex-col`}
-          >
-            <div className="w-50 text-center bg-white font-semibold p-2 text-[14px] rounded-lg shadow-lg">
-              <h2>Are you Sure to remove the BookMark?</h2>
-              <div className="flex justify-around">
-                <button
-                  className="bg-red-600 text-white px-1 py-0.5 w-10"
-                  onClick={handleRemove}
-                >
-                  Yes
-                </button>
-                <button
-                  className="bg-purple-600 text-white px-1 py-0.5 w-10"
-                  onClick={() => setShowConfirmMsg(false)}
-                >
-                  No
-                </button>
-              </div>
-            </div>
-          </div>
+
         </div>
       )}
     </div>
