@@ -23,7 +23,7 @@ function SideBar() {
   }
 
   return (
-    <div className="relative overflow-y-auto h-full border-r-2 border-gray-400 flex flex-col justify-between py-4">
+    <div className="relative overflow-y-auto h-full border-r-2 border-gray-400 lg:flex hidden flex-col justify-between py-4">
       <div className="flex flex-col px-2 gap-4 font-medium">
         <NavLink
           to="/dashboard"

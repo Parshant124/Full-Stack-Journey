@@ -208,10 +208,10 @@ function DashboardLayout() {
                   </main>
                 ) : (
                   <div className={`flex w-full h-full flex-1 overflow-hidden`}>
-                    <aside className="w-1/6 overflow-y-auto">
+                    <aside className="lg:w-1/6 hidden lg:block overflow-y-auto">
                       <SideBar />
                     </aside>
-                    <main className="w-5/6 flex-1 overflow-y-auto">
+                    <main className="lg:w-5/6 w-full flex-1 overflow-y-auto">
                       <Outlet />
                     </main>
                   </div>
