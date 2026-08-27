@@ -181,9 +181,9 @@ function Settings() {
           Update your personal information.
         </h4>
       </div>
-      <div className="bg-white w-full min-h-fit h-full rounded-lg shadow-lg p-4">
-        <div className="flex justify-between">
-          <div className="flex flex-col gap-4 w-1/2">
+      <div className="bg-white w-full min-h-fit h-full rounded-lg shadow-lg p-4 gap-4 flex flex-col">
+        <div className="flex justify-between sm:flex-row flex-col">
+          <div className="flex flex-col gap-4 sm:w-1/2 sm:order-1 order-2">
             <div className="flex flex-col">
               <label htmlFor="userName" className="font-semibold text-[14px]">
                 User Name
@@ -211,9 +211,9 @@ function Settings() {
               />
             </div>
           </div>
-          <div className="bg-gray-100 p-4 rounded-lg flex flex-col items-center gap-4">
+          <div className="bg-gray-100 p-4 rounded-lg flex sm:flex-col items-center gap-4 sm:order-2 order-1">
             {image ? (
-              <div className="h-22 w-22 flex">
+              <div className="sm:h-22 sm:w-22 h-40 w-40 flex">
                 <img
                   src={image}
                   alt=""
@@ -221,7 +221,7 @@ function Settings() {
                 />
               </div>
             ) : currUser.image ? (
-              <div className="w-20 h-20 flex">
+              <div className="sm:h-22 sm:w-22 h-40 w-40 flex">
                 <img
                   src={currUser.image}
                   alt=""
@@ -229,7 +229,7 @@ function Settings() {
                 />
               </div>
             ) : (
-              <div className="bg-red-500 rounded-full w-20 h-20 flex justify-center items-center">
+              <div className="bg-red-500 rounded-full w-40 h-40 sm:h-22 sm:w-22 flex justify-center items-center">
                 <h3 className="text-white text-4xl">
                   {currSessionUserId
                     ? currSessionUserId[0].toUpperCase()
@@ -303,8 +303,8 @@ function Settings() {
               {bioValue.length} / 100
             </h4>
           </div>
-          <div className="flex justify-between">
-            <div className="flex flex-col w-2/5">
+          <div className="flex justify-between flex-col sm:flex-row gap-4">
+            <div className="flex flex-col sm:w-2/5">
               <label htmlFor="collegeName" className="text-[14px] font-semibold">College</label>
               <input
                 type="text"
@@ -316,7 +316,7 @@ function Settings() {
                 className="px-2 py-1 rounded-md text-[14px] border-gray-300 border-2 text-gray-600 focus:outline-none"
               />
             </div>
-            <div className="flex flex-col w-2/5">
+            <div className="flex flex-col sm:w-2/5">
               <label htmlFor="domain" className="font-semibold text-[14px]">
                 Select course
               </label>
@@ -338,7 +338,7 @@ function Settings() {
               </select>
             </div>
           </div>
-          <div className="flex flex-col w-2/5">
+          <div className="flex flex-col sm:w-2/5">
             <label htmlFor="domain" className="font-semibold text-[14px]">
               Select domain
             </label>
@@ -359,8 +359,8 @@ function Settings() {
               ))}
             </select>
           </div>
-          <div className="flex justify-between">
-            <div className="flex flex-col w-2/5">
+          <div className="flex justify-between sm:flex-row flex-col gap-4">
+            <div className="flex flex-col sm:w-2/5">
               <label
                 htmlFor="newPassword"
                 className="font-semibold text-[14px]"
@@ -408,7 +408,7 @@ function Settings() {
               </div>
             </div>
 
-            <div className="flex flex-col w-2/5">
+            <div className="flex flex-col sm:w-2/5">
               <label
                 htmlFor="confirmPassword"
                 className="font-semibold text-[14px]"

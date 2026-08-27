@@ -101,6 +101,7 @@ function DashBoard() {
       </div>
       <div className="w-full h-full flex gap-4 md:flex-row flex-col">
         <div className="md:w-3/5 w-full shadow-md h-80 rounded-lg bg-white p-4">
+        <h2 className="font-semibold">Activity</h2>
           <Line
             data={{
               labels: ["Mar", "Apr", "May", "Jun", "Jul", "Aug"],

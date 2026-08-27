@@ -128,8 +128,8 @@ function ShowConnectionCard({ userId }) {
           />
         </div>
         <div>
-          <h2 className="font-semibold ">{userInfo.fullName}</h2>
-          <h4 className="text-[14px] text-gray-600">
+          <h2 className="font-semibold line-clamp-1">{userInfo.fullName}</h2>
+          <h4 className="text-[14px] text-gray-600 line-clamp-1">
             {userInfo.bio || "User bio not given"}
           </h4>
         </div>

@@ -38,7 +38,7 @@ function Profile() {
     (task) => task.userId === userId && task.completed,
   );
   return (
-    <div className="p-4 bg-gray-100 h-screen">
+    <div className="p-4 bg-gray-100 h-screen min-h-fit">
       <div className="bg-white p-4 rounded-lg shadow-lg">
         <div className="flex justify-between border-b-2 pb-8 border-gray-300">
           <div className="flex gap-4 items-center">
@@ -55,14 +55,14 @@ function Profile() {
             <div className="flex flex-col gap-2">
               <div>
                 <h2 className="font-bold text-3xl">{userInfo.fullName}</h2>
-                <div className="flex gap-4 items-center">
+                <div className="flex gap-2 sm:gap-4 flex-col sm:flex-row">
                   <h4 className="text-gray-600">@{userInfo.id}</h4>
-                  {userInfo.domain && <h4 className="bg-purple-200 text-purple-700 text-[14px] py-1 px-2 rounded-full">
+                  {userInfo.domain && <h4 className="bg-purple-200 text-purple-700 text-[14px] py-1 px-2 rounded-full w-fit">
                     {userInfo.domain}
                   </h4>}
                 </div>
               </div>
-              <h4 className="text-[14px]">{userInfo.bio || ""}</h4>
+              <h4 className="text-[14px] line-clamp-2">{userInfo.bio || ""}</h4>
             </div>
           </div>
           <NavLink
@@ -74,7 +74,7 @@ function Profile() {
               alt=""
               className="w-5 h-5"
             />
-            <h4>Edit Profile</h4>
+            <h4 className="hidden sm:block">Edit Profile</h4>
           </NavLink>
         </div>
         <div className="flex justify-around pt-4">
@@ -89,7 +89,7 @@ function Profile() {
               <h4 className="text-3xl font-bold text-center">
                 {myConnection.length}
               </h4>
-              <h4 className="text-[14px] text-gray-600">Connections</h4>
+              <h4 className="text-[14px] text-gray-600 line-clamp-1">Connections</h4>
             </div>
           </div>
           <div className="flex gap-2 items-center border-r-2 w-1/3 justify-center border-gray-300">
@@ -103,7 +103,7 @@ function Profile() {
               <h4 className="text-3xl font-bold text-center">
                 {myProjects.length}{" "}
               </h4>
-              <h4 className="text-[14px] text-gray-600">Projects</h4>
+              <h4 className="text-[14px] text-gray-600 line-clamp-1">Projects</h4>
             </div>
           </div>
           <div className="flex gap-2 items-center w-1/3 justify-center">
@@ -117,13 +117,13 @@ function Profile() {
               <h4 className="text-3xl font-bold text-center">
                 {taskCompleted.length}
               </h4>
-              <h4 className="text-[14px] text-gray-600">Tasks Completed</h4>
+              <h4 className="text-[14px] text-gray-600 line-clamp-1">Tasks Completed</h4>
             </div>
           </div>
         </div>
       </div>
       <div className="flex justify-between bg-white mt-4 px-2 py-2 shadow-md rounded-lg">
-        <div className="w-1/4 flex justify-center text-purple-600 items-center gap-2">
+        <div className="sm:w-1/4 w-fit flex justify-center text-purple-600 items-center gap-2">
           <div className="w-6 h-6">
             <img
               src="https://cdn-icons-png.flaticon.com/128/14627/14627400.png"
@@ -146,7 +146,7 @@ function Profile() {
         </NavLink>
         <NavLink
           to="/tasks"
-          className="w-1/4 flex justify-center text-gray-600 gap-2 items-center"
+          className="sm:w-1/4 w-fit flex justify-center text-gray-600 gap-2 items-center"
         >
           <div className="w-6 h-6">
             <img
@@ -164,13 +164,14 @@ function Profile() {
             <img
               src="https://cdn-icons-png.flaticon.com/128/511/511587.png"
               alt=""
+              className="w-full h-full object-cover"
             />
           </div>
-          <h4>Connections</h4>
+          <h4 className="truncate">Connections</h4>
         </NavLink>
       </div>
-      <div className="flex py-4 gap-4">
-        <div className="w-1/2 p-4 bg-white rounded-lg shadow-lg flex flex-col">
+      <div className="flex py-4 gap-4 md:flex-row flex-col">
+        <div className="md:w-1/2 p-4 bg-white rounded-lg shadow-lg flex flex-col">
           <div className="flex flex-col gap-4 border-b-2 border-gray-300 pb-4">
             <div className="flex items-center gap-2">
               <div className="w-6 h-6">
@@ -228,7 +229,7 @@ function Profile() {
             </div>
           </div>
         </div>
-        <div className="w-1/2 p-4 bg-white rounded-lg shadow-lg flex flex-col gap-4">
+        <div className="md:w-1/2 p-4 bg-white rounded-lg shadow-lg flex flex-col gap-4">
           <div className="flex gap-2 items-center">
             <div className="w-6 h-6">
               <img
@@ -257,11 +258,11 @@ function Profile() {
                     />
                   </div>
 
-                  <h2 className="text-lg font-bold truncate text-center">
+                  <h2 className="text-lg font-bold truncate text-center line-clamp-1">
                     {project.name}
                   </h2>
 
-                  <h4 className="text-[14px] text-gray-600 line-clamp-2 text-center">
+                  <h4 className="text-[14px] text-gray-600 line-clamp-2 text-center line-clamp-2">
                     {project.desc}
                   </h4>
                 </div>

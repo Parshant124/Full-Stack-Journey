@@ -16,7 +16,7 @@ function Notifications() {
   const myNotifications = notifications.filter((noti) => noti.to === userId);
   return (
     <div className="p-4 h-full">
-      <div className="flex justify-between">
+      <div className="flex justify-between sm:flex-row flex-col gap-4">
         <div>
           <h2 className="text-2xl font-bold">Notifications</h2>
           <h4 className="text-[14px] text-gray-600">
@@ -27,14 +27,14 @@ function Notifications() {
           <div className="flex gap-4">
             <button
               title="Mark All as Read"
-              className="bg-purple-600 text-white px-4 rounded-md"
+              className="bg-purple-600 text-white px-4 rounded-md h-10 truncate"
               onClick={() => modifyReadAll(userId)}
             >
               Mark All as Read
             </button>
             <button
               title="Delete Read"
-              className="bg-red-600 px-4 text-white rounded-md"
+              className="bg-red-600 px-4 text-white rounded-md h-10 truncate"
               onClick={() => deleteRead(userId)}
             >
               Delete Read
