@@ -7,11 +7,17 @@ function AuthNav() {
     const isLoginPage = location.pathname === "/login"
     const isSignUpPage = location.pathname === "/signup"
   return (
-    <div className='flex w-full justify-between'>
-      <div className='flex w-3/4 justify-center'>
-        <Link to="/">
-            Home
-        </Link>
+    <div className="flex w-full justify-between items-center">
+      <Link to="/" className="w-40 flex">
+        <img
+          src=".\src\assets\DevConnect.png"
+          alt=""
+          width="200px"
+          className="cursor-pointer"
+        />
+      </Link>
+      <div className="sm:flex hidden justify-center">
+        <Link to="/">Home</Link>
       </div>
       <div className="flex w-1/7 min-w-33 justify-between font-medium">
         {!isLoginPage && (
