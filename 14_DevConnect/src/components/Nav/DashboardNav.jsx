@@ -169,7 +169,7 @@ function DashboardNav() {
               <NavLink
                 to="/notifications"
                 className={({ isActive }) =>
-                  `${isActive || location.pathname === "/addproject" ? "bg-purple-200 text-purple-800" : "text-black"} px-1 py-1.5 rounded-lg flex sm:hidden items-center gap-4 border-b-2`
+                  `${isActive || location.pathname === "/addproject" ? "bg-purple-200 text-purple-800" : "text-black"} ${myNotification.length > 0 ? "bg-red-200" : "bg-white"} px-1 py-1.5 rounded-lg flex sm:hidden items-center gap-4 border-b-2 relative`
                 }
               >
                 <div>
@@ -187,6 +187,11 @@ function DashboardNav() {
                   />
                 </div>
                 <h4>Notifications</h4>
+                {myNotification.length > 0 && (
+                  <h4 className="absolute top-0 -right-2 text-[12px] rounded-full bg-red-600 text-white h-4 w-4 text-center">
+                    {myNotification.length}
+                  </h4>
+                )}
               </NavLink>
               <NavLink
                 to="/tasks"
