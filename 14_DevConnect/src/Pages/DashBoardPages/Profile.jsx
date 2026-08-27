@@ -262,7 +262,7 @@ function Profile() {
                     {project.name}
                   </h2>
 
-                  <h4 className="text-[14px] text-gray-600 line-clamp-2 text-center line-clamp-2">
+                  <h4 className="text-[14px] text-gray-600 line-clamp-2 text-center">
                     {project.desc}
                   </h4>
                 </div>
