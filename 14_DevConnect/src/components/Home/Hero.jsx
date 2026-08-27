@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 
 function Hero() {
   return (
-    <div className="flex w-full px-14 py-14 justify-around cursor-default">
-      <div className="w-1/3 flex flex-col gap-4">
+    <div className="flex xl:flex-row flex-col w-full px-14 py-14 justify-around cursor-default gap-10 xl:gap-0">
+      <div className="xl:w-1/3 flex flex-col gap-4">
         <div>
           <h4 className="text-[10px] font-medium text-purple-800 bg-purple-200 w-fit px-2 py-1 rounded-full">
             Built for Developers
@@ -36,7 +36,7 @@ function Hero() {
           </Link>
         </div>
       </div>
-      <div className="w-1/2 flex min-h-80 shadow-2xl shadow-purple-300 border-2 border-black/10 rounded-lg">
+      <div className="xl:w-1/2 md:flex hidden min-h-80 shadow-2xl shadow-purple-300 border-2 border-black/10 rounded-lg">
         <div className="w-1/5 flex flex-col border-[0px_1px_0px_0px] border-black/10">
           <div className="h-1/7 w-full flex justify-center items-center border-[0px_0px_1px_0px] border-black/10">
             <img src=".\src\assets\DevConnect.png" alt="" width="120px" />

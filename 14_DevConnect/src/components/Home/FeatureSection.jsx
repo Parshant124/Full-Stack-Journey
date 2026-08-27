@@ -4,8 +4,8 @@ function FeatureSection() {
   return (
     <div className="flex items-center flex-col gap-4 w-full pt-4 border-[1px_0px_0px_0px] border-black/20 bg-white">
       <h2 className="font-bold text-xl">Why DevConnect?</h2>
-      <div className="flex w-full justify-around">
-        <div className="w-1/4 border border-black/20 rounded-lg shadow-md flex flex-col items-center px-14 py-6">
+      <div className="flex w-full justify-around flex-wrap gap-4">
+        <div className="w-1/4 min-w-80 border border-black/20 rounded-lg shadow-md flex flex-col items-center px-14 py-6">
           <div className="bg-purple-300 rounded-full p-3">
             <img
               src="https://cdn-icons-png.flaticon.com/128/3767/3767084.png"
@@ -18,7 +18,7 @@ function FeatureSection() {
             Track all your development work in one organized place.
           </h4>
         </div>
-        <div className="w-1/4 border border-black/20 rounded-lg shadow-md flex flex-col items-center px-14 py-6">
+        <div className="w-1/4 min-w-80 border border-black/20 rounded-lg shadow-md flex flex-col items-center px-14 py-6">
           <div className="bg-purple-300 rounded-full p-3">
             <img
               src="https://cdn-icons-png.flaticon.com/128/8215/8215621.png"
@@ -31,7 +31,7 @@ function FeatureSection() {
             Work seamlessly with your team in real-life.
           </h4>
         </div>
-        <div className="w-1/4 border border-black/20 rounded-lg shadow-md flex flex-col items-center px-14 py-6">
+        <div className="w-1/4 min-w-80 border border-black/20 rounded-lg shadow-md flex flex-col items-center px-14 py-6">
           <div className="bg-purple-300 rounded-full p-3">
             <img
               src="https://cdn-icons-png.flaticon.com/128/3573/3573187.png"
