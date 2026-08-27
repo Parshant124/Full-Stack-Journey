@@ -74,7 +74,7 @@ function DashboardNav() {
         </button>
         {showMore && (
           <div
-            className="absolute top-10 left-0 lg:hidden bg-white shadow-lg py-4 rounded-lg shadow-purple-400"
+            className="absolute top-10 left-0 lg:hidden bg-white shadow-lg py-4 rounded-lg shadow-purple-400 z-10"
             ref={popupRef}
           >
             <div className="flex flex-col px-4 py-2 gap-4 font-medium">

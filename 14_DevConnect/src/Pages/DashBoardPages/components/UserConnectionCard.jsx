@@ -124,7 +124,7 @@ function UserConnectionCard({ userId, currUser }) {
     setConnectionStatus(2);
   };
   return (
-    <div className="relative flex border-b-2 p-4 border-gray-300 justify-between w-full">
+    <div className="relative flex border-b-2 p-4 border-gray-300 justify-between w-full z-0">
       <NavLink to={`/profile/${userId}`} className="flex items-center gap-2">
         <div className="h-12 w-12 flex">
           <img
