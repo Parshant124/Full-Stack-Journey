@@ -58,6 +58,20 @@ function DashboardLayout() {
     );
   };
 
+  const toggleVisibility = (projectId) => {
+    setProjects((prev) =>
+      prev.map((project) =>
+        project.createdOn === projectId
+          ? {
+              ...project,
+              visibility:
+                project.visibility === "Public" ? "Private" : "Public",
+            }
+          : project,
+      ),
+    );
+  }
+
   useEffect(() => {
     localStorage.setItem("projects", JSON.stringify(projects));
   }, [projects]);
@@ -198,7 +212,7 @@ function DashboardLayout() {
             value={{ tasks, addTasks, toggleCompleteTask, deleteTask }}
           >
             <ProjectProvider
-              value={{ projects, addProject, toggleComplete, deleteProject }}
+              value={{ projects, addProject, toggleComplete, deleteProject, toggleVisibility }}
             >
               <div className="h-screen flex flex-col">
                 <Header type="dashNav" />

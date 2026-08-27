@@ -27,10 +27,10 @@ function My_Projects() {
           </button>
         </NavLink>
       </div>
-      <div className="flex justify-between">
+      <div className="flex justify-between md:flex-row flex-col gap-4">
         <input
           type="text"
-          className="border-2 px-2 py-1 text-[14px] rounded-md bg-white border-gray-300 w-1/2"
+          className="border-2 px-2 py-1 text-[14px] rounded-md bg-white border-gray-300 md:w-1/2"
           placeholder="Search projects..."
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
