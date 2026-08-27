@@ -62,7 +62,7 @@ function Explore() {
           Discover developers, projects and oppurtunities
         </h4>
       </div>
-      <div className="flex items-center gap-2 border-2 w-1/3 py-1 px-2 rounded-md border-gray-300">
+      <div className="flex items-center gap-2 border-2 w-100 py-1 px-2 rounded-md border-gray-300">
         <img
           src="https://cdn-icons-png.flaticon.com/128/3031/3031293.png"
           alt=""
@@ -93,8 +93,8 @@ function Explore() {
           Projects
         </NavLink>
       </div>
-      <div className="w-full flex gap-6 h-108">
-        <div className="w-1/2 bg-white p-4 flex flex-col gap-4 rounded-lg shadow-md">
+      <div className="w-full flex md:flex-row flex-col gap-6 h-108">
+        <div className="md:w-1/2 bg-white p-4 flex flex-col gap-4 rounded-lg shadow-md">
           <div className="flex justify-between">
             <h2 className="font-semibold">People to follow</h2>
             <NavLink
@@ -120,7 +120,7 @@ function Explore() {
             )}
           </div>
         </div>
-        <div className="w-1/2 bg-white p-4 flex flex-col gap-4 rounded-lg shadow-md">
+        <div className="md:w-1/2 bg-white p-4 flex flex-col gap-4 rounded-lg shadow-md">
           <div className="flex justify-between">
             <h2 className="font-semibold">Trending Projects</h2>
             <NavLink

@@ -56,8 +56,8 @@ function ExploreProjectCard({ project, bookmarked }) {
           />
         </div>
         <div>
-          <h2 className="text-[14px] font-semibold">{project.name}</h2>
-          <h4 className="text-[14px] text-gray-600">{project.desc}</h4>
+          <h2 className="text-[14px] font-semibold line-clamp-1">{project.name}</h2>
+          <h4 className="text-[14px] text-gray-600 line-clamp-1">{project.desc}</h4>
         </div>
       </div>
       <div>

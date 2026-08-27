@@ -77,8 +77,8 @@ function ExplorePeopleCard({ user, requestReceive, requestSent }) {
           />
         </div>
         <div>
-          <h2 className="text-[14px] font-semibold">{userInfo.fullName}</h2>
-          <h4 className="text-[14px] text-gray-600">{userInfo.bio}</h4>
+          <h2 className="text-[14px] font-semibold line-clamp-1">{userInfo.fullName}</h2>
+          <h4 className="text-[14px] text-gray-600 line-clamp-1">{userInfo.bio}</h4>
         </div>
       </div>
       <div>
