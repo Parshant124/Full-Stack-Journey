@@ -1,4 +1,6 @@
 import React from "react";
+import {Chart as ChartJS} from "chart.js/auto"
+import {Line} from "react-chartjs-2"
 import {
   useConnection,
   useCurrSessionUser,
@@ -67,7 +69,7 @@ function DashBoard() {
           />
         </div>
       </div>
-      <div className="flex gap-4 py-4 justify-between">
+      <div className="flex gap-4 py-4 sm:justify-between flex-wrap justify-center">
         <DashInfoCards
           image="https://cdn-icons-png.flaticon.com/256/7457/7457274.png"
           title="Total Projects"
@@ -97,12 +99,74 @@ function DashBoard() {
           linkTo="/connections"
         />
       </div>
-      <div className="w-full h-full flex gap-4">
-        <div className="w-3/5 shadow-md h-full rounded-lg bg-white">
-          {" "}
-          <DashGraph />{" "}
+      <div className="w-full h-full flex gap-4 md:flex-row flex-col">
+        <div className="md:w-3/5 w-full shadow-md h-80 rounded-lg bg-white p-4">
+          <Line
+            data={{
+              labels: ["Mar", "Apr", "May", "Jun", "Jul", "Aug"],
+              datasets: [
+                {
+                  label: "Projects",
+                  data: [ 3, 4, 3, 2, 5, 4],
+
+                  borderWidth: 3,
+                  tension: 0.4,
+                  pointRadius: 4,
+                  pointHoverRadius: 6,
+
+                  borderColor: "#7c3aed",
+                  backgroundColor: "rgba(124, 58, 237, 0.15)",
+
+                  fill: true,
+                },
+                {
+                  label: "Tasks",
+                  data: [ 5, 6, 5, 4, 4, 7],
+
+                  borderWidth: 3,
+                  tension: 0.4,
+                  pointRadius: 4,
+                  pointHoverRadius: 6,
+
+                  borderColor: "blue",
+                  backgroundColor: "rgba(12, 58, 237, 0.15)",
+
+                  fill: true,
+                },
+              ],
+            }}
+            options={{
+              responsive: true,
+              maintainAspectRatio: false,
+
+              plugins: {
+                legend: {
+                  display: true,
+                  position: "top",
+                },
+              },
+
+              scales: {
+                y: {
+                  beginAtZero: true,
+                  ticks: {
+                    stepSize: 1,
+                  },
+                  grid: {
+                    display: true,
+                  },
+                },
+
+                x: {
+                  grid: {
+                    display: false,
+                  },
+                },
+              },
+            }}
+          />
         </div>
-        <div className="w-2/5 shadow-md h-full rounded-lg bg-white">
+        <div className="md:w-2/5 shadow-md h-full rounded-lg bg-white">
           {" "}
           <DashTasks />{" "}
         </div>
