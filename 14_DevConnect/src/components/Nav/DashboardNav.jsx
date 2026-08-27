@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useNavigate, useLocation } from "react-router-dom";
 import {
   useAuth,
   useCurrSessionUser,
@@ -14,6 +14,30 @@ function DashboardNav() {
   const { notifications } = useNotification();
   const [showMore, setShowMore] = useState(false);
   const popupRef = useRef(null);
+  const [logOut, setLogOut] = useState(false);
+  const navigate = useNavigate();
+  const { handleCurrEmail, handleCurrId, handleRememberUser } = useCurrUser();
+  const {
+    handleSessionCurrId,
+    handleSessionCurrEmail,
+    handleSessionUser,
+    handleSessionCurrFullName,
+  } = useCurrSessionUser();
+  const location = useLocation();
+
+  const handleLogOut = () => {
+    handleCurrEmail("");
+    handleCurrId("");
+    handleRememberUser("", "");
+
+    handleSessionCurrId("");
+    handleSessionCurrEmail("");
+    handleSessionCurrFullName("");
+    handleSessionUser("", "", "");
+
+    navigate("/");
+  };
+
 
   const currUser = currUserId || currSessionUserId;
 
@@ -49,8 +73,9 @@ function DashboardNav() {
           />
         </button>
         {showMore && (
-          <div className="absolute top-10 left-0 lg:hidden bg-white"
-          ref={popupRef}
+          <div
+            className="absolute top-10 left-0 lg:hidden bg-white shadow-lg py-4 rounded-lg shadow-purple-400"
+            ref={popupRef}
           >
             <div className="flex flex-col px-4 py-2 gap-4 font-medium">
               <NavLink
@@ -96,6 +121,72 @@ function DashboardNav() {
                   />
                 </div>
                 <h4>My Projects</h4>
+              </NavLink>
+              <NavLink
+                to="/projects"
+                className={({ isActive }) =>
+                  `${isActive || location.pathname === "/addproject" ? "bg-purple-200 text-purple-800" : "text-black"} px-1 py-1.5 rounded-lg flex sm:hidden items-center gap-4 border-b-2`
+                }
+              >
+                <div>
+                  <img
+                    src="https://cdn-icons-png.flaticon.com/128/4257/4257459.png"
+                    alt=""
+                    width="22px"
+                    className={`${location.pathname === "/projects" ? "hidden" : "block"}`}
+                  />
+                  <img
+                    src="https://cdn-icons-png.flaticon.com/128/4257/4257460.png"
+                    alt=""
+                    width="22px"
+                    className={`${location.pathname === "/projects" ? "block" : "hidden"}`}
+                  />
+                </div>
+                <h4>Projects</h4>
+              </NavLink>
+              <NavLink
+                to="/explore"
+                className={({ isActive }) =>
+                  `${isActive || location.pathname === "/addproject" ? "bg-purple-200 text-purple-800" : "text-black"} px-1 py-1.5 rounded-lg flex sm:hidden items-center gap-4 border-b-2`
+                }
+              >
+                <div>
+                  <img
+                    src="https://cdn-icons-png.flaticon.com/128/6881/6881172.png"
+                    alt=""
+                    width="22px"
+                    className={`${location.pathname === "/explore" ? "hidden" : "block"}`}
+                  />
+                  <img
+                    src="https://cdn-icons-png.flaticon.com/128/253/253318.png"
+                    alt=""
+                    width="22px"
+                    className={`${location.pathname === "/explore" ? "block" : "hidden"}`}
+                  />
+                </div>
+                <h4>Explore</h4>
+              </NavLink>
+              <NavLink
+                to="/notifications"
+                className={({ isActive }) =>
+                  `${isActive || location.pathname === "/addproject" ? "bg-purple-200 text-purple-800" : "text-black"} px-1 py-1.5 rounded-lg flex sm:hidden items-center gap-4 border-b-2`
+                }
+              >
+                <div>
+                  <img
+                    src="https://cdn-icons-png.flaticon.com/128/2645/2645897.png"
+                    alt=""
+                    width="22px"
+                    className={`${location.pathname === "/notifications" ? "hidden" : "block"}`}
+                  />
+                  <img
+                    src="https://cdn-icons-png.flaticon.com/128/2645/2645890.png"
+                    alt=""
+                    width="22px"
+                    className={`${location.pathname === "/notifications" ? "block" : "hidden"}`}
+                  />
+                </div>
+                <h4>Notifications</h4>
               </NavLink>
               <NavLink
                 to="/tasks"
@@ -185,6 +276,40 @@ function DashboardNav() {
                 </div>
                 <h4>Settings</h4>
               </NavLink>
+              <button
+                className="flex items-center gap-4 bg-red-500 text-white text-center w-full px-1 py-1.5 rounded-lg border-b-2 border-black"
+                onClick={() => setLogOut(true)}
+              >
+                <img
+                  src="https://cdn-icons-png.flaticon.com/128/10313/10313098.png"
+                  alt=""
+                  width="25"
+                  className=""
+                />
+                Log Out
+              </button>
+            </div>
+
+            <div
+              className={`${logOut ? "block" : "hidden"} absolute w-full h-full flex justify-center items-baseline-last bg-black/10 top-0 left-0`}
+            >
+              <div className="bg-white p-2 rounded-lg shadow-lg absolute bottom-15">
+                <h2 className="text-black text-2xl font-bold">Are you Sure?</h2>
+                <div className="flex justify-between p-2">
+                  <button
+                    className="bg-red-500 text-white px-2 py-1 rounded-md flex flex-col"
+                    onClick={handleLogOut}
+                  >
+                    Yes
+                  </button>
+                  <button
+                    className="bg-purple-600 text-white px-2 py-1 rounded-md flex flex-col"
+                    onClick={() => setLogOut(false)}
+                  >
+                    No
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         )}
