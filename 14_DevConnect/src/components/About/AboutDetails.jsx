@@ -1,13 +1,13 @@
-import React from 'react'
-import {Link} from 'react-router-dom'
+import React from "react";
+import { Link } from "react-router-dom";
 
 function AboutDetails() {
   return (
-    <div className="flex pt-14 justify-between px-8 gap-4">
-      <div>
-        <img src=".\src\components\About\assets\Boy.png" alt="" width="450px" />
+    <div className="flex pt-14 lg:justify-between justify-center px-8 gap-4">
+      <div className="hidden lg:block w-250">
+        <img src=".\src\components\About\assets\Boy.png" alt="" className="w-full h-full" />
       </div>
-      <div className="flex flex-col items-center justify-center gap-4 w-1/3">
+      <div className="flex flex-col items-center justify-center gap-4 w-150 lg:w-fit">
         <h4 className="text-center text-[14px] font-semibold text-purple-800">
           ABOUT DEVCONNECT
         </h4>
@@ -36,15 +36,15 @@ function AboutDetails() {
           </h4>
         </Link>
       </div>
-      <div>
+      <div className="hidden xl:block w-250">
         <img
           src=".\src\components\About\assets\Girl.png"
           alt=""
-          width="450px"
-        />
+          className="w-full h-full"
+/>
       </div>
     </div>
   );
 }
 
-export default AboutDetails
+export default AboutDetails;

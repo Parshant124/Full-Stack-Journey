@@ -3,17 +3,17 @@ import React from 'react'
 function AboutGithub() {
   return (
     <div className="p-4">
-      <div className="w-full bg-purple-100 border border-blue-400/30 items-center flex justify-between p-4 rounded-lg shadow-lg gap-8">
-        <div className="flex items-center gap-4 w-1/3">
-          <div className="p-2 bg-blue-300 rounded-full w-fit h-fit">
+      <div className="w-full bg-purple-100 border border-blue-400/30 items-center flex justify-between p-4 rounded-lg shadow-lg gap-8 md:flex-row flex-col">
+        <div className="flex items-center gap-4">
+          <div className="p-2 bg-blue-300 rounded-full w-20 h-20">
             <img
               src="https://cdn-icons-png.flaticon.com/256/6517/6517429.png"
               alt=""
-              width="70px"
-              className="bg-blue-700 p-1 rounded-full"
+              width=""
+              className="bg-blue-700 p-1 rounded-full h-full w-full"
             />
           </div>
-          <div>
+          <div className='w-fit'>
             <h2 className="font-bold text-lg">Built with ❤️ by Developers</h2>
             <h4 className="text-[14px]">
               DevConnect is open source and community-driven. Together, we can
