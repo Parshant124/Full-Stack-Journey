@@ -4,7 +4,8 @@ const projectContext = createContext({
   projects: [{}],
   addProject: () => {},
   toggleComplete: () => {},
-  deleteProject: () => {}
+  deleteProject: () => {},
+  toggleVisibility: () => {}
 });
 
 export const ProjectProvider = projectContext.Provider;

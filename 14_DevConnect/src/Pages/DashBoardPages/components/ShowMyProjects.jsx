@@ -3,7 +3,7 @@ import { useCurrSessionUser, useCurrUser, useProject } from "../../../contexts";
 
 function ShowMyProjects({ type }) {
   const [openProject, setOpenProject] = useState(null);
-  const { projects, toggleComplete, deleteProject } = useProject();
+  const { projects, toggleComplete, deleteProject, toggleVisibility } = useProject();
   const { currSessionUserId } = useCurrSessionUser();
   const { currUserId } = useCurrUser();
   const dropdownRef = useRef(null);
@@ -63,19 +63,21 @@ function ShowMyProjects({ type }) {
                 />
               </div>
               <div>
-                <h2 className="font-semibold">{currProject.name}</h2>
-                <h4 className="text-[14px] text-gray-600">
+                <h2 className="font-semibold line-clamp-1">
+                  {currProject.name}
+                </h2>
+                <h4 className="text-[14px] text-gray-600 line-clamp-2">
                   {currProject.desc}
                 </h4>
               </div>
             </div>
             <div className="flex w-1/3 justify-between items-center">
               {currProject.completed ? (
-                <h4 className="text-[14px] text-green-700 bg-green-100 px-2 py-1 rounded-lg">
+                <h4 className="text-[14px] text-green-700 bg-green-100 px-2 py-1 rounded-lg truncate">
                   Completed
                 </h4>
               ) : (
-                <h4 className="text-[14px] text-blue-700 bg-blue-100 px-2 py-1 rounded-lg">
+                <h4 className="text-[14px] text-blue-700 bg-blue-100 px-2 py-1 rounded-lg truncate">
                   In Progress
                 </h4>
               )}
@@ -106,14 +108,35 @@ function ShowMyProjects({ type }) {
                   >
                     <button
                       onClick={() =>
-                        toggleComplete(currProject.userId, currProject.createdOn)
+                        toggleComplete(
+                          currProject.userId,
+                          currProject.createdOn,
+                        )
                       }
                       className="border-b-2 border-gray-400 pb-2"
                     >
                       {currProject.completed ? (
-                        <span className="text-blue-600">Mark as Incompleted</span>
+                        <span className="text-blue-600">
+                          Mark as Incompleted
+                        </span>
                       ) : (
-                        <span className="text-green-800">Mark as Completed</span>
+                        <span className="text-green-800">
+                          Mark as Completed
+                        </span>
+                      )}
+                    </button>
+                    <button
+                      onClick={() => toggleVisibility(currProject.createdOn)}
+                      className="border-b-2 border-gray-400 pb-2"
+                    >
+                      {currProject.visibility === "Public" ? (
+                        <span className="text-purple-600">
+                          Set as Private
+                        </span>
+                      ) : (
+                        <span className="text-yellow-800">
+                          Set as Public
+                        </span>
                       )}
                     </button>
                     <button
