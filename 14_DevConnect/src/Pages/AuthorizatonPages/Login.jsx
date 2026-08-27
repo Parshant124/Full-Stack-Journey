@@ -62,7 +62,7 @@ function Login() {
 
   return (
     <div className="flex w-full min-h-screen h-fit">
-      <div className="flex flex-col items-center w-1/2 gap-4 h-full bg-purple-200 border-r-2 border-gray-300 px-10 py-10">
+      <div className="md:flex hidden flex-col items-center w-1/2 gap-4 h-full bg-purple-200 border-r-2 border-gray-300 px-10 py-10">
         <AuthLeftSide
           title="Welcome Back!"
           titleDesc="Log in to your account and continue connecting with developers."
@@ -86,7 +86,7 @@ function Login() {
           ]}
         />
       </div>
-      <div className="w-1/2 h-full flex flex-col px-10 py-10 gap-8">
+      <div className="md:w-1/2 w-full h-full flex flex-col px-10 py-10 gap-8">
         <div>
           <h1 className="font-bold text-3xl">Log In</h1>
           <h3 className="text-[14px] text-gray-600">

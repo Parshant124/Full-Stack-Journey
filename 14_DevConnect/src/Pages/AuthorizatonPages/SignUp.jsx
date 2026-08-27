@@ -167,7 +167,7 @@ function SignUp() {
 
   return (
     <div className="flex w-full min-h-screen h-fit">
-      <div className="flex flex-col items-center w-1/2 gap-4 min-h-full bg-purple-200 border-r-2 border-gray-300 px-10 py-10">
+      <div className="md:flex hidden flex-col items-center w-1/2 gap-4 min-h-full bg-purple-200 border-r-2 border-gray-300 px-10 py-10">
         <AuthLeftSide
           title="Join DevConnect"
           titleDesc="Create your account and become a part of our developor coummunity."
@@ -191,7 +191,7 @@ function SignUp() {
           ]}
         />
       </div>
-      <div className="w-1/2 min-h-full flex flex-col px-10 py-10 gap-8">
+      <div className="md:w-1/2 w-full min-h-full flex flex-col px-10 py-10 gap-8">
         <div>
           <h1 className="font-bold text-3xl">Create Account</h1>
           <h3 className="text-[14px] text-gray-600">
