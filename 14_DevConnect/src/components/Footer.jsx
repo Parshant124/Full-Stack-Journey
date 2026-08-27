@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 function Footer() {
   return (
     <div className="bg-gray-800 text-white pt-4 w-full">
-      <div className="flex px-10 justify-between gap-10">
-        <div className="w-1/4 flex flex-col gap-4">
+      <div className="flex px-10 justify-between gap-10 flex-row w-full flex-wrap sm:flex-nowrap">
+        <div className="sm:w-1/4 w-1/3 flex flex-col gap-4">
           <img src=".\src\assets\DevConnect.png" alt="" width="200px" />
           <h4 className="text-[14px]">
             The all in one platform for developers to build, collaborate and
@@ -40,40 +40,42 @@ function Footer() {
             </a>
           </div>
         </div>
-        <div className="w-1/4 flex flex-col gap-1">
+        <div className="sm:w-1/4 w-1/3 flex flex-col gap-1">
           <h2 className="font-semibold">Company</h2>
           <Link to="">
-            <h4 className="text-[14px]">Home</h4>
+            <h4 className="text-[14px] hover:underline underline-offset-4">
+              Home
+            </h4>
           </Link>
           <Link to="features">
-            <h4 className="text-[14px]">Features</h4>
+            <h4 className="text-[14px] hover:underline underline-offset-4">Features</h4>
           </Link>
           <Link to="about">
-            <h4 className="text-[14px]">About</h4>
+            <h4 className="text-[14px] hover:underline underline-offset-4">About</h4>
           </Link>
         </div>
-        <div className="w-1/4 flex flex-col gap-1">
+        <div className="sm:w-1/4 w-1/3 flex flex-col gap-1">
           <h2 className="font-semibold">Resources</h2>
           <Link to="comingsoon">
-            <h4 className="text-[14px]">Blog</h4>
+            <h4 className="text-[14px] hover:underline underline-offset-4">Blog</h4>
           </Link>
           <Link to="comingsoon">
-            <h4 className="text-[14px]">Docs</h4>
+            <h4 className="text-[14px] hover:underline underline-offset-4">Docs</h4>
           </Link>
           <Link to="comingsoon">
-            <h4 className="text-[14px]">Help Center</h4>
+            <h4 className="text-[14px] hover:underline underline-offset-4">Help Center</h4>
           </Link>
         </div>
-        <div className="w-1/4 flex flex-col gap-1">
+        <div className="sm:w-1/4 w-1/3 flex flex-col gap-1">
           <h2 className="font-semibold">Legal</h2>
           <Link to="comingsoon">
-            <h4 className="text-[14px]">Privacy Policy</h4>
+            <h4 className="text-[14px] hover:underline underline-offset-4">Privacy Policy</h4>
           </Link>
           <Link to="comingsoon">
-            <h4 className="text-[14px]">Terms of Service</h4>
+            <h4 className="text-[14px] hover:underline underline-offset-4">Terms of Service</h4>
           </Link>
           <Link to="comingsoon">
-            <h4 className="text-[14px]">Cookie Policy</h4>
+            <h4 className="text-[14px] hover:underline underline-offset-4">Cookie Policy</h4>
           </Link>
         </div>
       </div>
