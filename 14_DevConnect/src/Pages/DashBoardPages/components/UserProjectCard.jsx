@@ -34,7 +34,7 @@ function UserProjectCard({ project, bookmarked, userId }) {
   };
 
   return (
-    <div className="w-80 bg-white p-2 rounded-md shadow-lg flex flex-col gap-2">
+    <div className="w-80 h-90 bg-white p-2 rounded-md shadow-lg flex flex-col gap-2">
       <div className="h-55 flex w-full">
         <img
           src={
