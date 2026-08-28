@@ -45,7 +45,7 @@ function UpdatePassword() {
       setError(error.message);
       return;
     }
-    
+
     await supabase.auth.signOut();
 
     setSuccess(true);
@@ -57,7 +57,7 @@ function UpdatePassword() {
 
   return (
     <div className="min-h-screen bg-gray-100 flex justify-center items-center">
-      <div className="bg-white p-8 rounded-xl shadow-md w-[400px]">
+      <div className="bg-white p-8 rounded-xl shadow-md w-100">
         <h2 className="text-2xl font-bold mb-2">Update Password</h2>
 
         <p className="text-sm text-gray-600 mb-6">
