@@ -35,12 +35,9 @@ import User from "./Pages/DashBoardPages/User.jsx";
 import UserProject from "./Pages/DashBoardPages/UserProject.jsx";
 import UserConnections from "./Pages/DashBoardPages/UserConnections.jsx";
 import UserTask from "./Pages/DashBoardPages/UserTask.jsx";
+import { supabase } from "./lib/supabaseClient.js";
 
 function App() {
-  const [currUserId, setCurrUserId] = useState(() => {
-    const user = JSON.parse(localStorage.getItem("currUser"));
-    return user?.[0] || "";
-  });
 
   const [currUserEmail, setCurrUserEmail] = useState(() => {
     const user = JSON.parse(localStorage.getItem("currUser"));
