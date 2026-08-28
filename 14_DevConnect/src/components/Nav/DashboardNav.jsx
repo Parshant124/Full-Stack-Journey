@@ -8,21 +8,14 @@ import {
 } from "../../contexts";
 
 function DashboardNav() {
-  const { currSessionUserId } = useCurrSessionUser();
-  const { currUserId } = useCurrUser();
-  const { Users } = useAuth();
+
+  const { Users, currentUser } = useAuth();
   const { notifications } = useNotification();
   const [showMore, setShowMore] = useState(false);
   const popupRef = useRef(null);
   const [logOut, setLogOut] = useState(false);
   const navigate = useNavigate();
   const { handleCurrEmail, handleCurrId, handleRememberUser } = useCurrUser();
-  const {
-    handleSessionCurrId,
-    handleSessionCurrEmail,
-    handleSessionUser,
-    handleSessionCurrFullName,
-  } = useCurrSessionUser();
   const location = useLocation();
 
   const handleLogOut = () => {
@@ -39,13 +32,11 @@ function DashboardNav() {
   };
 
 
-  const currUser = currUserId || currSessionUserId;
+  const currUser = currentUser?.id;
 
   const myNotification = notifications.filter(
     (noti) => noti.to == currUser && !noti.read,
   );
-
-  const userInfo = Users.find((user) => user.id === currUser);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -370,10 +361,10 @@ function DashboardNav() {
       </div>
       <NavLink to="/profile" className="">
         <div>
-          {userInfo.image ? (
+          {currentUser?.image ? (
             <div className="w-12 h-12 flex">
               <img
-                src={userInfo.image}
+                src={currentUser?.image}
                 alt=""
                 className="w-full h-full object-cover rounded-full"
               />
@@ -381,7 +372,7 @@ function DashboardNav() {
           ) : (
             <div className="w-10 h-10 bg-red-500 rounded-full flex justify-center items-center">
               <h3 className="text-white">
-                {currUser ? userInfo.id[0].toUpperCase() : "U"}
+                {currUser ? currentUser?.id[0].toUpperCase() : "U"}
               </h3>
             </div>
           )}

@@ -2,6 +2,7 @@ import React from "react";
 import {Chart as ChartJS} from "chart.js/auto"
 import {Line} from "react-chartjs-2"
 import {
+  useAuth,
   useConnection,
   useCurrSessionUser,
   useCurrUser,
@@ -15,25 +16,18 @@ import DashTasks from "./components/DashTasks";
 function DashBoard() {
   const { projects } = useProject();
   const { tasks } = useTasks();
-  const { currSessionUserId, currSessionUserFullName } = useCurrSessionUser();
-  const { currUserId, currUserFullName } = useCurrUser();
   const { connections } = useConnection();
+  const {currentUser} = useAuth();
 
   const firstWord =
-    currSessionUserFullName.substring(
+    currentUser?.fullName.substring(
       0,
-      currSessionUserFullName.indexOf(" ") === -1
-        ? currSessionUserFullName.length
-        : currSessionUserFullName.indexOf(" "),
-    ) ||
-    currUserFullName.substring(
-      0,
-      currUserFullName.indexOf(" ") === -1
-        ? currUserFullName.length
-        : currUserFullName.indexOf(" "),
-    );
+      currentUser?.fullName.indexOf(" ") === -1
+        ? currentUser?.fullName.length
+        : currentUser?.fullName.indexOf(" "),
+    )
 
-  const userId = currSessionUserId || currUserId;
+  const userId = currentUser?.id || currentUser?.id;
 
   const myProjects = projects.filter(
     (prev) => prev.userId === userId || prev.userId === userId,
