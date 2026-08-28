@@ -1,17 +1,22 @@
 import React,{createContext, useContext} from "react";
 
 export const AuthContext = createContext({
-    Users : [],
-    addUser: (userName, pass, email, fullName) => {},
-    changePass: (userId, pass) => {},
-    changeBio: (userId, bio) => {},
-    changeImage: (userId, image) => {},
-    changeFullName: (userId, fullName) => {},
-    changeAbout: (userId, about) => {},
-    changeDomain: (userId, domain) => {},
-    changeCourse: (userId, course) => {},
-    changeCollege: (usedId, college) => {}
-})
+  Users: [],
+  user: null,
+
+  addUser: async () => {},
+  login: async () => {},
+  logout: async () => {},
+
+  changePass: async () => {},
+  changeBio: async () => {},
+  changeImage: async () => {},
+  changeFullName: async () => {},
+  changeAbout: async () => {},
+  changeDomain: async () => {},
+  changeCourse: async () => {},
+  changeCollege: async () => {},
+});
 
 export const AuthProvider = AuthContext.Provider
 

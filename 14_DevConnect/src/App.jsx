@@ -1,3 +1,4 @@
+import { supabase } from "./lib/supabaseClient.js";
 import { useEffect, useState } from "react";
 import {
   createBrowserRouter,
@@ -6,8 +7,10 @@ import {
   Route,
   RouterProvider,
 } from "react-router-dom";
+
 import { Home, Features, About } from "./Pages/MarketingPages/index";
 import { Login, SignUp } from "./Pages/AuthorizatonPages/index";
+
 import {
   Profile,
   Projects,
@@ -20,393 +23,412 @@ import {
   Notifications,
   Tasks,
 } from "./Pages/DashBoardPages/index";
+
 import ComingSoon from "./Pages/ComingSoon.jsx";
 import AddProject from "./Pages/DashBoardPages/components/AddProject.jsx";
 import MarketingLayout from "./Layout/MarketingLayout";
 import AuthLayout from "./Layout/AuthLayout";
 import DashboardLayout from "./Layout/DashboardLayout";
 import AddTask from "./Pages/DashBoardPages/components/AddTask.jsx";
-import {
-  CurrUserProvider,
-  CurrSessionUserProvider,
-  AuthProvider,
-} from "./contexts/index";
+
+import { AuthProvider } from "./contexts/index";
+
 import User from "./Pages/DashBoardPages/User.jsx";
 import UserProject from "./Pages/DashBoardPages/UserProject.jsx";
 import UserConnections from "./Pages/DashBoardPages/UserConnections.jsx";
 import UserTask from "./Pages/DashBoardPages/UserTask.jsx";
-import { supabase } from "./lib/supabaseClient.js";
+import UpdatePassword from "./Pages/AuthorizatonPages/UpdatePassword.jsx";
 
 function App() {
+  /* =========================
+     SUPABASE AUTH
+  ========================= */
 
-  const [currUserEmail, setCurrUserEmail] = useState(() => {
-    const user = JSON.parse(localStorage.getItem("currUser"));
-    return user?.[1] || "";
-  });
+  const [user, setUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null);
 
-  const [currUserFullName, setCurrUserFullName] = useState(() => {
-    const user = JSON.parse(localStorage.getItem("currUser"));
-    return user?.[2] || "";
-  });
+  /* =========================
+     USERS TABLE
+  ========================= */
 
-  const [currSessionUserId, setcurrSessionUserId] = useState(() => {
-    const user = JSON.parse(sessionStorage.getItem("sessionUser"));
-    return user?.[0] || "";
-  });
-  const [currSessionUserEmail, setCurrSessionUserEmail] = useState(() => {
-    const user = JSON.parse(sessionStorage.getItem("sessionUser"));
-    return user?.[1] || "";
-  });
+  const [Users, setUsers] = useState([]);
 
-  const [currSessionUserFullName, setCurrSessionUserFullName] = useState(() => {
-    const user = JSON.parse(sessionStorage.getItem("sessionUser"));
-    return user?.[2] || "";
-  });
-
-  const [Users, setUsers] = useState(() => {
-    return JSON.parse(localStorage.getItem("users")) || [];
-  });
-
-  const addUser = (userName, pass, email, fullName) => {
-    setUsers((prev) => [
-      ...prev,
-      { id: userName, password: pass, email: email, fullName: fullName },
-    ]);
-  };
-
-  const changePass = (userName, pass) => {
-    setUsers((prev) =>
-      prev.map((prevUser) =>
-        prevUser.id === userName ? { ...prevUser, password: pass } : prevUser,
-      ),
-    );
-  };
-
-  const changeBio = (userId, bio) => {
-    setUsers((prev) =>
-      prev.map((user) => (user.id === userId ? { ...user, bio: bio } : user)),
-    );
-  };
-
-  const changeAbout = (userId, about) => {
-    setUsers((prev) =>
-      prev.map((user) =>
-        user.id === userId ? { ...user, about: about } : user,
-      ),
-    );
-  };
-
-  const changeDomain = (userId, domain) => {
-    setUsers((prev) =>
-      prev.map((user) =>
-        user.id === userId ? { ...user, domain: domain } : user,
-      ),
-    );
-  };
-
-  const changeImage = (userId, image) => {
-    setUsers((prev) =>
-      prev.map((user) =>
-        user.id === userId ? { ...user, image: image } : user,
-      ),
-    );
-  };
-
-  const changeFullName = (userId, fullName) => {
-    setUsers((prev) =>
-      prev.map((user) =>
-        user.id === userId ? { ...user, fullName: fullName } : user,
-      ),
-    );
-  };
-
-  const changeCourse = (userId, course) => {
-    setUsers((prev) =>
-      prev.map((user) =>
-        user.id === userId ? { ...user, course: course } : user,
-      ),
-    );
-  };
-
-  const changeCollege = (userId, college) => {
-    setUsers((prev) =>
-      prev.map((user) =>
-        user.id === userId ? { ...user, college: college } : user,
-      ),
-    );
-  };
   useEffect(() => {
-    localStorage.setItem("users", JSON.stringify(Users));
-  }, [Users]);
+    const getUsers = async () => {
+      const { data, error } = await supabase.from("users").select("*");
 
-  const handleCurrId = (id) => {
-    setCurrUserId(id);
+      if (error) {
+        console.log(error.message);
+        return;
+      }
+
+      setUsers(data);
+    };
+
+    getUsers();
+  }, []);
+
+  /* =========================
+     AUTH SESSION
+  ========================= */
+
+  useEffect(() => {
+    const getSession = async () => {
+      const { data, error } = await supabase.auth.getSession();
+
+      if (error) {
+        console.log(error.message);
+        return;
+      }
+
+      const authUser = data.session?.user ?? null;
+      setUser(authUser);
+
+      if (authUser) {
+        const { data: profile, error: profileError } = await supabase
+          .from("users")
+          .select("*")
+          .eq("email", authUser.email)
+          .single();
+
+        if (profileError) {
+          console.log(profileError.message);
+          return;
+        }
+
+        setCurrentUser(profile);
+      }
+    };
+
+    getSession();
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event, session) => {
+      const authUser = session?.user ?? null;
+      setUser(authUser);
+
+      if (!authUser) {
+        setCurrentUser(null);
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  /* =========================
+     LOGIN
+  ========================= */
+
+  const login = async (email, password) => {
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (error) {
+      console.log(error.message);
+      return { error };
+    }
+
+    return { data };
   };
 
-  const handleCurrEmail = (email) => {
-    setCurrUserEmail(email);
+  /* =========================
+     LOGOUT
+  ========================= */
+
+  const logout = async () => {
+    const { error } = await supabase.auth.signOut();
+
+    if (error) {
+      console.log(error.message);
+      return { error };
+    }
+
+    return { success: true };
   };
 
-  const handleCurrUserFullName = (name) => {
-    setCurrUserFullName(name);
+  /* =========================
+     PASSWORD
+  ========================= */
+
+  const changePass = async (pass) => {
+    const { error } = await supabase.auth.updateUser({
+      password: pass,
+    });
+
+    if (error) {
+      console.log(error.message);
+      return { error };
+    }
+
+    return { success: true };
   };
 
-  const handleRememberUser = (userId, userEmail, userFullName) => {
-    localStorage.setItem(
-      "currUser",
-      JSON.stringify([userId, userEmail, userFullName]),
+  /* =========================
+     USER PROFILE FUNCTIONS
+  ========================= */
+
+  const changeBio = async (userId, bio) => {
+    const { error } = await supabase
+      .from("users")
+      .update({ bio })
+      .eq("id", userId);
+
+    if (error) {
+      console.log(error.message);
+      return;
+    }
+
+    setUsers((prev) =>
+      prev.map((user) => (user.id === userId ? { ...user, bio } : user)),
     );
   };
 
-  const handleSessionCurrId = (id) => {
-    setcurrSessionUserId(id);
+  const changeAbout = async (userId, about) => {
+    const { error } = await supabase
+      .from("users")
+      .update({ about })
+      .eq("id", userId);
+
+    if (error) {
+      console.log(error.message);
+      return;
+    }
+
+    setUsers((prev) =>
+      prev.map((user) => (user.id === userId ? { ...user, about } : user)),
+    );
   };
 
-  const handleSessionCurrEmail = (email) => {
-    setCurrSessionUserEmail(email);
+  const changeDomain = async (userId, domain) => {
+    const { error } = await supabase
+      .from("users")
+      .update({ domain })
+      .eq("id", userId);
+
+    if (error) {
+      console.log(error.message);
+      return;
+    }
+
+    setUsers((prev) =>
+      prev.map((user) => (user.id === userId ? { ...user, domain } : user)),
+    );
   };
 
-  const handleSessionUser = (id, email, name) => {
-    sessionStorage.setItem("sessionUser", JSON.stringify([id, email, name]));
+  const changeFullName = async (userId, fullName) => {
+    const { error } = await supabase
+      .from("users")
+      .update({ fullName })
+      .eq("id", userId);
+
+    if (error) {
+      console.log(error.message);
+      return;
+    }
+
+    setUsers((prev) =>
+      prev.map((user) => (user.id === userId ? { ...user, fullName } : user)),
+    );
   };
 
-  const handleSessionCurrFullName = (name) => {
-    setCurrSessionUserFullName(name);
+  const changeCourse = async (userId, course) => {
+    const { error } = await supabase
+      .from("users")
+      .update({ course })
+      .eq("id", userId);
+
+    if (error) {
+      console.log(error.message);
+      return;
+    }
+
+    setUsers((prev) =>
+      prev.map((user) => (user.id === userId ? { ...user, course } : user)),
+    );
   };
+
+  const changeCollege = async (userId, college) => {
+    const { error } = await supabase
+      .from("users")
+      .update({ college })
+      .eq("id", userId);
+
+    if (error) {
+      console.log(error.message);
+      return;
+    }
+
+    setUsers((prev) =>
+      prev.map((user) => (user.id === userId ? { ...user, college } : user)),
+    );
+  };
+
+  const changeImage = async (userId, image) => {
+    const { error } = await supabase
+      .from("users")
+      .update({ image })
+      .eq("id", userId);
+
+    if (error) {
+      console.log(error.message);
+      return;
+    }
+
+    setUsers((prev) =>
+      prev.map((user) => (user.id === userId ? { ...user, image } : user)),
+    );
+  };
+
+  /* =========================
+     ROUTER
+  ========================= */
 
   const router = createBrowserRouter(
     createRoutesFromElements(
       <>
+        {/* ================= MARKETING ================= */}
+
         <Route element={<MarketingLayout />}>
           <Route
             index
-            element={
-              currUserId === "" && currSessionUserId === "" ? (
-                <Home />
-              ) : (
-                <Navigate to="/dashboard" />
-              )
-            }
+            element={!user ? <Home /> : <Navigate to="/dashboard" />}
           />
+
           <Route
             path="about"
-            element={
-              currUserId === "" && currSessionUserId === "" ? (
-                <About />
-              ) : (
-                <Navigate to="/dashboard" />
-              )
-            }
+            element={!user ? <About /> : <Navigate to="/dashboard" />}
           />
+
           <Route
             path="features"
-            element={
-              currUserId === "" && currSessionUserId === "" ? (
-                <Features />
-              ) : (
-                <Navigate to="/dashboard" />
-              )
-            }
+            element={!user ? <Features /> : <Navigate to="/dashboard" />}
           />
         </Route>
-        ,
+
+        {/* ================= AUTH ================= */}
+
         <Route element={<AuthLayout />}>
           <Route
             path="login"
-            element={
-              !(currUserId === "" && currSessionUserId === "") ? (
-                <Navigate to="/dashboard" />
-              ) : (
-                <Login />
-              )
-            }
+            element={user ? <Navigate to="/dashboard" /> : <Login />}
           />
+
           <Route
             path="signup"
-            element={
-              !(currUserId === "" && currSessionUserId === "") ? (
-                <Navigate to="/dashboard" />
-              ) : (
-                <SignUp />
-              )
-            }
+            element={user ? <Navigate to="/dashboard" /> : <SignUp />}
           />
+
+          {/* 
+            IMPORTANT:
+            Update password needs the Supabase recovery session.
+            Therefore don't block it just because the normal
+            application user state is not set.
+          */}
+          <Route path="/update-password" element={<UpdatePassword />} />
         </Route>
-        ,
+
+        {/* ================= DASHBOARD ================= */}
+
         <Route element={<DashboardLayout />}>
           <Route
             path="dashboard"
-            element={
-              !(currUserId === "" && currSessionUserId === "") ? (
-                <DashBoard />
-              ) : (
-                <Navigate to="/login" />
-              )
-            }
+            element={user ? <DashBoard /> : <Navigate to="/login" />}
           />
+
           <Route
             path="projects"
-            element={
-              !(currUserId === "" && currSessionUserId === "") ? (
-                <Projects />
-              ) : (
-                <Navigate to="/login" />
-              )
-            }
+            element={user ? <Projects /> : <Navigate to="/login" />}
           />
+
           <Route
             path="projects/:userName"
-            element={
-              !(currUserId === "" && currSessionUserId === "") ? (
-                <UserProject />
-              ) : (
-                <Navigate to="/login" />
-              )
-            }
+            element={user ? <UserProject /> : <Navigate to="/login" />}
           />
-          
+
           <Route
             path="profile"
-            element={
-              !(currUserId === "" && currSessionUserId === "") ? (
-                <Profile />
-              ) : (
-                <Navigate to="/login" />
-              )
-            }
+            element={user ? <Profile /> : <Navigate to="/login" />}
           />
 
           <Route
             path="profile/:userName"
-            element={
-              !(currUserId === "" && currSessionUserId === "") ? (
-                <User />
-              ) : (
-                <Navigate to="/login" />
-              )
-            }
+            element={user ? <User /> : <Navigate to="/login" />}
           />
+
           <Route
             path="setting"
-            element={
-              !(currUserId === "" && currSessionUserId === "") ? (
-                <Settings />
-              ) : (
-                <Navigate to="/login" />
-              )
-            }
+            element={user ? <Settings /> : <Navigate to="/login" />}
           />
+
           <Route
             path="bookmarks"
-            element={
-              !(currUserId === "" && currSessionUserId === "") ? (
-                <Bookmarks />
-              ) : (
-                <Navigate to="/login" />
-              )
-            }
+            element={user ? <Bookmarks /> : <Navigate to="/login" />}
           />
+
           <Route
             path="connections"
-            element={
-              !(currUserId === "" && currSessionUserId === "") ? (
-                <Connections />
-              ) : (
-                <Navigate to="/login" />
-              )
-            }
+            element={user ? <Connections /> : <Navigate to="/login" />}
           />
+
           <Route
             path="connections/:userName"
-            element={
-              !(currUserId === "" && currSessionUserId === "") ? (
-                <UserConnections />
-              ) : (
-                <Navigate to="/login" />
-              )
-            }
+            element={user ? <UserConnections /> : <Navigate to="/login" />}
           />
+
           <Route
             path="explore"
-            element={
-              !(currUserId === "" && currSessionUserId === "") ? (
-                <Explore />
-              ) : (
-                <Navigate to="/login" />
-              )
-            }
+            element={user ? <Explore /> : <Navigate to="/login" />}
           />
+
           <Route
             path="myprojects"
-            element={
-              !(currUserId === "" && currSessionUserId === "") ? (
-                <My_Projects />
-              ) : (
-                <Navigate to="/login" />
-              )
-            }
+            element={user ? <My_Projects /> : <Navigate to="/login" />}
           />
+
           <Route
             path="notifications"
-            element={
-              !(currUserId === "" && currSessionUserId === "") ? (
-                <Notifications />
-              ) : (
-                <Navigate to="/login" />
-              )
-            }
+            element={user ? <Notifications /> : <Navigate to="/login" />}
           />
+
           <Route
             path="tasks"
-            element={
-              !(currUserId === "" && currSessionUserId === "") ? (
-                <Tasks />
-              ) : (
-                <Navigate to="/login" />
-              )
-            }
+            element={user ? <Tasks /> : <Navigate to="/login" />}
           />
+
           <Route
             path="tasks/:userName"
-            element={
-              !(currUserId === "" && currSessionUserId === "") ? (
-                <UserTask />
-              ) : (
-                <Navigate to="/login" />
-              )
-            }
+            element={user ? <UserTask /> : <Navigate to="/login" />}
           />
+
           <Route
             path="addproject"
-            element={
-              !(currUserId === "" && currSessionUserId === "") ? (
-                <AddProject />
-              ) : (
-                <Navigate to="/login" />
-              )
-            }
+            element={user ? <AddProject /> : <Navigate to="/login" />}
           />
+
           <Route
             path="addtask"
-            element={
-              !(currUserId === "" && currSessionUserId === "") ? (
-                <AddTask />
-              ) : (
-                <Navigate to="/login" />
-              )
-            }
+            element={user ? <AddTask /> : <Navigate to="/login" />}
           />
         </Route>
-        ,
       </>,
     ),
   );
+
+  /* =========================
+     PROVIDERS
+  ========================= */
 
   return (
     <AuthProvider
       value={{
         Users,
-        addUser,
+        user,
+        currentUser,
+        login,
+        logout,
         changePass,
         changeBio,
         changeImage,
@@ -417,31 +439,7 @@ function App() {
         changeCourse,
       }}
     >
-      <CurrSessionUserProvider
-        value={{
-          currSessionUserId,
-          currSessionUserEmail,
-          currSessionUserFullName,
-          handleSessionCurrEmail,
-          handleSessionCurrId,
-          handleSessionCurrFullName,
-          handleSessionUser,
-        }}
-      >
-        <CurrUserProvider
-          value={{
-            currUserId,
-            currUserEmail,
-            currUserFullName,
-            handleCurrId,
-            handleCurrEmail,
-            handleRememberUser,
-            handleCurrUserFullName,
-          }}
-        >
-          <RouterProvider router={router} />
-        </CurrUserProvider>
-      </CurrSessionUserProvider>
+      <RouterProvider router={router} />
     </AuthProvider>
   );
 }
