@@ -404,6 +404,7 @@ function DashboardLayout() {
   };
 
   const removeNotification = async (notiId) => {
+    console.log("remove");
     const { error } = await supabase
       .from("notifications")
       .delete()
@@ -420,9 +421,6 @@ function DashboardLayout() {
   };
 
   const modifyRead = async (notiId) => {
-    const notification = notifications.find((noti) => noti.id === notiId);
-
-    if (!notification) return;
 
     const { data, error } = await supabase
       .from("notifications")
