@@ -4,13 +4,10 @@ import {Line} from "react-chartjs-2"
 import {
   useAuth,
   useConnection,
-  useCurrSessionUser,
-  useCurrUser,
   useProject,
   useTasks,
 } from "../../contexts";
 import DashInfoCards from "./components/DashInfoCards";
-import DashGraph from "./components/DashGraph";
 import DashTasks from "./components/DashTasks";
 
 function DashBoard() {
@@ -27,15 +24,17 @@ function DashBoard() {
         : currentUser?.fullName.indexOf(" "),
     )
 
-  const userId = currentUser?.id || currentUser?.id;
+  const userId = currentUser?.id;
 
   const myProjects = projects.filter(
-    (prev) => prev.userId === userId || prev.userId === userId,
+    (prev) => prev.userId === userId
   );
   const myTasks = tasks.filter(
-    (prev) => prev.userId === userId || prev.userId === userId,
+    (prev) => prev.userId === userId
   );
+
   const myCompletedTasks = myTasks.filter((prev) => prev.completed);
+  
   const connectedUsers = connections
     .filter((conn) => conn.senderId === userId || conn.receiverId === userId)
     .map((conn) =>

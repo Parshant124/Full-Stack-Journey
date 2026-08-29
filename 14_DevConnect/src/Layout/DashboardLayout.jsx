@@ -1,3 +1,4 @@
+import { supabase } from "../lib/supabaseClient";
 import React, { useEffect, useState } from "react";
 import { Outlet, useLocation, useSearchParams } from "react-router-dom";
 import Header from "../components/Header";
@@ -11,15 +12,6 @@ import {
 } from "../contexts";
 
 function DashboardLayout() {
-  const [projects, setProjects] = useState(() => {
-    return JSON.parse(localStorage.getItem("projects")) || [];
-  });
-  const [tasks, setTasks] = useState(() => {
-    return JSON.parse(localStorage.getItem("tasks")) || [];
-  });
-  const [connections, setConnections] = useState(() => {
-    return JSON.parse(localStorage.getItem("connections")) || [];
-  });
   const [pendingRequest, setPendingRequest] = useState(() => {
     return JSON.parse(localStorage.getItem("requests")) || [];
   });
@@ -32,77 +24,242 @@ function DashboardLayout() {
 
   const location = useLocation();
 
-  const addProject = (project) => {
-    setProjects((prev) => [project, ...prev]);
+  const [projects, setProjects] = useState([]);
+  const [tasks, setTasks] = useState([]);
+  const [connections, setConnections] = useState([]);
+
+  useEffect(() => {
+    const getProjects = async () => {
+      const { data, error } = await supabase
+        .from("projects")
+        .select("*")
+        .order("createdOn", { ascending: false });
+
+      if (error) {
+        console.log(error.message);
+        return;
+      }
+
+      setProjects(data);
+    };
+
+    getProjects();
+  }, []);
+
+  useEffect(() => {
+    const getTasks = async () => {
+      const { data, error } = await supabase
+        .from("tasks")
+        .select("*")
+        .order("taskId", { ascending: false });
+
+      if (error) {
+        console.log(error.message);
+        return;
+      }
+
+      setTasks(data);
+    };
+
+    getTasks();
+  }, []);
+  
+  useEffect(() => {
+    const getConnections = async () => {
+      const { data, error } = await supabase
+        .from("connections")
+        .select("*")
+
+      if (error) {
+        console.log(error.message);
+        return;
+      }
+
+      setConnections(data);
+    };
+
+    getConnections();
+  }, []);
+
+  const addProject = async (project) => {
+    const { data, error } = await supabase
+      .from("projects")
+      .insert(project)
+      .select()
+      .single();
+
+    if (error) {
+      console.log(error.message);
+      return;
+    }
+
+    setProjects((prev) => [data, ...prev]);
   };
 
-  const toggleComplete = (id, projectId) => {
+  const toggleComplete = async (id, projectId) => {
+    const project = projects.find(
+      (project) => project.userId === id && project.createdOn === projectId,
+    );
+
+    if (!project) return;
+
+    const { data, error } = await supabase
+      .from("projects")
+      .update({
+        completed: !project.completed,
+      })
+      .eq("userId", id)
+      .eq("createdOn", projectId)
+      .select()
+      .single();
+
+    if (error) {
+      console.log(error.message);
+      return;
+    }
+
     setProjects((prev) =>
       prev.map((currProject) =>
         currProject.userId === id && currProject.createdOn === projectId
-          ? { ...currProject, completed: !currProject.completed }
+          ? data
           : currProject,
       ),
     );
   };
 
-  const deleteProject = (id, projectId) => {
+  const deleteProject = async (id, projectId) => {
+    const { error } = await supabase
+      .from("projects")
+      .delete()
+      .eq("userId", id)
+      .eq("createdOn", projectId);
+
+    if (error) {
+      console.log(error.message);
+      return;
+    }
+
     setProjects((prev) =>
       prev.filter(
         (currProject) =>
           !(currProject.userId === id && currProject.createdOn === projectId),
       ),
     );
+
     setBookmarks((prev) =>
       prev.filter((project) => project.project !== projectId),
     );
   };
 
-  const toggleVisibility = (projectId) => {
+  const toggleVisibility = async (projectId) => {
+    const project = projects.find((project) => project.createdOn === projectId);
+
+    if (!project) return;
+
+    const newVisibility =
+      project.visibility === "Public" ? "Private" : "Public";
+
+    const { data, error } = await supabase
+      .from("projects")
+      .update({
+        visibility: newVisibility,
+      })
+      .eq("createdOn", projectId)
+      .select()
+      .single();
+
+    if (error) {
+      console.log(error.message);
+      return;
+    }
+
     setProjects((prev) =>
-      prev.map((project) =>
-        project.createdOn === projectId
-          ? {
-              ...project,
-              visibility:
-                project.visibility === "Public" ? "Private" : "Public",
-            }
-          : project,
-      ),
+      prev.map((project) => (project.createdOn === projectId ? data : project)),
     );
-  }
-
-  useEffect(() => {
-    localStorage.setItem("projects", JSON.stringify(projects));
-  }, [projects]);
-
-  const addTasks = (task) => {
-    setTasks((prev) => [task, ...prev]);
   };
 
-  const toggleCompleteTask = (id) => {
+  const addTasks = async (task) => {
+    const { data, error } = await supabase
+      .from("tasks")
+      .insert(task)
+      .select()
+      .single();
+
+    if (error) {
+      console.log(error.message);
+      return;
+    }
+
+    setTasks((prev) => [data, ...prev]);
+  };
+
+  const toggleCompleteTask = async (id) => {
+    const task = task.find((task) => task.taskId === id);
+
+    if (!task) return;
+
+    const { data, error } = await supabase
+      .from("tasks")
+      .update({
+        completed: !task.completed,
+      })
+      .eq("taskId", id)
+      .select()
+      .single();
+
+    if (error) {
+      console.log(error.message);
+      return;
+    }
+
     setTasks((prev) =>
-      prev.map((currTask) =>
-        currTask.taskId === id
-          ? { ...currTask, completed: !currTask.completed }
-          : currTask,
-      ),
+      prev.map((currTask) => (currTask.taskId === id ? data : currTask)),
     );
   };
 
-  const deleteTask = (id) => {
+  const deleteTask = async (id) => {
+    const { error } = await supabase.from("tasks").delete().eq("taskId", id);
+
+    if (error) {
+      console.log(error.message);
+      return;
+    }
+
     setTasks((prev) => prev.filter((currTask) => currTask.taskId !== id));
   };
 
-  useEffect(() => {
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-  }, [tasks]);
+  const addConnection = async (senderId, receiverId) => {
+    const connection = {
+      senderId, receiverId
+    }
 
-  const addConnection = (senderId, receiverId) => {
-    setConnections((prev) => [{ senderId, receiverId }, ...prev]);
+    const {data, error} = await supabase
+      .from("connections")
+      .insert(connection)
+      .select()
+      .single();
+
+    if(error){
+      console.log(error.message);
+      return;
+    }
+
+    setConnections((prev) => [data, ...prev]);
   };
 
-  const deleteConnection = (senderId, receiverId) => {
+  const deleteConnection = async(senderId, receiverId) => {
+    const { error } = await supabase
+      .from("connections")
+      .delete()
+      .or(
+        `and(senderId.eq.${senderId},receiverId.eq.${receiverId}),and(senderId.eq.${receiverId},receiverId.eq.${senderId})`,
+      );
+
+    if(error) {
+      console.log(error.message);
+      return;
+    }
+    
     setConnections((prev) =>
       prev.filter(
         (currConnection) =>
@@ -161,30 +318,48 @@ function DashboardLayout() {
   useEffect(() => {
     localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
   }, [bookmarks]);
-  
+
   useEffect(() => {
     localStorage.setItem("notifications", JSON.stringify(notifications));
   }, [notifications]);
 
   const addNotification = (notification) => {
     setNotification((prev) => [notification, ...prev]);
-  }
+  };
 
   const removeNotification = (notiId) => {
-    setNotification((prev) => prev.filter((notification) => notification.id !== notiId))
-  }
+    setNotification((prev) =>
+      prev.filter((notification) => notification.id !== notiId),
+    );
+  };
 
   const modifyRead = (notiId) => {
-    setNotification((prev) => prev.map((notification) => notification.id === notiId ? {...notification, read : true} : notification));
-  }
+    setNotification((prev) =>
+      prev.map((notification) =>
+        notification.id === notiId
+          ? { ...notification, read: true }
+          : notification,
+      ),
+    );
+  };
 
   const modifyReadAll = (user) => {
-    setNotification((prev) => prev.map((notification) => notification.to === user ? {...notification, read : true} : notification))
-  }
+    setNotification((prev) =>
+      prev.map((notification) =>
+        notification.to === user
+          ? { ...notification, read: true }
+          : notification,
+      ),
+    );
+  };
 
   const deleteRead = (user) => {
-    setNotification((prev) => prev.filter((notification) => !(notification.to === user && notification.read)))
-  }
+    setNotification((prev) =>
+      prev.filter(
+        (notification) => !(notification.to === user && notification.read),
+      ),
+    );
+  };
 
   return (
     <NotificationProvider
@@ -194,7 +369,7 @@ function DashboardLayout() {
         removeNotification,
         modifyRead,
         modifyReadAll,
-        deleteRead
+        deleteRead,
       }}
     >
       <BookMarkProvider value={{ bookmarks, addBookMark, removeBookMark }}>
@@ -212,7 +387,13 @@ function DashboardLayout() {
             value={{ tasks, addTasks, toggleCompleteTask, deleteTask }}
           >
             <ProjectProvider
-              value={{ projects, addProject, toggleComplete, deleteProject, toggleVisibility }}
+              value={{
+                projects,
+                addProject,
+                toggleComplete,
+                deleteProject,
+                toggleVisibility,
+              }}
             >
               <div className="h-screen flex flex-col">
                 <Header type="dashNav" />
