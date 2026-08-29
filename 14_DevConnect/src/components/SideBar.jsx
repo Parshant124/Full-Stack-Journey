@@ -1,26 +1,23 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
-import { useCurrUser, useCurrSessionUser } from "../contexts";
+import { useAuth } from "../contexts";
 
 function SideBar() {
   const [logOut, setLogOut] = useState(false)
   const navigate = useNavigate()
-  const {handleCurrEmail, handleCurrId, handleRememberUser} = useCurrUser()
-  const { handleSessionCurrId, handleSessionCurrEmail, handleSessionUser, handleSessionCurrFullName } = useCurrSessionUser();
   const location = useLocation()
+  const {logout} = useAuth();
 
-  const handleLogOut = () => {
-    handleCurrEmail("")
-    handleCurrId("")
-    handleRememberUser("", "")
+  const handleLogout = async () => {
+    const { error } = await logout();
 
-    handleSessionCurrId("");
-    handleSessionCurrEmail("");
-    handleSessionCurrFullName("");
-    handleSessionUser("", "", "");
+    if (error) {
+      console.log(error.message);
+      return;
+    }
 
-    navigate("/")
-  }
+    navigate("/login");
+  };
 
   return (
     <div className="relative overflow-y-auto h-full border-r-2 border-gray-400 lg:flex hidden flex-col justify-between py-4">
@@ -180,7 +177,7 @@ function SideBar() {
           <div className="flex justify-between p-2">
             <button
               className="bg-red-500 text-white px-2 py-1 rounded-md flex flex-col"
-              onClick={handleLogOut}
+              onClick={handleLogout}
             >
               Yes
             </button>
