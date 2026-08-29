@@ -2,35 +2,29 @@ import React, { useState, useRef, useEffect } from "react";
 import { NavLink, Link, useNavigate, useLocation } from "react-router-dom";
 import {
   useAuth,
-  useCurrSessionUser,
-  useCurrUser,
   useNotification,
 } from "../../contexts";
 
 function DashboardNav() {
 
-  const { Users, currentUser } = useAuth();
+  const { currentUser, logout } = useAuth();
   const { notifications } = useNotification();
   const [showMore, setShowMore] = useState(false);
-  const popupRef = useRef(null);
   const [logOut, setLogOut] = useState(false);
+  const popupRef = useRef(null);
   const navigate = useNavigate();
-  const { handleCurrEmail, handleCurrId, handleRememberUser } = useCurrUser();
   const location = useLocation();
 
-  const handleLogOut = () => {
-    handleCurrEmail("");
-    handleCurrId("");
-    handleRememberUser("", "");
+  const handleLogout = async () => {
+    const { error } = await logout();
 
-    handleSessionCurrId("");
-    handleSessionCurrEmail("");
-    handleSessionCurrFullName("");
-    handleSessionUser("", "", "");
+    if (error) {
+      console.log(error.message);
+      return;
+    }
 
-    navigate("/");
+    navigate("/login");
   };
-
 
   const currUser = currentUser?.id;
 
@@ -51,6 +45,7 @@ function DashboardNav() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
   return (
     <div className="flex w-full justify-between py-2 items-center">
       <div className="flex items-center gap-4 relative">
@@ -294,7 +289,7 @@ function DashboardNav() {
                 <div className="flex justify-between p-2">
                   <button
                     className="bg-red-500 text-white px-2 py-1 rounded-md flex flex-col"
-                    onClick={handleLogOut}
+                    onClick={handleLogout}
                   >
                     Yes
                   </button>
