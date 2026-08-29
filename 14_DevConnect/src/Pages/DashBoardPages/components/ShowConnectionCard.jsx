@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  useAuth,
-  useConnection,
-  useNotification,
-} from "../../../contexts";
+import { useAuth, useConnection, useNotification } from "../../../contexts";
 import { NavLink } from "react-router-dom";
 
 function ShowConnectionCard({ userId }) {
@@ -16,7 +12,7 @@ function ShowConnectionCard({ userId }) {
     addConnection,
     deleteConnection,
   } = useConnection();
-  const { addNotification } = useNotification()
+  const { addNotification } = useNotification();
 
   const userInfo = Users.find((curr) => curr.id === userId);
   const currId = currentUser?.id;
@@ -112,7 +108,10 @@ function ShowConnectionCard({ userId }) {
       className="flex w-full justify-between border-b-2 pb-4 border-gray-300"
       key={userId}
     >
-      <NavLink to={`/profile/${userInfo.id}`} className="flex gap-4 items-center">
+      <NavLink
+        to={`/profile/${userInfo.id}`}
+        className="flex gap-4 items-center"
+      >
         <div className="h-12 w-12 flex">
           <img
             src={

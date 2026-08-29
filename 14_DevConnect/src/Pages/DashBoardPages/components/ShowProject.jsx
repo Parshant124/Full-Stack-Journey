@@ -70,7 +70,9 @@ function ShowProject() {
           <div className="flex justify-between">
             <div className="w-60">
               <h2 className="font-semibold line-clamp-1">{project.name}</h2>
-              <h4 className="text-[14px] text-gray-600 line-clamp-2">{project.desc}</h4>
+              <h4 className="text-[14px] text-gray-600 line-clamp-2">
+                {project.desc}
+              </h4>
             </div>
             <div className="w-5">
               {checkBookMarked(project.createdOn) ? (
@@ -93,9 +95,7 @@ function ShowProject() {
           <div>
             <h4 className="text-[14px]">
               Creator :{" "}
-              <span className="text-purple-600">
-                {project.creator}
-              </span>
+              <span className="text-purple-600">{project.creator}</span>
             </h4>
           </div>
         </div>

@@ -3,8 +3,8 @@ import { NavLink } from "react-router-dom";
 import ShowMyTasks from "./components/ShowMyTasks";
 
 function Tasks() {
-    const[showType, setShowType] = useState("All")
-  
+  const [showType, setShowType] = useState("All");
+
   return (
     <div className="p-6 flex flex-col gap-4 bg-gray-100 h-full">
       <div className="flex justify-between items-center">
@@ -44,7 +44,7 @@ function Tasks() {
           </button>
         </div>
       </div>
-      < ShowMyTasks type={showType} />
+      <ShowMyTasks type={showType} />
     </div>
   );
 }

@@ -1,16 +1,14 @@
-import React, {createContext, useContext} from "react";
+import React, { createContext, useContext } from "react";
 
 export const TasksContext = createContext({
-    tasks: [{
+  tasks: [{}],
+  addTasks: () => {},
+  toggleCompleteTask: () => {},
+  deleteTask: () => {},
+});
 
-    }],
-    addTasks: () => {},
-    toggleCompleteTask: () => {},
-    deleteTask: () => {}
-})
-
-export const TasksProvider = TasksContext.Provider
+export const TasksProvider = TasksContext.Provider;
 
 export const useTasks = () => {
-    return (useContext(TasksContext))
-}
+  return useContext(TasksContext);
+};

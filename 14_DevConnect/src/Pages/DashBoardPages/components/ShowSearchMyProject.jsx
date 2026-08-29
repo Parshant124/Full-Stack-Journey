@@ -5,7 +5,7 @@ function ShowSearchMyProject({ type, value }) {
   const [openProject, setOpenProject] = useState(null);
   const { projects, toggleComplete, deleteProject, toggleVisibility } =
     useProject();
-  const {currentUser} = useAuth();
+  const { currentUser } = useAuth();
   const dropdownRef = useRef(null);
 
   let currUser = currentUser?.id;

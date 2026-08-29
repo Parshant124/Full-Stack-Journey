@@ -15,12 +15,12 @@ const Notification = createContext({
   ],
   addNotification: (noti) => {},
   removeNotification: (id, noti) => {},
-  modifyReadAll:(user) => {},
-  modifyRead: (id) => {}
+  modifyReadAll: (user) => {},
+  modifyRead: (id) => {},
 });
 
-export const NotificationProvider = Notification.Provider
+export const NotificationProvider = Notification.Provider;
 
 export const useNotification = () => {
-    return useContext(Notification)
-}
+  return useContext(Notification);
+};

@@ -3,7 +3,8 @@ import { useAuth, useProject } from "../../../contexts";
 
 function ShowMyProjects({ type }) {
   const [openProject, setOpenProject] = useState(null);
-  const { projects, toggleComplete, deleteProject, toggleVisibility } = useProject();
+  const { projects, toggleComplete, deleteProject, toggleVisibility } =
+    useProject();
   const { currentUser } = useAuth();
   const dropdownRef = useRef(null);
 
@@ -129,13 +130,9 @@ function ShowMyProjects({ type }) {
                       className="border-b-2 border-gray-400 pb-2"
                     >
                       {currProject.visibility === "Public" ? (
-                        <span className="text-purple-600">
-                          Set as Private
-                        </span>
+                        <span className="text-purple-600">Set as Private</span>
                       ) : (
-                        <span className="text-yellow-800">
-                          Set as Public
-                        </span>
+                        <span className="text-yellow-800">Set as Public</span>
                       )}
                     </button>
                     <button

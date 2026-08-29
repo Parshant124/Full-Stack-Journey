@@ -1,4 +1,4 @@
-import React,{createContext, useContext} from "react";
+import React, { createContext, useContext } from "react";
 
 export const AuthContext = createContext({
   Users: [],
@@ -18,8 +18,8 @@ export const AuthContext = createContext({
   changeCollege: async () => {},
 });
 
-export const AuthProvider = AuthContext.Provider
+export const AuthProvider = AuthContext.Provider;
 
 export const useAuth = () => {
-    return useContext(AuthContext)
-}
+  return useContext(AuthContext);
+};

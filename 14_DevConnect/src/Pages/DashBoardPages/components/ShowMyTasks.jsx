@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useAuth, useTasks } from "../../../contexts";
 
-function ShowMyTasks({type}) {
+function ShowMyTasks({ type }) {
   const [openTask, setOpenTask] = useState(null);
   const { tasks, toggleCompleteTask, deleteTask } = useTasks();
   const { currentUser } = useAuth();
@@ -58,7 +58,9 @@ function ShowMyTasks({type}) {
                 className="w-5"
               />
               <div>
-                <h2 className="font-semibold line-clamp-1">{currTask.taskName}</h2>
+                <h2 className="font-semibold line-clamp-1">
+                  {currTask.taskName}
+                </h2>
                 <h4 className="text-[14px] text-gray-600 line-clamp-2">
                   {currTask.taskDesc}
                 </h4>

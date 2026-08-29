@@ -1,12 +1,7 @@
 import React from "react";
-import {Chart as ChartJS} from "chart.js/auto"
-import {Line} from "react-chartjs-2"
-import {
-  useAuth,
-  useConnection,
-  useProject,
-  useTasks,
-} from "../../contexts";
+import { Chart as ChartJS } from "chart.js/auto";
+import { Line } from "react-chartjs-2";
+import { useAuth, useConnection, useProject, useTasks } from "../../contexts";
 import DashInfoCards from "./components/DashInfoCards";
 import DashTasks from "./components/DashTasks";
 
@@ -14,32 +9,28 @@ function DashBoard() {
   const { projects } = useProject();
   const { tasks } = useTasks();
   const { connections } = useConnection();
-  const {currentUser} = useAuth();
+  const { currentUser } = useAuth();
 
-  const firstWord =
-    currentUser?.fullName.substring(
-      0,
-      currentUser?.fullName.indexOf(" ") === -1
-        ? currentUser?.fullName.length
-        : currentUser?.fullName.indexOf(" "),
-    )
+  const firstWord = currentUser?.fullName.substring(
+    0,
+    currentUser?.fullName.indexOf(" ") === -1
+      ? currentUser?.fullName.length
+      : currentUser?.fullName.indexOf(" "),
+  );
 
   const userId = currentUser?.id;
 
-  const myProjects = projects.filter(
-    (prev) => prev.userId === userId
-  );
-  const myTasks = tasks.filter(
-    (prev) => prev.userId === userId
-  );
+  const myProjects = projects.filter((prev) => prev.userId === userId);
+  const myTasks = tasks.filter((prev) => prev.userId === userId);
 
   const myCompletedTasks = myTasks.filter((prev) => prev.completed);
-  
-  const connectedUsers = connections
-    .filter((conn) => conn.senderId === userId || conn.receiverId === userId)
-    .map((conn) =>
-      conn.senderId === userId ? conn.receiverId : conn.senderId,
-    ) || [];
+
+  const connectedUsers =
+    connections
+      .filter((conn) => conn.senderId === userId || conn.receiverId === userId)
+      .map((conn) =>
+        conn.senderId === userId ? conn.receiverId : conn.senderId,
+      ) || [];
   return (
     <div className="overflow-y-auto h-full p-4 gap-6 flex flex-col bg-gray-50">
       <div
@@ -94,14 +85,14 @@ function DashBoard() {
       </div>
       <div className="w-full h-full flex gap-4 md:flex-row flex-col">
         <div className="md:w-3/5 w-full shadow-md h-80 rounded-lg bg-white p-4">
-        <h2 className="font-semibold">Activity</h2>
+          <h2 className="font-semibold">Activity</h2>
           <Line
             data={{
               labels: ["Mar", "Apr", "May", "Jun", "Jul", "Aug"],
               datasets: [
                 {
                   label: "Projects",
-                  data: [ 3, 4, 3, 2, 5, 4],
+                  data: [3, 4, 3, 2, 5, 4],
 
                   borderWidth: 3,
                   tension: 0.4,
@@ -115,7 +106,7 @@ function DashBoard() {
                 },
                 {
                   label: "Tasks",
-                  data: [ 5, 6, 5, 4, 4, 7],
+                  data: [5, 6, 5, 4, 4, 7],
 
                   borderWidth: 3,
                   tension: 0.4,

@@ -1,8 +1,5 @@
 import React from "react";
-import {
-  useAuth,
-  useConnection,
-} from "../../../contexts";
+import { useAuth, useConnection } from "../../../contexts";
 import ShowConnectionCard from "./ShowConnectionCard";
 
 function SearchMyConnections({ value, showType }) {
@@ -34,7 +31,10 @@ function SearchMyConnections({ value, showType }) {
   const filteredConnections = toShow.filter((user) => {
     const userInfo = Users.filter((curr) => curr.id === user);
 
-    return userInfo[0].fullName.trim().toLowerCase().includes(value.toLowerCase());
+    return userInfo[0].fullName
+      .trim()
+      .toLowerCase()
+      .includes(value.toLowerCase());
   });
   return (
     <div>

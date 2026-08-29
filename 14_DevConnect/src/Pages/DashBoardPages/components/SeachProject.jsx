@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import {
   useAuth,
   useBookMark,
@@ -6,11 +6,11 @@ import {
   useProject,
 } from "../../../contexts";
 
-function SeachProject({value}) {
+function SeachProject({ value }) {
   const { projects } = useProject();
   const { Users, currentUser } = useAuth();
   const { bookmarks, addBookMark, removeBookMark } = useBookMark();
-  const {addNotification} = useNotification();
+  const { addNotification } = useNotification();
 
   const currId = currentUser?.id;
 
@@ -29,7 +29,7 @@ function SeachProject({value}) {
     return exist ? true : false;
   };
 
- const handleAddBookMark = (currId, project) => {
+  const handleAddBookMark = (currId, project) => {
     const currUser = Users.find((user) => user.id === currId);
 
     const now = new Date();
@@ -55,7 +55,7 @@ function SeachProject({value}) {
 
     addBookMark(currId, project.createdOn);
   };
-  
+
   return (
     <div className="flex gap-4 flex-wrap">
       {showProjects.map((project) => (
@@ -96,9 +96,7 @@ function SeachProject({value}) {
           <div>
             <h4 className="text-[14px]">
               Creator :{" "}
-              <span className="text-purple-600">
-                {project.creator}
-              </span>
+              <span className="text-purple-600">{project.creator}</span>
             </h4>
           </div>
         </div>
@@ -107,4 +105,4 @@ function SeachProject({value}) {
   );
 }
 
-export default SeachProject
+export default SeachProject;

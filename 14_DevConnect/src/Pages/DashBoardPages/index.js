@@ -9,4 +9,15 @@ import Projects from "./Projects";
 import Settings from "./Settings";
 import Tasks from "./Tasks";
 
-export {Bookmarks, Connections, DashBoard, Explore, My_Projects, Notifications, Profile, Projects, Settings, Tasks}
+export {
+  Bookmarks,
+  Connections,
+  DashBoard,
+  Explore,
+  My_Projects,
+  Notifications,
+  Profile,
+  Projects,
+  Settings,
+  Tasks,
+};

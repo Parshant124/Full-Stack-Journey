@@ -78,12 +78,14 @@ function NotificationCard({
 
           {showMore && (
             <div className="absolute right-0 top-1/2 bg-white w-fit flex flex-col p-2 gap-2 rounded-md">
-              {!notification.read && <button
-                className="border-b-2 pb-2 border-gray-300"
-                onClick={() => modifyRead(notification.id)}
-              >
-                Mark as Read
-              </button>}
+              {!notification.read && (
+                <button
+                  className="border-b-2 pb-2 border-gray-300"
+                  onClick={() => modifyRead(notification.id)}
+                >
+                  Mark as Read
+                </button>
+              )}
 
               <button onClick={() => removeNotification(notification.id)}>
                 Delete

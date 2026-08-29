@@ -2,7 +2,7 @@ import React from "react";
 import { useAuth, useBookMark, useNotification } from "../../../contexts";
 
 function UserProjectCard({ project, bookmarked, userId }) {
-  const {addBookMark, removeBookMark} = useBookMark();
+  const { addBookMark, removeBookMark } = useBookMark();
   const { Users } = useAuth();
   const { addNotification } = useNotification();
 

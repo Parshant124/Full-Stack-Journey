@@ -1,5 +1,11 @@
-import React from 'react'
-import { AboutDetails, AboutOurMission, AboutFeatures, AboutGithub, AboutStats } from '../../components/About'
+import React from "react";
+import {
+  AboutDetails,
+  AboutOurMission,
+  AboutFeatures,
+  AboutGithub,
+  AboutStats,
+} from "../../components/About";
 
 function About() {
   return (
@@ -10,7 +16,7 @@ function About() {
       <AboutStats />
       <AboutGithub />
     </div>
-  )
+  );
 }
 
-export default About
+export default About;

@@ -1,5 +1,5 @@
-import React from 'react'
-import FeaturesCard from './FeaturesCard'
+import React from "react";
+import FeaturesCard from "./FeaturesCard";
 
 function AboutFeatures() {
   return (
@@ -40,4 +40,4 @@ function AboutFeatures() {
   );
 }
 
-export default AboutFeatures
+export default AboutFeatures;

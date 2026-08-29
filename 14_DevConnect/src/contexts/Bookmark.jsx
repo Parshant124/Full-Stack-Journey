@@ -1,13 +1,13 @@
-import React, {createContext, useContext} from "react";
+import React, { createContext, useContext } from "react";
 
 const BookMark = createContext({
-    bookmarks : [],
-    addBookMark: () => {},
-    removeBookMark: () => {}
-})
+  bookmarks: [],
+  addBookMark: () => {},
+  removeBookMark: () => {},
+});
 
-export const BookMarkProvider = BookMark.Provider
+export const BookMarkProvider = BookMark.Provider;
 
 export const useBookMark = () => {
-    return ( useContext(BookMark) );
-}
+  return useContext(BookMark);
+};

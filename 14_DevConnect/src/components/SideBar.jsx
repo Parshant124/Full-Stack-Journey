@@ -3,10 +3,10 @@ import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../contexts";
 
 function SideBar() {
-  const [logOut, setLogOut] = useState(false)
-  const navigate = useNavigate()
-  const location = useLocation()
-  const {logout} = useAuth();
+  const [logOut, setLogOut] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { logout } = useAuth();
 
   const handleLogout = async () => {
     const { error } = await logout();

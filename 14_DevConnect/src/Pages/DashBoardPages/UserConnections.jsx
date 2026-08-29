@@ -13,8 +13,7 @@ function UserConnections() {
   const userConnection = connections
     .filter(
       (connection) =>
-        (connection.senderId === userName ||
-          connection.receiverId === userName)
+        connection.senderId === userName || connection.receiverId === userName,
     )
     .map((connection) =>
       connection.senderId === userName
@@ -26,7 +25,10 @@ function UserConnections() {
     <div>
       {userConnection.map((connection) => (
         <div>
-          <UserConnectionCard userId={connection} currUser={connection === currId} />
+          <UserConnectionCard
+            userId={connection}
+            currUser={connection === currId}
+          />
         </div>
       ))}
     </div>

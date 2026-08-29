@@ -48,34 +48,50 @@ function Footer() {
             </h4>
           </Link>
           <Link to="features">
-            <h4 className="text-[14px] hover:underline underline-offset-4">Features</h4>
+            <h4 className="text-[14px] hover:underline underline-offset-4">
+              Features
+            </h4>
           </Link>
           <Link to="about">
-            <h4 className="text-[14px] hover:underline underline-offset-4">About</h4>
+            <h4 className="text-[14px] hover:underline underline-offset-4">
+              About
+            </h4>
           </Link>
         </div>
         <div className="sm:w-1/4 w-1/3 flex flex-col gap-1">
           <h2 className="font-semibold">Resources</h2>
           <Link to="comingsoon">
-            <h4 className="text-[14px] hover:underline underline-offset-4">Blog</h4>
+            <h4 className="text-[14px] hover:underline underline-offset-4">
+              Blog
+            </h4>
           </Link>
           <Link to="comingsoon">
-            <h4 className="text-[14px] hover:underline underline-offset-4">Docs</h4>
+            <h4 className="text-[14px] hover:underline underline-offset-4">
+              Docs
+            </h4>
           </Link>
           <Link to="comingsoon">
-            <h4 className="text-[14px] hover:underline underline-offset-4">Help Center</h4>
+            <h4 className="text-[14px] hover:underline underline-offset-4">
+              Help Center
+            </h4>
           </Link>
         </div>
         <div className="sm:w-1/4 w-1/3 flex flex-col gap-1">
           <h2 className="font-semibold">Legal</h2>
           <Link to="comingsoon">
-            <h4 className="text-[14px] hover:underline underline-offset-4">Privacy Policy</h4>
+            <h4 className="text-[14px] hover:underline underline-offset-4">
+              Privacy Policy
+            </h4>
           </Link>
           <Link to="comingsoon">
-            <h4 className="text-[14px] hover:underline underline-offset-4">Terms of Service</h4>
+            <h4 className="text-[14px] hover:underline underline-offset-4">
+              Terms of Service
+            </h4>
           </Link>
           <Link to="comingsoon">
-            <h4 className="text-[14px] hover:underline underline-offset-4">Cookie Policy</h4>
+            <h4 className="text-[14px] hover:underline underline-offset-4">
+              Cookie Policy
+            </h4>
           </Link>
         </div>
       </div>

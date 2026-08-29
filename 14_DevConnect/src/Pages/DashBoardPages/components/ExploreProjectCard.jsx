@@ -1,9 +1,5 @@
 import React from "react";
-import {
-  useAuth,
-  useBookMark,
-  useNotification,
-} from "../../../contexts";
+import { useAuth, useBookMark, useNotification } from "../../../contexts";
 
 function ExploreProjectCard({ project, bookmarked }) {
   const { addBookMark, removeBookMark } = useBookMark();
@@ -13,7 +9,6 @@ function ExploreProjectCard({ project, bookmarked }) {
   const userId = currentUser?.id;
 
   const handleAddBookMark = () => {
-
     const nowDate = new Date().toISOString().split("T")[0];
     const now = new Date();
     const noti = {
@@ -49,8 +44,12 @@ function ExploreProjectCard({ project, bookmarked }) {
           />
         </div>
         <div>
-          <h2 className="text-[14px] font-semibold line-clamp-1">{project.name}</h2>
-          <h4 className="text-[14px] text-gray-600 line-clamp-1">{project.desc}</h4>
+          <h2 className="text-[14px] font-semibold line-clamp-1">
+            {project.name}
+          </h2>
+          <h4 className="text-[14px] text-gray-600 line-clamp-1">
+            {project.desc}
+          </h4>
         </div>
       </div>
       <div>

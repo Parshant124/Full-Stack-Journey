@@ -5,7 +5,11 @@ function AboutDetails() {
   return (
     <div className="flex pt-14 lg:justify-between justify-center px-8 gap-4">
       <div className="hidden lg:block w-250">
-        <img src=".\src\components\About\assets\Boy.png" alt="" className="w-full h-full" />
+        <img
+          src=".\src\components\About\assets\Boy.png"
+          alt=""
+          className="w-full h-full"
+        />
       </div>
       <div className="flex flex-col items-center justify-center gap-4 w-150 lg:w-fit">
         <h4 className="text-center text-[14px] font-semibold text-purple-800">
@@ -41,7 +45,7 @@ function AboutDetails() {
           src=".\src\components\About\assets\Girl.png"
           alt=""
           className="w-full h-full"
-/>
+        />
       </div>
     </div>
   );

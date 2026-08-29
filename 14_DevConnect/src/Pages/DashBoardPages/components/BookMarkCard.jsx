@@ -1,9 +1,5 @@
 import React, { useState } from "react";
-import {
-  useAuth,
-  useBookMark,
-  useProject,
-} from "../../../contexts";
+import { useAuth, useBookMark, useProject } from "../../../contexts";
 
 function BookMarkCard({ projectId }) {
   const { projects } = useProject();
@@ -13,7 +9,8 @@ function BookMarkCard({ projectId }) {
   const currId = currentUser?.id;
 
   const currProject = projects.find(
-    (project) => project.createdOn === projectId && project.visibility === "Public",
+    (project) =>
+      project.createdOn === projectId && project.visibility === "Public",
   );
 
   const handleRemove = () => {
@@ -35,8 +32,12 @@ function BookMarkCard({ projectId }) {
               />
             </div>
             <div>
-              <h2 className="font-semibold text-[14px] line-clamp-1">{currProject.name}</h2>
-              <h4 className="text-gray-600 text-[14px] line-clamp-1">{currProject.desc}</h4>
+              <h2 className="font-semibold text-[14px] line-clamp-1">
+                {currProject.name}
+              </h2>
+              <h4 className="text-gray-600 text-[14px] line-clamp-1">
+                {currProject.desc}
+              </h4>
             </div>
           </div>
           <div className="flex items-center gap-4 w-1/2 justify-between">
@@ -50,10 +51,7 @@ function BookMarkCard({ projectId }) {
                 {currProject.category}
               </h4>
             </div>
-            <div
-              onClick={handleRemove}
-              className="cursor-pointer w-5"
-            >
+            <div onClick={handleRemove} className="cursor-pointer w-5">
               <img
                 src="https://cdn-icons-png.flaticon.com/128/4942/4942539.png"
                 alt=""
@@ -61,7 +59,6 @@ function BookMarkCard({ projectId }) {
               />
             </div>
           </div>
-
         </div>
       )}
     </div>

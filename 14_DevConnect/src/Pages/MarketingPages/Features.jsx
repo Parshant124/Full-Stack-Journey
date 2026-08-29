@@ -1,5 +1,9 @@
-import React from 'react'
-import { FeatureDisplay, FeatureJoin, FeatureTitle } from '../../components/Features'
+import React from "react";
+import {
+  FeatureDisplay,
+  FeatureJoin,
+  FeatureTitle,
+} from "../../components/Features";
 
 function Features() {
   return (
@@ -8,7 +12,7 @@ function Features() {
       <FeatureDisplay />
       <FeatureJoin />
     </div>
-  )
+  );
 }
 
-export default Features
+export default Features;

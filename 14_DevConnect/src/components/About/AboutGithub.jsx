@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 function AboutGithub() {
   return (
@@ -13,7 +13,7 @@ function AboutGithub() {
               className="bg-blue-700 p-1 rounded-full h-full w-full"
             />
           </div>
-          <div className='w-fit'>
+          <div className="w-fit">
             <h2 className="font-bold text-lg">Built with ❤️ by Developers</h2>
             <h4 className="text-[14px]">
               DevConnect is open source and community-driven. Together, we can
@@ -40,4 +40,4 @@ function AboutGithub() {
   );
 }
 
-export default AboutGithub
+export default AboutGithub;

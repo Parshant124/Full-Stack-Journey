@@ -1,9 +1,5 @@
 import React, { useState } from "react";
-import {
-  useAuth,
-  useConnection,
-  useNotification,
-} from "../../../contexts";
+import { useAuth, useConnection, useNotification } from "../../../contexts";
 import { NavLink } from "react-router-dom";
 
 function UserConnectionCard({ userId, currUser }) {
@@ -17,8 +13,7 @@ function UserConnectionCard({ userId, currUser }) {
     deleteRequest,
   } = useConnection();
   const { addNotification } = useNotification();
-  
-  
+
   const { Users, currentUser } = useAuth();
   const userInfo = Users.find((user) => user.id === userId);
   const currId = currentUser?.id;

@@ -1,26 +1,29 @@
-import React,{useState, useRef, useEffect} from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { NavLink, Link } from "react-router-dom";
 
 function MarketingNav() {
   const [showMore, setShowMore] = useState(false);
   const popupRef = useRef(null);
-    useEffect(() => {
-      const handleClickOutside = (event) => {
-        if (popupRef.current && !popupRef.current.contains(event.target)) {
-          setShowMore(false);
-        }
-      };
-  
-      document.addEventListener("mousedown", handleClickOutside);
-  
-      return () => {
-        document.removeEventListener("mousedown", handleClickOutside);
-      };
-    }, []);
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (popupRef.current && !popupRef.current.contains(event.target)) {
+        setShowMore(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
   return (
     <div className="flex w-full justify-between relative items-center">
       {showMore && (
-        <div className="absolute top-10 left-0 h-fit px-4 py-2 flex md:hidden flex-col gap-4 bg-white shadow-lg rounded-b-xl" ref={popupRef}>
+        <div
+          className="absolute top-10 left-0 h-fit px-4 py-2 flex md:hidden flex-col gap-4 bg-white shadow-lg rounded-b-xl"
+          ref={popupRef}
+        >
           <NavLink
             to="/"
             className={({ isActive }) =>
@@ -49,7 +52,10 @@ function MarketingNav() {
       )}
       <div className="sm:flex sm:justify-between sm:w-2/3">
         <div className="flex gap-4">
-          <button className="w-8 md:hidden" onClick={() => setShowMore((prev) => !prev)}>
+          <button
+            className="w-8 md:hidden"
+            onClick={() => setShowMore((prev) => !prev)}
+          >
             <img
               src="https://cdn-icons-png.flaticon.com/128/9091/9091427.png"
               alt=""

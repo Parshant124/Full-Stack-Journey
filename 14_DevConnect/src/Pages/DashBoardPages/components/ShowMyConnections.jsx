@@ -1,8 +1,5 @@
 import React from "react";
-import {
-  useAuth,
-  useConnection,
-} from "../../../contexts";
+import { useAuth, useConnection } from "../../../contexts";
 import ShowConnectionCard from "./ShowConnectionCard";
 
 function ShowMyConnections({ showType }) {
@@ -22,9 +19,7 @@ function ShowMyConnections({ showType }) {
     (user) => user !== userId,
   );
 
-  const otherUsers = allUsers.filter(
-    (user) => !connectedUsers.includes(user),
-  );
+  const otherUsers = allUsers.filter((user) => !connectedUsers.includes(user));
 
   const toShow =
     showType === "all"

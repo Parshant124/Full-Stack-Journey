@@ -1,5 +1,5 @@
-import React from 'react'
-import Cards from './Cards'
+import React from "react";
+import Cards from "./Cards";
 import Extra from "../Extra.jsx";
 
 function FeatureDisplay() {
@@ -63,4 +63,4 @@ function FeatureDisplay() {
   );
 }
 
-export default FeatureDisplay
+export default FeatureDisplay;

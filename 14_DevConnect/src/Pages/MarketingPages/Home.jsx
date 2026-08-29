@@ -1,5 +1,10 @@
-import React from 'react'
-import { Hero, CTASection, FeatureSection, TestimonialSection } from '../../components/Home'
+import React from "react";
+import {
+  Hero,
+  CTASection,
+  FeatureSection,
+  TestimonialSection,
+} from "../../components/Home";
 
 function Home() {
   return (
@@ -9,7 +14,7 @@ function Home() {
       <TestimonialSection />
       <CTASection />
     </>
-  )
+  );
 }
 
-export default Home
+export default Home;

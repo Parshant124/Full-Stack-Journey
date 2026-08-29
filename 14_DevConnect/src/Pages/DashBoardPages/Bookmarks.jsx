@@ -1,16 +1,12 @@
 import React, { useState } from "react";
-import {
-  useAuth,
-  useBookMark,
-  useProject,
-} from "../../contexts";
+import { useAuth, useBookMark, useProject } from "../../contexts";
 import BookMarkCard from "./components/BookMarkCard";
 
 function Bookmarks() {
   const [searchValue, setSearchValue] = useState("");
   const [searchProject, setSearchProject] = useState([]);
   const { bookmarks } = useBookMark();
-  const {currentUser} = useAuth();
+  const { currentUser } = useAuth();
   const { projects } = useProject();
 
   const userId = currentUser?.id;
@@ -50,9 +46,7 @@ function Bookmarks() {
         />
       </div>
       {searchValue.length <= 0 ? (
-        <div
-          className={`bg-white p-6 rounded-lg`}
-        >
+        <div className={`bg-white p-6 rounded-lg`}>
           {myBookMarks.length > 0 ? (
             myBookMarks.map((bookmark) => (
               <BookMarkCard projectId={bookmark.project} />
@@ -64,9 +58,7 @@ function Bookmarks() {
           )}
         </div>
       ) : (
-        <div
-          className={`bg-white p-6 rounded-lg`}
-        >
+        <div className={`bg-white p-6 rounded-lg`}>
           {searchProject.length > 0 ? (
             searchProject.map((bookmark) => (
               <BookMarkCard projectId={bookmark.project} />

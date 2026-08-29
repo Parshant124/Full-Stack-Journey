@@ -207,10 +207,7 @@ function Login() {
         <div className="w-full">
           <h2 className="text-[14px] text-gray-600 text-center">
             Don't have an account?{" "}
-            <Link
-              to="/signup"
-              className="text-purple-700 font-semibold"
-            >
+            <Link to="/signup" className="text-purple-700 font-semibold">
               Sign Up
             </Link>
           </h2>

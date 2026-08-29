@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 function FeatureTitle() {
   return (
@@ -19,4 +19,4 @@ function FeatureTitle() {
   );
 }
 
-export default FeatureTitle
+export default FeatureTitle;

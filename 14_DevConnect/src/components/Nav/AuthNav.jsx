@@ -6,7 +6,7 @@ function AuthNav() {
 
   const isLoginPage = location.pathname === "/login";
   const isSignUpPage = location.pathname === "/signup";
-  
+
   return (
     <div className="flex w-full justify-between items-center">
       <Link to="/" className="w-40 flex">

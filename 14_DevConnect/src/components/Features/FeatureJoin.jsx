@@ -1,5 +1,5 @@
-import React from 'react'
-import {Link} from 'react-router-dom'
+import React from "react";
+import { Link } from "react-router-dom";
 
 function FeatureJoin() {
   return (
@@ -13,7 +13,7 @@ function FeatureJoin() {
               className="bg-purple-500 p-1 rounded-full w-full h-full object-cover"
             />
           </div>
-          <div className='sm:w-120 w-fit'>
+          <div className="sm:w-120 w-fit">
             <h2 className="font-bold text-lg">
               Built for developers, by developers
             </h2>
@@ -41,4 +41,4 @@ function FeatureJoin() {
   );
 }
 
-export default FeatureJoin
+export default FeatureJoin;

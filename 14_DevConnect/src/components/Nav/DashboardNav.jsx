@@ -1,12 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import { NavLink, Link, useNavigate, useLocation } from "react-router-dom";
-import {
-  useAuth,
-  useNotification,
-} from "../../contexts";
+import { useAuth, useNotification } from "../../contexts";
 
 function DashboardNav() {
-
   const { currentUser, logout } = useAuth();
   const { notifications } = useNotification();
   const [showMore, setShowMore] = useState(false);

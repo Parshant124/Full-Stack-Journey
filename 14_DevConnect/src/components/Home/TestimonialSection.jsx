@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 function TestimonialSection() {
   return (
@@ -29,4 +29,4 @@ function TestimonialSection() {
   );
 }
 
-export default TestimonialSection
+export default TestimonialSection;
