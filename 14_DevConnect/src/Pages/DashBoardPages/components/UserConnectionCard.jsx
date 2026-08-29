@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import {
   useAuth,
   useConnection,
-  useCurrSessionUser,
-  useCurrUser,
   useNotification,
 } from "../../../contexts";
 import { NavLink } from "react-router-dom";
@@ -18,14 +16,12 @@ function UserConnectionCard({ userId, currUser }) {
     deleteConnection,
     deleteRequest,
   } = useConnection();
-  const { currSessionUserId } = useCurrSessionUser();
-  const { currUserId } = useCurrUser();
   const { addNotification } = useNotification();
   
   
-  const { Users } = useAuth();
+  const { Users, currentUser } = useAuth();
   const userInfo = Users.find((user) => user.id === userId);
-  const currId = currSessionUserId || currUserId;
+  const currId = currentUser?.id;
 
   const myConnection = connections
     .filter(

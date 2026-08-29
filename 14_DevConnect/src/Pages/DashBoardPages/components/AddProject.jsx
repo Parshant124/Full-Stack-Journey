@@ -2,11 +2,9 @@ import React, { useEffect, useState, useRef } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import {
   useConnection,
-  useCurrSessionUser,
-  useCurrUser,
   useNotification,
   useProject,
-  useAuth
+  useAuth,
 } from "../../../contexts";
 
 function AddProject() {
@@ -26,9 +24,7 @@ function AddProject() {
   const { addProject } = useProject();
   const { connections } = useConnection();
   const { addNotification } = useNotification();
-  const { currSessionUserId, currSessionUserFullName } = useCurrSessionUser();
-  const { currUserId, currUserFullName } = useCurrUser();
-  const {Users} = useAuth();
+  const { Users, currentUser } = useAuth();
 
   const handleCancel = () => {
     setName("");
@@ -94,28 +90,35 @@ function AddProject() {
     }
 
     const project = {
-      userId: currSessionUserId || currUserId,
+      userId: currentUser?.id,
       name,
       key,
       desc,
       category,
       visibility,
-      creator: currSessionUserFullName || currUserFullName,
+      creator: currentUser?.fullName,
       image: image,
       completed: false,
       createdOn: Date.now(),
     };
 
     if (visibility === "Public") {
-      const currId = currSessionUserId || currUserId;
+      const currId = currentUser?.id;
 
       const myConnections = connections
-        .filter((connection) => connection.senderId === currId || connection.receiverId === currId)
+        .filter(
+          (connection) =>
+            connection.senderId === currId || connection.receiverId === currId,
+        )
         .map((connection) =>
-          connection.senderId === currId ? connection.receiverId : connection.senderId,
+          connection.senderId === currId
+            ? connection.receiverId
+            : connection.senderId,
         );
 
       myConnections.map((userId) => {
+        const nowDate = new Date().toISOString().split("T")[0];
+
         const now = new Date();
         const currInfo = Users.find((user) => user.id === currId);
         const noti = {
@@ -124,10 +127,7 @@ function AddProject() {
           msg: `${currInfo.fullName || "User"} created a new Project ${name}`,
           to: userId,
           read: false,
-          date:
-            `${String(now.getDate()).padStart(2, "0")}/` +
-            `${String(now.getMonth() + 1).padStart(2, "0")}/` +
-            `${now.getFullYear()}`,
+          date: nowDate,
           time:
             `${String(now.getHours()).padStart(2, "0")}:` +
             `${String(now.getMinutes()).padStart(2, "0")}`,

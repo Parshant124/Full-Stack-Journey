@@ -2,15 +2,11 @@ import React from "react";
 import {
   useAuth,
   useConnection,
-  useCurrSessionUser,
-  useCurrUser,
 } from "../../../contexts";
 import ShowConnectionCard from "./ShowConnectionCard";
 
 function ShowMyConnections({ showType }) {
   const { connections } = useConnection();
-  const { currSessionUserId } = useCurrSessionUser();
-  const { currUserId } = useCurrUser();
   const { currentUser } = useAuth();
   const { Users } = useAuth();
 

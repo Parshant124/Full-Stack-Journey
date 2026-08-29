@@ -1,18 +1,13 @@
-import React,{useState} from "react";
-import {
-  useCurrSessionUser,
-  useCurrUser,
-  useNotification,
-} from "../../contexts";
+import React, { useState } from "react";
+import { useAuth, useNotification } from "../../contexts";
 import NotificationCard from "./components/NotificationCard";
 
 function Notifications() {
   const { notifications, modifyReadAll, deleteRead } = useNotification();
-  const { currSessionUserId } = useCurrSessionUser();
-  const { currUserId } = useCurrUser();
+  const { currentUser } = useAuth();
   const [openNotification, setOpenNotification] = useState(null);
 
-  const userId = currSessionUserId || currUserId;
+  const userId = currentUser?.id;
   const myNotifications = notifications.filter((noti) => noti.to === userId);
   return (
     <div className="p-4 h-full">

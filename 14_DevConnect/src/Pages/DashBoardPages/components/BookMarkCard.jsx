@@ -1,19 +1,16 @@
 import React, { useState } from "react";
 import {
+  useAuth,
   useBookMark,
-  useCurrSessionUser,
-  useCurrUser,
   useProject,
 } from "../../../contexts";
 
 function BookMarkCard({ projectId }) {
-  const [showConfirmMsg, setShowConfirmMsg] = useState(false);
   const { projects } = useProject();
   const { removeBookMark } = useBookMark();
-  const { currUserId } = useCurrUser();
-  const { currSessionUserId } = useCurrSessionUser();
+  const { currentUser } = useAuth();
 
-  const currId = currSessionUserId || currUserId;
+  const currId = currentUser?.id;
 
   const currProject = projects.find(
     (project) => project.createdOn === projectId && project.visibility === "Public",
@@ -21,7 +18,6 @@ function BookMarkCard({ projectId }) {
 
   const handleRemove = () => {
     removeBookMark(currId, currProject.createdOn);
-    setShowConfirmMsg(false);
   };
   return (
     <div>
@@ -55,7 +51,7 @@ function BookMarkCard({ projectId }) {
               </h4>
             </div>
             <div
-              onClick={() => setShowConfirmMsg(true)}
+              onClick={handleRemove}
               className="cursor-pointer w-5"
             >
               <img

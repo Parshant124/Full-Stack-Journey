@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { useAuth, useCurrSessionUser, useCurrUser } from "../../contexts";
+import { useAuth } from "../../contexts";
 import { useNavigate } from "react-router-dom";
 
 function Settings() {
   const [validFullName, setValidFullName] = useState(true);
   const [validAbout, setValidAbout] = useState(true);
   const [validBio, setValidBio] = useState(true);
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [showNewPassword, setShowNewPassword] = useState(false);
-  const [validNewPassword, setValidNewPassword] = useState(true);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [validConfirmPassword, setValidConfirmPassword] = useState(true);
-  const { currUserId } = useCurrUser();
-  const { currSessionUserId } = useCurrSessionUser();
-  const { Users, changePass, changeBio, changeImage, changeFullName, changeAbout, changeDomain, changeCourse, changeCollege } =
-    useAuth();
+  const {
+    currentUser,
+    changeBio,
+    changeImage,
+    changeFullName,
+    changeAbout,
+    changeDomain,
+    changeCourse,
+    changeCollege,
+  } = useAuth();
   const domains = [
     "Select your domain...",
     "Web Development",
@@ -66,17 +66,15 @@ function Settings() {
   ];
   const navigate = useNavigate();
 
-  const currUser = Users.find(
-    (user) => user.id === currUserId || user.id === currSessionUserId,
+  const [fullNameValue, setFullNameValue] = useState(
+    currentUser?.fullName || "",
   );
-
-  const [fullNameValue, setFullNameValue] = useState(currUser.fullName || "");
-  const [aboutValue, setAboutValue] = useState(currUser.about || "");
-  const [image, setImage] = useState(currUser.image || "");
-  const [domain, setDomain] = useState(currUser.domain || "");
-  const [bioValue, setBioValue] = useState(currUser.bio || "");
-  const [course, setCourse] = useState(currUser.course || "");
-  const [college, setCollege] = useState(currUser.college || "");
+  const [aboutValue, setAboutValue] = useState(currentUser?.about || "");
+  const [image, setImage] = useState(currentUser?.image || "");
+  const [domain, setDomain] = useState(currentUser?.domain || "");
+  const [bioValue, setBioValue] = useState(currentUser?.bio || "");
+  const [course, setCourse] = useState(currentUser?.course || "");
+  const [college, setCollege] = useState(currentUser?.college || "");
 
   const handleFullName = (name) => {
     setFullNameValue(name);
@@ -106,52 +104,27 @@ function Settings() {
     setBioValue(bio);
   };
 
-  const handleNewPassword = (password) => {
-    setNewPassword(password);
-
-    if (password.length >= 8) {
-      setValidNewPassword(true);
-    } else {
-      setValidNewPassword(false);
-    }
-  };
-
-  const handleConfirmPassword = (password) => {
-    setConfirmPassword(password);
-
-    if (password.length >= 8 && password === newPassword) {
-      setValidConfirmPassword(true);
-    } else {
-      setValidConfirmPassword(false);
-    }
-  };
-
   const handleSave = () => {
-    if (!validFullName || !validNewPassword || !validConfirmPassword) return;
-
-    if (validFullName && fullNameValue !== currUser.fullName) {
-      changeFullName(currUser.id, fullNameValue);
+    if (validFullName && fullNameValue !== currentUser?.fullName) {
+      changeFullName(currentUser?.id, fullNameValue);
     }
-    if (aboutValue !== currUser.about) {
-      changeAbout(currUser.id, aboutValue);
+    if (aboutValue !== currentUser?.about) {
+      changeAbout(currentUser?.id, aboutValue);
     }
-    if (validNewPassword && validConfirmPassword && newPassword.length) {
-      changePass(currUser.id, newPassword);
+    if (image !== currentUser?.image) {
+      changeImage(currentUser?.id, image);
     }
-    if (image !== currUser.image) {
-      changeImage(currUser.id, image);
+    if (domain !== currentUser?.domain) {
+      changeDomain(currentUser?.id, domain);
     }
-    if(domain !== currUser.domain){
-      changeDomain(currUser.id, domain);
+    if (bioValue !== currentUser?.bio) {
+      changeBio(currentUser?.id, bioValue);
     }
-    if(bioValue !== currUser.bio){
-      changeBio(currUser.id, bioValue);
+    if (course !== currentUser?.course) {
+      changeCourse(currentUser?.id, course);
     }
-    if(course !== currUser.course){
-      changeCourse(currUser.id, course);
-    }
-    if(college !== currUser.college){
-      changeCollege(currUser.id, college);
+    if (college !== currentUser?.college) {
+      changeCollege(currentUser?.id, college);
     }
     navigate("/dashboard");
   };
@@ -194,7 +167,7 @@ function Settings() {
                 id="userName"
                 className="border-2 border-gray-300 px-2 py-1 rounded-md text-[14px] text-gray-600"
                 disabled
-                value={currUser.id}
+                value={currentUser?.id}
               />
             </div>
             <div className="flex flex-col">
@@ -220,10 +193,10 @@ function Settings() {
                   className="w-full h-full rounded-full object-cover"
                 />
               </div>
-            ) : currUser.image ? (
+            ) : currentUser?.image ? (
               <div className="sm:h-22 sm:w-22 h-40 w-40 flex">
                 <img
-                  src={currUser.image}
+                  src={currentUser?.image}
                   alt=""
                   className="rounded-full w-full h-full object-cover"
                 />
@@ -231,11 +204,7 @@ function Settings() {
             ) : (
               <div className="bg-red-500 rounded-full w-40 h-40 sm:h-22 sm:w-22 flex justify-center items-center">
                 <h3 className="text-white text-4xl">
-                  {currSessionUserId
-                    ? currSessionUserId[0].toUpperCase()
-                    : currUserId
-                      ? currUserId[0].toUpperCase()
-                      : "U"}
+                  {currentUser?.id ? currentUser?.id[0].toUpperCase() : "U"}
                 </h3>
               </div>
             )}
@@ -261,7 +230,7 @@ function Settings() {
               name=""
               id="email"
               className={`border-2 border-gray-300  px-2 py-1 rounded-md text-[14px] text-gray-600`}
-              value={currUser.email}
+              value={currentUser?.email}
               disabled
             />
           </div>
@@ -305,7 +274,12 @@ function Settings() {
           </div>
           <div className="flex justify-between flex-col sm:flex-row gap-4">
             <div className="flex flex-col sm:w-2/5">
-              <label htmlFor="collegeName" className="text-[14px] font-semibold">College</label>
+              <label
+                htmlFor="collegeName"
+                className="text-[14px] font-semibold"
+              >
+                College
+              </label>
               <input
                 type="text"
                 name=""
@@ -358,105 +332,6 @@ function Settings() {
                 </option>
               ))}
             </select>
-          </div>
-          <div className="flex justify-between sm:flex-row flex-col gap-4">
-            <div className="flex flex-col sm:w-2/5">
-              <label
-                htmlFor="newPassword"
-                className="font-semibold text-[14px]"
-              >
-                New Password
-              </label>
-              <div
-                className={`flex border-2 w-full ${validNewPassword ? "border-gray-300 focus:outline-purple-600" : "border-red-600 focus:outline-red-600"} pr-2 rounded-md justify-between`}
-              >
-                <input
-                  type="text"
-                  name=""
-                  id="newPassword"
-                  className={`${showNewPassword ? "block" : "hidden"}  px-2 py-1 rounded-md text-[14px] text-gray-600 focus:outline-none w-4/5`}
-                  placeholder="Enter your new Password here..."
-                  value={newPassword}
-                  onChange={(e) => handleNewPassword(e.target.value)}
-                />
-                <input
-                  type="password"
-                  name=""
-                  id="newPassword"
-                  className={`${showNewPassword ? "hidden" : "block"} px-2 py-1 rounded-md text-[14px] text-gray-600 focus:outline-none w-4/5`}
-                  placeholder="Enter your new Password here..."
-                  value={newPassword}
-                  onChange={(e) => handleNewPassword(e.target.value)}
-                />
-                <div
-                  className="flex items-center"
-                  onClick={() => setShowNewPassword((prev) => !prev)}
-                >
-                  <img
-                    src="https://cdn-icons-png.flaticon.com/128/709/709612.png"
-                    alt=""
-                    width="20px"
-                    className={`${showNewPassword ? "hidden" : "block"}`}
-                  />
-                  <img
-                    src="https://cdn-icons-png.flaticon.com/128/2767/2767146.png"
-                    alt=""
-                    width="20px"
-                    className={`${showNewPassword ? "block" : "hidden"}`}
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div className="flex flex-col sm:w-2/5">
-              <label
-                htmlFor="confirmPassword"
-                className="font-semibold text-[14px]"
-              >
-                Confirm Password
-              </label>
-              <div
-                className={`flex border-2 w-full ${validConfirmPassword ? "border-gray-300 focus:outline-purple-600" : "border-red-600 focus:outline-red-600"} pr-2 rounded-md justify-between`}
-              >
-                <input
-                  type="text"
-                  name=""
-                  id="confirmPassword"
-                  className={`${showConfirmPassword ? "block" : "hidden"}  px-2 py-1 rounded-md text-[14px] text-gray-600 focus:outline-none w-4/5`}
-                  placeholder="Confirm your new Password..."
-                  value={confirmPassword}
-                  onChange={(e) => handleConfirmPassword(e.target.value)}
-                  disabled={!(newPassword.length && validNewPassword)}
-                />
-                <input
-                  type="password"
-                  name=""
-                  id="confirmPassword"
-                  className={`${showConfirmPassword ? "hidden" : "block"} px-2 py-1 rounded-md text-[14px] text-gray-600 focus:outline-none w-4/5`}
-                  placeholder="Confirm your new Password..."
-                  value={confirmPassword}
-                  onChange={(e) => handleConfirmPassword(e.target.value)}
-                  disabled={!(newPassword.length && validNewPassword)}
-                />
-                <div
-                  className="flex items-center"
-                  onClick={() => setShowConfirmPassword((prev) => !prev)}
-                >
-                  <img
-                    src="https://cdn-icons-png.flaticon.com/128/709/709612.png"
-                    alt=""
-                    width="20px"
-                    className={`${showConfirmPassword ? "hidden" : "block"}`}
-                  />
-                  <img
-                    src="https://cdn-icons-png.flaticon.com/128/2767/2767146.png"
-                    alt=""
-                    width="20px"
-                    className={`${showConfirmPassword ? "block" : "hidden"}`}
-                  />
-                </div>
-              </div>
-            </div>
           </div>
         </div>
         <div className="pt-4">

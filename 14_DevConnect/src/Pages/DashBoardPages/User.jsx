@@ -3,8 +3,6 @@ import { useParams } from "react-router-dom";
 import {
   useAuth,
   useConnection,
-  useCurrSessionUser,
-  useCurrUser,
   useNotification,
   useProject,
   useTasks,
@@ -14,7 +12,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 function User() {
   const [showMessage, setShowMessage] = useState(false);
   const { userName } = useParams();
-  const { Users } = useAuth();
+  const { Users, currentUser } = useAuth();
   const { addNotification } = useNotification();
   const userInfo = Users.find((user) => user.id === userName);
   const navigate = useNavigate();
@@ -28,23 +26,19 @@ function User() {
   } = useConnection();
   const { tasks } = useTasks();
   const { projects } = useProject();
-  const { currSessionUserId } = useCurrSessionUser();
-  const { currUserId } = useCurrUser();
-  const currId = currSessionUserId || currUserId;
+  const currId = currentUser?.id;
 
-  const userId = userInfo.id;
-
-  if(userId === currId){
+  if (userName === currId) {
     navigate("/profile");
   }
 
   const myConnection = connections
     .filter(
       (connection) =>
-        connection.senderId === userId || connection.receiverId === userId,
+        connection.senderId === userName || connection.receiverId === userName,
     )
     .map((connection) =>
-      connection.senderId === userId
+      connection.senderId === userName
         ? connection.receiverId
         : connection.senderId,
     );
@@ -59,20 +53,20 @@ function User() {
   const [connectionStatus, setConnectionStatus] = useState(() => {
     return myConnection.includes(currId)
       ? 1
-      : requestSent.includes(userId)
+      : requestSent.includes(userName)
         ? 2
-        : requestReceived.includes(userId)
+        : requestReceived.includes(userName)
           ? 3
           : 4;
   });
 
-  const myProjects = projects.filter((project) => project.userId === userId);
+  const myProjects = projects.filter((project) => project.userId === userName);
   const showProjects = myProjects
     .filter((project) => project.visibility === "Public")
     .slice(0, 3);
 
   const taskCompleted = tasks.filter(
-    (task) => task.userId === userId && task.completed,
+    (task) => task.userId === userName && task.completed,
   );
 
   const handleRemoveConnection = () => {
@@ -81,16 +75,18 @@ function User() {
 
   const handleYesRemove = () => {
     setShowMessage(false);
-    deleteConnection(currId, userId);
+    deleteConnection(currId, userName);
     setConnectionStatus(4);
   };
 
   const handleDeleteRequest = () => {
-    deleteRequest(userId, currId);
+    deleteRequest(userName, currId);
     setConnectionStatus(4);
   };
 
   const handleAcceptRequest = () => {
+    const nowDate = new Date().toISOString().split("T")[0];
+
     const now = new Date();
     const currInfo = Users.find((user) => user.id === currId);
     const noti = {
@@ -99,10 +95,7 @@ function User() {
       msg: `${currInfo.fullName || "User"} accepted your connection request.`,
       to: userInfo.id,
       read: false,
-      date:
-        `${String(now.getDate()).padStart(2, "0")}/` +
-        `${String(now.getMonth() + 1).padStart(2, "0")}/` +
-        `${now.getFullYear()}`,
+      date: nowDate,
       time:
         `${String(now.getHours()).padStart(2, "0")}:` +
         `${String(now.getMinutes()).padStart(2, "0")}`,
@@ -110,13 +103,13 @@ function User() {
     };
 
     addNotification(noti);
-    deleteRequest(userId, currId);
-    addConnection(userId, currId);
+    deleteRequest(userName, currId);
+    addConnection(userName, currId);
     setConnectionStatus(1);
   };
 
   const handleRejectRequest = () => {
-    deleteRequest(userId, currId);
+    deleteRequest(userName, currId);
     setConnectionStatus(4);
   };
 
@@ -127,7 +120,7 @@ function User() {
       type: "request accepted",
       // userImage: currInfo.image || "",
       msg: `${currInfo.fullName || "User"} sent you a connection request.`,
-      to: userId,
+      to: userName,
       read: false,
       date:
         `${String(now.getDate()).padStart(2, "0")}/` +
@@ -140,7 +133,7 @@ function User() {
     };
 
     addNotification(noti);
-    addRequest(currId, userId);
+    addRequest(currId, userName);
     setConnectionStatus(2);
   };
   return (
@@ -160,7 +153,9 @@ function User() {
             </div>
             <div className="flex flex-col gap-2">
               <div>
-                <h2 className="font-bold text-3xl line-clamp-1">{userInfo.fullName}</h2>
+                <h2 className="font-bold text-3xl line-clamp-1">
+                  {userInfo.fullName}
+                </h2>
                 <div className="flex gap-4 items-center">
                   <h4 className="text-gray-600">@{userInfo.id}</h4>
                   {userInfo.domain && (
@@ -229,7 +224,9 @@ function User() {
               <h4 className="text-3xl font-bold text-center">
                 {myConnection.length}
               </h4>
-              <h4 className="text-[14px] text-gray-600 line-clamp-1">Connections</h4>
+              <h4 className="text-[14px] text-gray-600 line-clamp-1">
+                Connections
+              </h4>
             </div>
           </div>
           <div className="flex gap-2 items-center border-r-2 w-1/3 justify-center border-gray-300">
@@ -257,7 +254,9 @@ function User() {
               <h4 className="text-3xl font-bold text-center">
                 {taskCompleted.length}
               </h4>
-              <h4 className="text-[14px] text-gray-600 line-clamp-1">Tasks Completed</h4>
+              <h4 className="text-[14px] text-gray-600 line-clamp-1">
+                Tasks Completed
+              </h4>
             </div>
           </div>
         </div>

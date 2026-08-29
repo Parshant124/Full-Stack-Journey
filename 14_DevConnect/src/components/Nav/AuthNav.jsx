@@ -1,11 +1,12 @@
-import React from 'react'
+import React from "react";
 import { NavLink, Link, useLocation } from "react-router-dom";
 
 function AuthNav() {
-    const location = useLocation()
+  const location = useLocation();
 
-    const isLoginPage = location.pathname === "/login"
-    const isSignUpPage = location.pathname === "/signup"
+  const isLoginPage = location.pathname === "/login";
+  const isSignUpPage = location.pathname === "/signup";
+  
   return (
     <div className="flex w-full justify-between items-center">
       <Link to="/" className="w-40 flex">
@@ -43,4 +44,4 @@ function AuthNav() {
   );
 }
 
-export default AuthNav
+export default AuthNav;

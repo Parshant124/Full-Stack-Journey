@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { NavLink, Link } from "react-router-dom";
 import MarketingNav from "./Nav/MarketingNav";
 import AuthNav from "./Nav/AuthNav";
 import DashboardNav from "./Nav/DashboardNav";

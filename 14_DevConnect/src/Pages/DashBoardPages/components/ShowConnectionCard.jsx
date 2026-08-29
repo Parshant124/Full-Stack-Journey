@@ -2,16 +2,12 @@ import React, { useEffect, useState } from "react";
 import {
   useAuth,
   useConnection,
-  useCurrSessionUser,
-  useCurrUser,
   useNotification,
 } from "../../../contexts";
 import { NavLink } from "react-router-dom";
 
 function ShowConnectionCard({ userId }) {
-  const { Users } = useAuth();
-  const { currSessionUserId } = useCurrSessionUser();
-  const { currUserId } = useCurrUser();
+  const { Users, currentUser } = useAuth();
   const {
     connections,
     pendingRequest,
@@ -23,7 +19,7 @@ function ShowConnectionCard({ userId }) {
   const { addNotification } = useNotification()
 
   const userInfo = Users.find((curr) => curr.id === userId);
-  const currId = currUserId || currSessionUserId;
+  const currId = currentUser?.id;
 
   const [connected, setConnected] = useState(1);
 

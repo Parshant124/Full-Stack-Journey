@@ -1,15 +1,14 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { useConnection, useCurrSessionUser, useCurrUser } from "../../contexts";
+import { useAuth, useConnection } from "../../contexts";
 import UserConnectionCard from "./components/UserConnectionCard";
 
 function UserConnections() {
   const { userName } = useParams();
   const { connections } = useConnection();
-  const { currSessionUserId } = useCurrSessionUser();
-  const { currUserId } = useCurrUser();
+  const { currentUser } = useAuth();
 
-  const currId = currSessionUserId || currUserId;
+  const currId = currentUser?.id;
 
   const userConnection = connections
     .filter(

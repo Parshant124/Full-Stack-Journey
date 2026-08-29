@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import {
+  useAuth,
   useBookMark,
-  useCurrSessionUser,
-  useCurrUser,
   useProject,
 } from "../../contexts";
 import BookMarkCard from "./components/BookMarkCard";
@@ -10,12 +9,11 @@ import BookMarkCard from "./components/BookMarkCard";
 function Bookmarks() {
   const [searchValue, setSearchValue] = useState("");
   const [searchProject, setSearchProject] = useState([]);
-  const { bookmarks, removeBookMark } = useBookMark();
-  const { currUserId } = useCurrUser();
-  const { currSessionUserId } = useCurrSessionUser();
+  const { bookmarks } = useBookMark();
+  const {currentUser} = useAuth();
   const { projects } = useProject();
 
-  const userId = currSessionUserId || currUserId;
+  const userId = currentUser?.id;
 
   const myBookMarks = bookmarks.filter((curr) => curr.user === userId);
 
@@ -51,34 +49,37 @@ function Bookmarks() {
           onChange={(e) => searchBookMark(e.target.value)}
         />
       </div>
-      <div
-        className={`${searchValue ? "hidden" : "block"} bg-white p-6 rounded-lg`}
-      >
-        {myBookMarks.length > 0 ? (
-          myBookMarks.map((bookmark) => (
-            <BookMarkCard projectId={bookmark.project} />
-          ))
-        ) : (
-          <div className="flex items-center justify-center">
-            <h4 className="text-3xl font-bold text-gray-500">Nothing...</h4>
-          </div>
-        )}
-      </div>
-      <div
-        className={`${searchValue ? "block" : "hidden"} bg-white p-6 rounded-lg`}
-      >
-        {searchProject.length > 0 ? (
-          searchProject.map((bookmark) => (
-            <BookMarkCard projectId={bookmark.project} />
-          ))
-        ) : (
-          <div className="flex items-center justify-center">
-            <h4 className="text-3xl font-bold text-gray-500">
-              Nothing here...
-            </h4>
-          </div>
-        )}
-      </div>
+      {searchValue.length <= 0 ? (
+        <div
+          className={`bg-white p-6 rounded-lg`}
+        >
+          {myBookMarks.length > 0 ? (
+            myBookMarks.map((bookmark) => (
+              <BookMarkCard projectId={bookmark.project} />
+            ))
+          ) : (
+            <div className="flex items-center justify-center">
+              <h4 className="text-3xl font-bold text-gray-500">Nothing...</h4>
+            </div>
+          )}
+        </div>
+      ) : (
+        <div
+          className={`bg-white p-6 rounded-lg`}
+        >
+          {searchProject.length > 0 ? (
+            searchProject.map((bookmark) => (
+              <BookMarkCard projectId={bookmark.project} />
+            ))
+          ) : (
+            <div className="flex items-center justify-center">
+              <h4 className="text-3xl font-bold text-gray-500">
+                Nothing here...
+              </h4>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }

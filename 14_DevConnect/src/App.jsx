@@ -306,6 +306,11 @@ function App() {
             path="features"
             element={!user ? <Features /> : <Navigate to="/dashboard" />}
           />
+
+          <Route
+            path="comingsoon"
+            element={!user ? <ComingSoon /> : <Navigate to="/dashboard" />}
+          />
         </Route>
 
         {/* ================= AUTH ================= */}

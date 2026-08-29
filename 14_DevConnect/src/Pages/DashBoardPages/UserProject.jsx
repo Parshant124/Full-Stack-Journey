@@ -1,17 +1,15 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { useAuth, useBookMark, useCurrSessionUser, useCurrUser, useProject } from "../../contexts";
+import { useAuth, useBookMark, useProject } from "../../contexts";
 import UserProjectCard from "./components/UserProjectCard";
 
 function UserProject() {
   const { projects } = useProject();
   const { userName } = useParams();
   const { bookmarks } = useBookMark();
-  const {currSessionUserId} = useCurrSessionUser();
-  const {currUserId} = useCurrUser();
-  const {Users} = useAuth();
+  const { Users, currentUser } = useAuth();
 
-  const userId = currSessionUserId || currUserId;
+  const userId = currentUser?.id;
   const userInfo = Users.find((user) => user.id === userName);
 
   const userProjects = projects.filter(
@@ -25,9 +23,12 @@ function UserProject() {
     <div className="flex flex-col h-full min-h-fit">
       <div className="bg-white p-4 shadow-lg">
         <h2 className="text-2xl font-bold">
-          <span className="text-purple-600">{userInfo.fullName}'s</span> Projects
+          <span className="text-purple-600">{userInfo.fullName}'s</span>{" "}
+          Projects
         </h2>
-        <h4 className="text-[14px] text-gray-600">These are the projects previews created by the user.</h4>
+        <h4 className="text-[14px] text-gray-600">
+          These are the projects previews created by the user.
+        </h4>
       </div>
       <div className="bg-gray-50 w-full h-full flex flex-wrap justify-around">
         {userProjects.length > 0

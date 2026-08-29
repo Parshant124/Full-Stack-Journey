@@ -1,13 +1,12 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom';
-import { useCurrSessionUser, useCurrUser, useTasks } from '../../../contexts';
+import { useAuth, useTasks } from '../../../contexts';
 
 function DashTasks() {
   const {tasks} = useTasks();
-  const {currUserId} = useCurrUser();
-  const {currSessionUserId} = useCurrSessionUser();
+  const {currentUser} = useAuth();
   
-  const currId = currSessionUserId || currUserId;
+  const currId = currentUser?.id;
 
   const myTasks = tasks.filter((task) => task.userId === currId && !task.completed)
 

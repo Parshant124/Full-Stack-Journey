@@ -1,47 +1,28 @@
 import React, { useState } from "react";
-import { useAuth, useBookMark, useCurrSessionUser, useCurrUser, useProject } from "../../contexts";
 import SeachProject from "./components/SeachProject";
 import ShowProject from "./components/ShowProject";
 import { NavLink } from "react-router-dom";
 
 function Projects() {
-  const [searchValue, setSearchValue] = useState("")
-  const { projects } = useProject();
-  const { currSessionUserId } = useCurrSessionUser();
-  const { currUserId } = useCurrUser();
-  const { Users } = useAuth();
-  const { bookmarks, addBookMark, removeBookMark } = useBookMark()
-
-  const currId = currSessionUserId || currUserId;
-
-  const showProjects = projects.filter((project) => project.userId !== currId && project.visibility === "Public");
-  
-  const ownerFullName = (userId) => {
-    const userInfo = Users.filter((user) => user.id === userId)
-
-    return userInfo[0].fullName
-  }
-
-  const checkBookMarked = (projectId) => {
-    const exist = bookmarks.filter(
-      (prev) => prev.user === currId && prev.project === projectId,
-    );
-
-    return exist.length > 0 ? true : false;
-  }
+  const [searchValue, setSearchValue] = useState("");
 
   return (
     <div className="p-6 flex flex-col gap-4 bg-gray-100 h-fit min-h-full">
       <div className="flex justify-between">
         <div>
-        <h2 className="font-bold text-2xl">Projects</h2>
-        <h4 className="text-[14px] text-gray-600">
-          Discover amazing projects from the community.
-        </h4>
-      </div>
-      <div>
-        <NavLink to="/bookmarks" className="text-purple-600 text-[14px] hover:underline underline-offset-2">all BookMarks</NavLink>
-      </div>
+          <h2 className="font-bold text-2xl">Projects</h2>
+          <h4 className="text-[14px] text-gray-600">
+            Discover amazing projects from the community.
+          </h4>
+        </div>
+        <div>
+          <NavLink
+            to="/bookmarks"
+            className="text-purple-600 text-[14px] hover:underline underline-offset-2"
+          >
+            all BookMarks
+          </NavLink>
+        </div>
       </div>
       <div>
         <input

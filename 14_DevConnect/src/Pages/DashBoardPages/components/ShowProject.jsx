@@ -2,31 +2,21 @@ import React from "react";
 import {
   useAuth,
   useBookMark,
-  useCurrSessionUser,
-  useCurrUser,
   useNotification,
   useProject,
 } from "../../../contexts";
 
 function ShowProject() {
   const { projects } = useProject();
-  const { currSessionUserId } = useCurrSessionUser();
-  const { currUserId } = useCurrUser();
-  const { Users } = useAuth();
+  const { Users, currentUser } = useAuth();
   const { bookmarks, addBookMark, removeBookMark } = useBookMark();
   const { addNotification } = useNotification();
 
-  const currId = currSessionUserId || currUserId;
+  const currId = currentUser?.id;
 
   const showProjects = projects.filter(
     (project) => project.userId !== currId && project.visibility === "Public",
   );
-
-  const ownerFullName = (userId) => {
-    const userInfo = Users.filter((user) => user.id === userId);
-
-    return userInfo[0].fullName;
-  };
 
   const checkBookMarked = (projectId) => {
     const exist = bookmarks.filter(
@@ -104,7 +94,7 @@ function ShowProject() {
             <h4 className="text-[14px]">
               Creator :{" "}
               <span className="text-purple-600">
-                {ownerFullName(project.userId)}
+                {project.creator}
               </span>
             </h4>
           </div>

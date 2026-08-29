@@ -1,23 +1,16 @@
 import React from "react";
-import {
-  useAuth,
-  useConnection,
-  useCurrSessionUser,
-  useCurrUser,
-  useNotification,
-} from "../../../contexts";
+import { useAuth, useConnection, useNotification } from "../../../contexts";
 
 function ExplorePeopleCard({ user, requestReceive, requestSent }) {
-  const { Users } = useAuth();
-  const { currSessionUserId } = useCurrSessionUser();
-  const { currUserId } = useCurrUser();
+  const { Users, currentUser } = useAuth();
   const { addConnection, addRequest, deleteRequest } = useConnection();
   const { addNotification } = useNotification();
 
   const userInfo = Users.find((currUser) => currUser.id === user);
-  const userId = currSessionUserId || currUserId;
+  const userId = currentUser?.id;
 
   const handleAdd = () => {
+    const nowDate = new Date().toISOString().split("T")[0];
     const now = new Date();
     const currInfo = Users.find((user) => user.id === userId);
     const noti = {
@@ -26,10 +19,7 @@ function ExplorePeopleCard({ user, requestReceive, requestSent }) {
       msg: `${currInfo.fullName || "User"} accepted your connection request.`,
       to: userInfo.id,
       read: false,
-      date:
-        `${String(now.getDate()).padStart(2, "0")}/` +
-        `${String(now.getMonth() + 1).padStart(2, "0")}/` +
-        `${now.getFullYear()}`,
+      date: nowDate,
       time:
         `${String(now.getHours()).padStart(2, "0")}:` +
         `${String(now.getMinutes()).padStart(2, "0")}`,
@@ -42,6 +32,7 @@ function ExplorePeopleCard({ user, requestReceive, requestSent }) {
   };
 
   const handleFollowRequest = () => {
+    const nowDate = new Date().toISOString().split("T")[0];
     const now = new Date();
     const currInfo = Users.find((user) => user.id === userId);
     const noti = {
@@ -50,10 +41,7 @@ function ExplorePeopleCard({ user, requestReceive, requestSent }) {
       msg: `${currInfo.fullName || "User"} sent you a connection request.`,
       to: userId,
       read: false,
-      date:
-        `${String(now.getDate()).padStart(2, "0")}/` +
-        `${String(now.getMonth() + 1).padStart(2, "0")}/` +
-        `${now.getFullYear()}`,
+      date: nowDate,
       time:
         `${String(now.getHours()).padStart(2, "0")}:` +
         `${String(now.getMinutes()).padStart(2, "0")}`,
@@ -62,7 +50,7 @@ function ExplorePeopleCard({ user, requestReceive, requestSent }) {
 
     addNotification(noti);
     addRequest(userId, user);
-  }
+  };
   return (
     <div className="flex justify-between items-center pt-4 pb-4 border-b-2 border-gray-300">
       <div className="flex gap-4 items-center">
@@ -77,8 +65,12 @@ function ExplorePeopleCard({ user, requestReceive, requestSent }) {
           />
         </div>
         <div>
-          <h2 className="text-[14px] font-semibold line-clamp-1">{userInfo.fullName}</h2>
-          <h4 className="text-[14px] text-gray-600 line-clamp-1">{userInfo.bio}</h4>
+          <h2 className="text-[14px] font-semibold line-clamp-1">
+            {userInfo.fullName}
+          </h2>
+          <h4 className="text-[14px] text-gray-600 line-clamp-1">
+            {userInfo.bio}
+          </h4>
         </div>
       </div>
       <div>

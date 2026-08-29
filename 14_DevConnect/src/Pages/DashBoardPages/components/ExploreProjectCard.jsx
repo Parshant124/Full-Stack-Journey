@@ -2,40 +2,33 @@ import React from "react";
 import {
   useAuth,
   useBookMark,
-  useCurrSessionUser,
-  useCurrUser,
   useNotification,
 } from "../../../contexts";
 
 function ExploreProjectCard({ project, bookmarked }) {
   const { addBookMark, removeBookMark } = useBookMark();
-  const { Users } = useAuth();
-  const { currSessionUserId } = useCurrSessionUser();
-  const { currUserId } = useCurrUser();
+  const { currentUser } = useAuth();
   const { addNotification } = useNotification();
 
-  const userId = currSessionUserId || currUserId;
+  const userId = currentUser?.id;
 
   const handleAddBookMark = () => {
-    const currUser = Users.find((user) => user.id === userId);
 
+    const nowDate = new Date().toISOString().split("T")[0];
     const now = new Date();
     const noti = {
       type: "project bookmarked",
       // userImage: currUser.image || "",
       // projectImage: project.image || "",
-      msg: `${currUser.fullName || "User"} bookmarked your project ${project.name}`,
+      msg: `${currentUser.fullName || "User"} bookmarked your project ${project.name}`,
       to: project.userId,
       read: false,
       id: Date.now(),
-      date:
-        `${String(now.getDate()).padStart(2, "0")}/` +
-        `${String(now.getMonth() + 1).padStart(2, "0")}/` +
-        `${now.getFullYear()}`,
+      date: nowDate,
       time:
         `${String(now.getHours()).padStart(2, "0")}:` +
         `${String(now.getMinutes()).padStart(2, "0")}`,
-      nav: `/profile/${currUser.id}`,
+      nav: `/profile/${currentUser.id}`,
     };
 
     addNotification(noti);

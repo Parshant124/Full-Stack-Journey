@@ -4,22 +4,18 @@ import {
   useAuth,
   useBookMark,
   useConnection,
-  useCurrSessionUser,
-  useCurrUser,
   useProject,
 } from "../../contexts";
 import ExplorePeopleCard from "./components/ExplorePeopleCard";
 import ExploreProjectCard from "./components/ExploreProjectCard";
 
 function Explore() {
-  const { Users } = useAuth();
+  const { Users, currentUser } = useAuth();
   const { connections, pendingRequest } = useConnection();
-  const { currSessionUserId } = useCurrSessionUser();
-  const { currUserId } = useCurrUser();
   const { projects } = useProject();
   const { bookmarks } = useBookMark();
 
-  const userId = currSessionUserId || currUserId;
+  const userId = currentUser?.id;
 
   const connectedUsers = connections
     .filter((conn) => conn.senderId === userId || conn.receiverId === userId)

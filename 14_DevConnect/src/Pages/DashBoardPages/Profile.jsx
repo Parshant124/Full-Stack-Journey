@@ -1,24 +1,14 @@
 import React from "react";
-import {
-  useAuth,
-  useConnection,
-  useCurrSessionUser,
-  useCurrUser,
-  useProject,
-  useTasks,
-} from "../../contexts";
+import { useAuth, useConnection, useProject, useTasks } from "../../contexts";
 import { NavLink } from "react-router-dom";
 
 function Profile() {
-  const { currSessionUserId } = useCurrSessionUser();
-  const { currUserId } = useCurrUser();
-  const { Users } = useAuth();
+  const { Users, currentUser } = useAuth();
   const { connections } = useConnection();
   const { tasks } = useTasks();
   const { projects } = useProject();
 
-  const userId = currUserId || currSessionUserId;
-  const userInfo = Users.find((user) => user.id === userId);
+  const userId = currentUser?.id;
 
   const myConnection = connections
     .filter(
@@ -45,7 +35,7 @@ function Profile() {
             <div className="h-45 w-45 flex">
               <img
                 src={
-                  userInfo.image ||
+                  currentUser?.image ||
                   `https://images.pexels.com/photos/38453533/pexels-photo-38453533.jpeg`
                 }
                 alt=""
@@ -54,15 +44,19 @@ function Profile() {
             </div>
             <div className="flex flex-col gap-2">
               <div>
-                <h2 className="font-bold text-3xl">{userInfo.fullName}</h2>
+                <h2 className="font-bold text-3xl">{currentUser?.fullName}</h2>
                 <div className="flex gap-2 sm:gap-4 flex-col sm:flex-row">
-                  <h4 className="text-gray-600">@{userInfo.id}</h4>
-                  {userInfo.domain && <h4 className="bg-purple-200 text-purple-700 text-[14px] py-1 px-2 rounded-full w-fit">
-                    {userInfo.domain}
-                  </h4>}
+                  <h4 className="text-gray-600">@{currentUser?.id}</h4>
+                  {currentUser?.domain && (
+                    <h4 className="bg-purple-200 text-purple-700 text-[14px] py-1 px-2 rounded-full w-fit">
+                      {currentUser?.domain}
+                    </h4>
+                  )}
                 </div>
               </div>
-              <h4 className="text-[14px] line-clamp-2">{userInfo.bio || ""}</h4>
+              <h4 className="text-[14px] line-clamp-2">
+                {currentUser?.bio || ""}
+              </h4>
             </div>
           </div>
           <NavLink
@@ -89,7 +83,9 @@ function Profile() {
               <h4 className="text-3xl font-bold text-center">
                 {myConnection.length}
               </h4>
-              <h4 className="text-[14px] text-gray-600 line-clamp-1">Connections</h4>
+              <h4 className="text-[14px] text-gray-600 line-clamp-1">
+                Connections
+              </h4>
             </div>
           </div>
           <div className="flex gap-2 items-center border-r-2 w-1/3 justify-center border-gray-300">
@@ -103,7 +99,9 @@ function Profile() {
               <h4 className="text-3xl font-bold text-center">
                 {myProjects.length}{" "}
               </h4>
-              <h4 className="text-[14px] text-gray-600 line-clamp-1">Projects</h4>
+              <h4 className="text-[14px] text-gray-600 line-clamp-1">
+                Projects
+              </h4>
             </div>
           </div>
           <div className="flex gap-2 items-center w-1/3 justify-center">
@@ -117,7 +115,9 @@ function Profile() {
               <h4 className="text-3xl font-bold text-center">
                 {taskCompleted.length}
               </h4>
-              <h4 className="text-[14px] text-gray-600 line-clamp-1">Tasks Completed</h4>
+              <h4 className="text-[14px] text-gray-600 line-clamp-1">
+                Tasks Completed
+              </h4>
             </div>
           </div>
         </div>
@@ -182,7 +182,7 @@ function Profile() {
               </div>
               <h4 className="font-semibold text-[14px]">About me</h4>
             </div>
-            <h2 className="text-[14px]">{userInfo.about}</h2>
+            <h2 className="text-[14px]">{currentUser?.about}</h2>
           </div>
           <div className="flex flex-col gap-4 py-4">
             <div className="flex gap-2 items-center">
@@ -195,7 +195,7 @@ function Profile() {
               <div>
                 <h2 className="text-[14px] font-semibold">College</h2>
                 <h4 className="text-gray-600 text-[14px]">
-                  {userInfo.college || "not given"}
+                  {currentUser?.college || "not given"}
                 </h4>
               </div>
             </div>
@@ -209,7 +209,7 @@ function Profile() {
               <div>
                 <h2 className="text-[14px] font-semibold">Education</h2>
                 <h4 className="text-gray-600 text-[14px]">
-                  {userInfo.course || "not given"}
+                  {currentUser?.course || "not given"}
                 </h4>
               </div>
             </div>
@@ -223,7 +223,7 @@ function Profile() {
               <div>
                 <h2 className="text-[14px] font-semibold">Email</h2>
                 <h4 className="text-gray-600 text-[14px]">
-                  {userInfo.email || "not given"}
+                  {currentUser?.email || "not given"}
                 </h4>
               </div>
             </div>

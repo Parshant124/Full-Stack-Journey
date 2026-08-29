@@ -2,21 +2,17 @@ import React from 'react'
 import {
   useAuth,
   useBookMark,
-  useCurrSessionUser,
-  useCurrUser,
   useNotification,
   useProject,
 } from "../../../contexts";
 
 function SeachProject({value}) {
   const { projects } = useProject();
-  const { currSessionUserId } = useCurrSessionUser();
-  const { currUserId } = useCurrUser();
-  const { Users } = useAuth();
+  const { Users, currentUser } = useAuth();
   const { bookmarks, addBookMark, removeBookMark } = useBookMark();
   const {addNotification} = useNotification();
 
-  const currId = currSessionUserId || currUserId;
+  const currId = currentUser?.id;
 
   const showProjects = projects.filter(
     (project) =>
@@ -25,12 +21,6 @@ function SeachProject({value}) {
       project.name.toLowerCase().includes(value.toLowerCase()),
   );
 
-  const ownerFullName = (userId) => {
-    const userInfo = Users.find((user) => user.id === userId);
-
-    return userInfo.fullName;
-  };
-
   const checkBookMarked = (projectId) => {
     const exist = bookmarks.find(
       (prev) => prev.user === currId && prev.project === projectId,
@@ -38,6 +28,7 @@ function SeachProject({value}) {
 
     return exist ? true : false;
   };
+
  const handleAddBookMark = (currId, project) => {
     const currUser = Users.find((user) => user.id === currId);
 
@@ -64,6 +55,7 @@ function SeachProject({value}) {
 
     addBookMark(currId, project.createdOn);
   };
+  
   return (
     <div className="flex gap-4 flex-wrap">
       {showProjects.map((project) => (
@@ -105,7 +97,7 @@ function SeachProject({value}) {
             <h4 className="text-[14px]">
               Creator :{" "}
               <span className="text-purple-600">
-                {ownerFullName(project.userId)}
+                {project.creator}
               </span>
             </h4>
           </div>

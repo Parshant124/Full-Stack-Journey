@@ -26,8 +26,6 @@ function Login() {
 
     setWrongInfo(false);
 
-    console.log(data.user);
-
     setEmail("");
     setPassword("");
 
@@ -47,10 +45,6 @@ function Login() {
       .select("email")
       .eq("email", email.trim())
       .maybeSingle();
-
-    console.log("Entered email:", email);
-    console.log("Users table result:", data);
-    console.log("Users table error:", error);
 
     if (error) {
       setResetMessage("Error checking account.");

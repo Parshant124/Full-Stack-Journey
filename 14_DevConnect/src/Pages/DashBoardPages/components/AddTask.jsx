@@ -1,11 +1,6 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import {
-  useCurrSessionUser,
-  useCurrUser,
-  useProject,
-  useTasks
-} from "../../../contexts";
+import { useAuth, useTasks } from "../../../contexts";
 
 function AddTask() {
   const [name, setName] = useState("");
@@ -14,9 +9,8 @@ function AddTask() {
   const [validDesc, setValidDesc] = useState(true);
   const [cancel, setCancel] = useState(false);
   const navigate = useNavigate();
-  const {addTasks} = useTasks()
-    const { currSessionUserId, currSessionUserFullName } = useCurrSessionUser();
-    const { currUserId, currUserFullName } = useCurrUser();
+  const { addTasks } = useTasks();
+  const { currentUser } = useAuth();
 
   const handleCancel = () => {
     setName("");
@@ -48,7 +42,7 @@ function AddTask() {
     let validateName = handleName(name);
 
     if (!validateDesc || !validateName) {
-        console.log("returned")
+      console.log("returned");
       return;
     }
 
@@ -56,11 +50,11 @@ function AddTask() {
     const formattedDate = `${String(today.getDate()).padStart(2, "0")}/${String(today.getMonth() + 1).padStart(2, "0")}/${today.getFullYear()}`;
 
     const task = {
-      userId: currSessionUserId || currUserId,
+      userId: currentUser?.id,
       taskId: Date.now(),
       taskName: name,
       taskDesc: desc,
-      creator: currSessionUserFullName || currUserFullName,
+      creator: currentUser?.fullName,
       completed: false,
       createdOn: formattedDate,
     };
