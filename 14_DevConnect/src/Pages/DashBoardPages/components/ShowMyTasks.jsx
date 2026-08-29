@@ -1,14 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
-import { useCurrSessionUser, useCurrUser, useTasks } from "../../../contexts";
+import { useAuth, useTasks } from "../../../contexts";
 
 function ShowMyTasks({type}) {
   const [openTask, setOpenTask] = useState(null);
   const { tasks, toggleCompleteTask, deleteTask } = useTasks();
-  const { currSessionUserId } = useCurrSessionUser();
-  const { currUserId } = useCurrUser();
+  const { currentUser } = useAuth();
   const dropdownRef = useRef(null);
 
-  let currUser = currSessionUserId || currUserId;
+  let currUser = currentUser?.id;
 
   const toShowCompleted = tasks.filter(
     (curr) => curr.userId === currUser && curr.completed,

@@ -11,9 +11,10 @@ function ShowMyConnections({ showType }) {
   const { connections } = useConnection();
   const { currSessionUserId } = useCurrSessionUser();
   const { currUserId } = useCurrUser();
+  const { currentUser } = useAuth();
   const { Users } = useAuth();
 
-  const userId = currSessionUserId || currUserId;
+  const userId = currentUser?.id;
 
   const connectedUsers = connections
     .filter((conn) => conn.senderId === userId || conn.receiverId === userId)

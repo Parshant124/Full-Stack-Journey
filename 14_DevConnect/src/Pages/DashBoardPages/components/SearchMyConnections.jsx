@@ -2,18 +2,15 @@ import React from "react";
 import {
   useAuth,
   useConnection,
-  useCurrSessionUser,
-  useCurrUser,
 } from "../../../contexts";
 import ShowConnectionCard from "./ShowConnectionCard";
 
 function SearchMyConnections({ value, showType }) {
   const { connections, addConnection } = useConnection();
-  const { currSessionUserId } = useCurrSessionUser();
-  const { currUserId } = useCurrUser();
+  const { currentUser } = useAuth();
   const { Users } = useAuth();
 
-  const userId = currSessionUserId || currUserId;
+  const userId = currentUser?.id;
 
   const connectedUsers = connections
     .filter((conn) => conn.senderId === userId || conn.receiverId === userId)

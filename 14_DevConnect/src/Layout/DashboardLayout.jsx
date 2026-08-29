@@ -12,21 +12,14 @@ import {
 } from "../contexts";
 
 function DashboardLayout() {
-  const [pendingRequest, setPendingRequest] = useState(() => {
-    return JSON.parse(localStorage.getItem("requests")) || [];
-  });
-  const [bookmarks, setBookmarks] = useState(() => {
-    return JSON.parse(localStorage.getItem("bookmarks")) || [];
-  });
-  const [notifications, setNotification] = useState(() => {
-    return JSON.parse(localStorage.getItem("notifications")) || [];
-  });
-
   const location = useLocation();
 
   const [projects, setProjects] = useState([]);
   const [tasks, setTasks] = useState([]);
   const [connections, setConnections] = useState([]);
+  const [pendingRequest, setPendingRequest] = useState([]);
+  const [bookmarks, setBookmarks] = useState([]);
+  const [notifications, setNotification] = useState([]);
 
   useEffect(() => {
     const getProjects = async () => {
@@ -63,12 +56,10 @@ function DashboardLayout() {
 
     getTasks();
   }, []);
-  
+
   useEffect(() => {
     const getConnections = async () => {
-      const { data, error } = await supabase
-        .from("connections")
-        .select("*")
+      const { data, error } = await supabase.from("connections").select("*");
 
       if (error) {
         console.log(error.message);
@@ -79,6 +70,51 @@ function DashboardLayout() {
     };
 
     getConnections();
+  }, []);
+
+  useEffect(() => {
+    const getRequests = async () => {
+      const { data, error } = await supabase.from("requests").select("*");
+
+      if (error) {
+        console.log(error.message);
+        return;
+      }
+
+      setPendingRequest(data);
+    };
+
+    getRequests();
+  }, []);
+
+  useEffect(() => {
+    const getBookMarks = async () => {
+      const { data, error } = await supabase.from("bookmarks").select("*");
+
+      if (error) {
+        console.log("error.message");
+        return;
+      }
+
+      setBookmarks(data);
+    };
+
+    getBookMarks();
+  }, []);
+
+  useEffect(() => {
+    const getNotification = async () => {
+      const { data, error } = await supabase.from("notifications").select("*");
+
+      if (error) {
+        console.log(error.message);
+        return;
+      }
+
+      setNotification(data);
+    };
+
+    getNotification();
   }, []);
 
   const addProject = async (project) => {
@@ -194,7 +230,7 @@ function DashboardLayout() {
   };
 
   const toggleCompleteTask = async (id) => {
-    const task = task.find((task) => task.taskId === id);
+    const task = tasks.find((task) => task.taskId === id);
 
     if (!task) return;
 
@@ -230,16 +266,17 @@ function DashboardLayout() {
 
   const addConnection = async (senderId, receiverId) => {
     const connection = {
-      senderId, receiverId
-    }
+      senderId: senderId,
+      receiverId: receiverId,
+    };
 
-    const {data, error} = await supabase
+    const { data, error } = await supabase
       .from("connections")
       .insert(connection)
       .select()
       .single();
 
-    if(error){
+    if (error) {
       console.log(error.message);
       return;
     }
@@ -247,7 +284,7 @@ function DashboardLayout() {
     setConnections((prev) => [data, ...prev]);
   };
 
-  const deleteConnection = async(senderId, receiverId) => {
+  const deleteConnection = async (senderId, receiverId) => {
     const { error } = await supabase
       .from("connections")
       .delete()
@@ -255,11 +292,11 @@ function DashboardLayout() {
         `and(senderId.eq.${senderId},receiverId.eq.${receiverId}),and(senderId.eq.${receiverId},receiverId.eq.${senderId})`,
       );
 
-    if(error) {
+    if (error) {
       console.log(error.message);
       return;
     }
-    
+
     setConnections((prev) =>
       prev.filter(
         (currConnection) =>
@@ -273,19 +310,36 @@ function DashboardLayout() {
     );
   };
 
-  useEffect(() => {
-    localStorage.setItem("connections", JSON.stringify(connections));
-  }, [connections]);
+  const addRequest = async (sender, receiver) => {
+    const request = { sender: sender, receiver: receiver };
 
-  useEffect(() => {
-    localStorage.setItem("requests", JSON.stringify(pendingRequest));
-  }, [pendingRequest]);
+    const { data, error } = await supabase
+      .from("requests")
+      .insert(request)
+      .select()
+      .single();
 
-  const addRequest = (sender, receiver) => {
-    setPendingRequest((prev) => [{ sender, receiver }, ...prev]);
+    if (error) {
+      console.log(error.message);
+      return;
+    }
+
+    setPendingRequest((prev) => [data, ...prev]);
   };
 
-  const deleteRequest = (sender, receiver) => {
+  const deleteRequest = async (sender, receiver) => {
+    const { error } = await supabase
+      .from("requests")
+      .delete()
+      .or(
+        `and(sender.eq.${sender},receiver.eq.${receiver}),and(sender.eq.${receiver},receiver.eq.${sender})`,
+      );
+
+    if (error) {
+      console.log(error.message);
+      return;
+    }
+
     setPendingRequest((prev) =>
       prev.filter(
         (curr) =>
@@ -297,16 +351,35 @@ function DashboardLayout() {
     );
   };
 
-  const addBookMark = (user, project) => {
-    const exist = bookmarks.filter(
-      (prev) => prev.user === user && prev.project === project,
-    );
+  const addBookMark = async (user, project) => {
+    const bookmark = { user: user, project: project };
 
-    if (exist.length > 0) return;
-    setBookmarks((prev) => [{ user, project }, ...prev]);
+    const { data, error } = await supabase
+      .from("bookmarks")
+      .insert(bookmark)
+      .select()
+      .single();
+
+    if (error) {
+      console.log(error.message);
+      return;
+    }
+
+    setBookmarks((prev) => [data, ...prev]);
   };
 
-  const removeBookMark = (user, project) => {
+  const removeBookMark = async (user, project) => {
+    const { error } = await supabase
+      .from("bookmarks")
+      .delete()
+      .eq("user", user)
+      .eq("project", project);
+
+    if (error) {
+      console.log(error.message);
+      return;
+    }
+
     setBookmarks((prev) =>
       prev.filter(
         (currBookMark) =>
@@ -315,25 +388,54 @@ function DashboardLayout() {
     );
   };
 
-  useEffect(() => {
-    localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
-  }, [bookmarks]);
+  const addNotification = async (notification) => {
+    const { data, error } = await supabase
+      .from("notifications")
+      .insert(notification)
+      .select()
+      .single();
 
-  useEffect(() => {
-    localStorage.setItem("notifications", JSON.stringify(notifications));
-  }, [notifications]);
+    if (error) {
+      console.log(error.message);
+      return;
+    }
 
-  const addNotification = (notification) => {
-    setNotification((prev) => [notification, ...prev]);
+    setNotification((prev) => [data, ...prev]);
   };
 
-  const removeNotification = (notiId) => {
+  const removeNotification = async (notiId) => {
+    const { error } = await supabase
+      .from("notifications")
+      .delete()
+      .eq("id", notiId);
+
+    if (error) {
+      console.log(error.message);
+      return;
+    }
+
     setNotification((prev) =>
       prev.filter((notification) => notification.id !== notiId),
     );
   };
 
-  const modifyRead = (notiId) => {
+  const modifyRead = async (notiId) => {
+    const notification = notifications.find((noti) => noti.id === notiId);
+
+    if (!notification) return;
+
+    const { data, error } = await supabase
+      .from("notifications")
+      .update({ read: true })
+      .eq("id", notiId)
+      .select()
+      .single();
+
+    if (error) {
+      console.log(error.message);
+      return;
+    }
+
     setNotification((prev) =>
       prev.map((notification) =>
         notification.id === notiId
@@ -343,7 +445,18 @@ function DashboardLayout() {
     );
   };
 
-  const modifyReadAll = (user) => {
+  const modifyReadAll = async (user) => {
+    const { error } = await supabase
+      .from("notifications")
+      .update({ read: true })
+      .eq("to", user)
+      .eq("read", false);
+
+    if (error) {
+      console.log(error.message);
+      return;
+    }
+
     setNotification((prev) =>
       prev.map((notification) =>
         notification.to === user
@@ -353,7 +466,18 @@ function DashboardLayout() {
     );
   };
 
-  const deleteRead = (user) => {
+  const deleteRead = async (user) => {
+    const { error } = await supabase
+      .from("notifications")
+      .delete()
+      .eq("to", user)
+      .eq("read", true);
+
+    if (error) {
+      console.log(error.message);
+      return;
+    }
+
     setNotification((prev) =>
       prev.filter(
         (notification) => !(notification.to === user && notification.read),

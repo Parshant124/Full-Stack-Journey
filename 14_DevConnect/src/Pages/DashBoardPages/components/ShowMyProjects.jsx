@@ -1,14 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
-import { useCurrSessionUser, useCurrUser, useProject } from "../../../contexts";
+import { useAuth, useProject } from "../../../contexts";
 
 function ShowMyProjects({ type }) {
   const [openProject, setOpenProject] = useState(null);
   const { projects, toggleComplete, deleteProject, toggleVisibility } = useProject();
-  const { currSessionUserId } = useCurrSessionUser();
-  const { currUserId } = useCurrUser();
+  const { currentUser } = useAuth();
   const dropdownRef = useRef(null);
 
-  let currUser = currSessionUserId || currUserId;
+  let currUser = currentUser?.id;
 
   const toShowCompleted = projects.filter(
     (curr) => curr.userId === currUser && curr.completed,
