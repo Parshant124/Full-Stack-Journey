@@ -104,7 +104,7 @@ function DashboardLayout() {
 
   useEffect(() => {
     const getNotification = async () => {
-      const { data, error } = await supabase.from("notifications").select("*");
+      const { data, error } = await supabase.from("notifications").select("*").order("id", {ascending: false});
 
       if (error) {
         console.log(error.message);

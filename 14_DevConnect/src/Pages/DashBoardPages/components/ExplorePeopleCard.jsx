@@ -13,6 +13,7 @@ function ExplorePeopleCard({ user, requestReceive, requestSent }) {
     const now = new Date();
     const currInfo = Users.find((user) => user.id === userId);
     const noti = {
+      id: now,
       type: "request accepted",
       userImage: currInfo.userImage || "",
       msg: `${currInfo.fullName || "User"} accepted your connection request.`,
@@ -35,6 +36,7 @@ function ExplorePeopleCard({ user, requestReceive, requestSent }) {
     const now = new Date();
     const currInfo = Users.find((user) => user.id === userId);
     const noti = {
+      id: now,
       type: "request accepted",
       userImage: currInfo.userImage || "",
       msg: `${currInfo.fullName || "User"} sent you a connection request.`,

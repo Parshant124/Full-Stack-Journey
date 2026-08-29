@@ -1,3 +1,4 @@
+import { supabase } from "../../../lib/supabaseClient";
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import {
@@ -10,7 +11,6 @@ import {
 function AddProject() {
   const [name, setName] = useState("");
   const [validName, setValidName] = useState(true);
-  const [key, setKey] = useState("");
   const [desc, setDesc] = useState("");
   const [validDesc, setValidDesc] = useState(true);
   const [category, setCategory] = useState("");
@@ -29,7 +29,6 @@ function AddProject() {
 
   const handleCancel = () => {
     setName("");
-    setKey("");
     setDesc("");
     setCategory("");
     setVisibility("");
@@ -116,7 +115,6 @@ function AddProject() {
     const project = {
       userId: currentUser?.id,
       name,
-      key,
       desc,
       category,
       visibility,
@@ -146,6 +144,7 @@ function AddProject() {
         const now = new Date();
         const currInfo = Users.find((user) => user.id === currId);
         const noti = {
+          id: now,
           type: "project created",
           userImage: currInfo.userImage || "",
           msg: `${currInfo.fullName || "User"} created a new Project ${name}`,
@@ -195,8 +194,7 @@ function AddProject() {
       </div>
       <div className="w-full flex flex-col h-full shadow-lg bg-white rounded-lg p-4 gap-4">
         <h2 className="font-semibold text-[15px]">Project Details</h2>
-        <div className="flex justify-between w-full gap-4 md:flex-row flex-col">
-          <div className="md:w-1/2 flex flex-col">
+        <div className="flex justify-between w-full md:flex-row flex-col">
             <label className="text-[14px] font-semibold">
               Project Name <span className="text-red-500">*</span>
             </label>
@@ -207,20 +205,6 @@ function AddProject() {
               onChange={(e) => setName(e.target.value)}
               className={`text-[14px] border-2 p-1 rounded ${validName ? "border-gray-300" : "border-red-500"} `}
             />
-          </div>
-          <div className="md:w-1/2 flex flex-col">
-            <label className="text-[14px] font-semibold">
-              Project Key{" "}
-              <span className="text-gray-500 font-medium">{"(Optional)"}</span>
-            </label>
-            <input
-              type="text"
-              placeholder="e.g. DEVCONN"
-              value={key}
-              onChange={(e) => setKey(e.target.value)}
-              className="text-[14px] border-2 p-1 rounded border-gray-300"
-            />
-          </div>
         </div>
         <div className="flex flex-col">
           <label className="text-[14px] font-semibold">

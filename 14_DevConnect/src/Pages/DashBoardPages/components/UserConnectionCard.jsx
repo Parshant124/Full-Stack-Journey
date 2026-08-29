@@ -67,8 +67,9 @@ function UserConnectionCard({ userId, currUser }) {
     const now = new Date();
     const currInfo = Users.find((user) => user.id === currId);
     const noti = {
+      id: now,
       type: "request accepted",
-      // userImage: currInfo.image || "",
+      userImage: currInfo.userImage || "",
       msg: `${currInfo.fullName || "User"} accepted your connection request.`,
       to: userInfo.id,
       read: false,
@@ -94,6 +95,7 @@ function UserConnectionCard({ userId, currUser }) {
     const now = new Date();
     const currInfo = Users.find((user) => user.id === currId);
     const noti = {
+      id: now,
       type: "request accepted",
       userImage: currInfo.userImage || "",
       msg: `${currInfo.fullName || "User"} sent you a connection request.`,

@@ -32,6 +32,7 @@ function ShowProject() {
 
     const now = new Date();
     const noti = {
+      id: now,
       type: "project bookmarked",
       userImage: currUser.userImage || "",
       projectImage: project.projectImage || "",

@@ -11,6 +11,7 @@ function UserProjectCard({ project, bookmarked, userId }) {
 
     const now = new Date();
     const noti = {
+      id: now,
       type: "project bookmarked",
       userImage: currUser.userImage || "",
       projectImage: project.projectImage || "",

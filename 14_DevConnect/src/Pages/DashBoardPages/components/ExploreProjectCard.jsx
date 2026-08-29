@@ -11,6 +11,7 @@ function ExploreProjectCard({ project, bookmarked }) {
     const nowDate = new Date().toISOString().split("T")[0];
     const now = new Date();
     const noti = {
+      id: now,
       type: "project bookmarked",
       userImage: currUser.userImage || "",
       projectImage: project.projectImage || "",

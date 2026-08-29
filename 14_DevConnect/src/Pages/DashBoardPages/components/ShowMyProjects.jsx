@@ -52,7 +52,7 @@ function ShowMyProjects({ type }) {
             className="flex items-center justify-around pb-8 border-b-2 border-gray-300"
           >
             <div className="flex w-2/3 gap-4">
-              <div className="bg-purple-900 p-1 rounded flex h-12 w-12">
+              <div className="bg-purple-300 p-1 rounded flex h-12 w-12">
                 <img
                   src={
                     currProject.projectImage ||

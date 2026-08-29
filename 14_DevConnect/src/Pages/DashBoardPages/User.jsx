@@ -90,6 +90,7 @@ function User() {
     const now = new Date();
     const currInfo = Users.find((user) => user.id === currId);
     const noti = {
+      id: now,
       type: "request accepted",
       userImage: currInfo.userImage || "",
       msg: `${currInfo.fullName || "User"} accepted your connection request.`,
