@@ -14,7 +14,7 @@ function ExplorePeopleCard({ user, requestReceive, requestSent }) {
     const currInfo = Users.find((user) => user.id === userId);
     const noti = {
       type: "request accepted",
-      // userImage: currInfo.image || "",
+      userImage: currInfo.userImage || "",
       msg: `${currInfo.fullName || "User"} accepted your connection request.`,
       to: userInfo.id,
       read: false,
@@ -36,7 +36,7 @@ function ExplorePeopleCard({ user, requestReceive, requestSent }) {
     const currInfo = Users.find((user) => user.id === userId);
     const noti = {
       type: "request accepted",
-      // userImage: currInfo.image || "",
+      userImage: currInfo.userImage || "",
       msg: `${currInfo.fullName || "User"} sent you a connection request.`,
       to: userId,
       read: false,
@@ -56,7 +56,7 @@ function ExplorePeopleCard({ user, requestReceive, requestSent }) {
         <div className="w-10 h-10 flex">
           <img
             src={
-              userInfo.image ||
+              userInfo.userImage ||
               "https://cdn-icons-png.flaticon.com/128/4333/4333609.png"
             }
             alt=""

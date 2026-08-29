@@ -55,7 +55,7 @@ function ShowMyProjects({ type }) {
               <div className="bg-purple-900 p-1 rounded flex h-12 w-12">
                 <img
                   src={
-                    currProject.image ||
+                    currProject.projectImage ||
                     `https://cdn-icons-png.flaticon.com/128/2241/2241791.png`
                   }
                   alt=""

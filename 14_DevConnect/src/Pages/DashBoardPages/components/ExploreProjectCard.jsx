@@ -12,8 +12,8 @@ function ExploreProjectCard({ project, bookmarked }) {
     const now = new Date();
     const noti = {
       type: "project bookmarked",
-      // userImage: currUser.image || "",
-      // projectImage: project.image || "",
+      userImage: currUser.userImage || "",
+      projectImage: project.projectImage || "",
       msg: `${currentUser.fullName || "User"} bookmarked your project ${project.name}`,
       to: project.userId,
       read: false,
@@ -35,7 +35,7 @@ function ExploreProjectCard({ project, bookmarked }) {
         <div className="w-10 h-10 flex">
           <img
             src={
-              project.image ||
+              project.projectImage ||
               "https://cdn-icons-png.flaticon.com/128/9672/9672290.png"
             }
             alt=""

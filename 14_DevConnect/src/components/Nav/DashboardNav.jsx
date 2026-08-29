@@ -352,10 +352,10 @@ function DashboardNav() {
       </div>
       <NavLink to="/profile" className="">
         <div>
-          {currentUser?.image ? (
+          {currentUser?.userImage ? (
             <div className="w-12 h-12 flex">
               <img
-                src={currentUser?.image}
+                src={currentUser?.userImage}
                 alt=""
                 className="w-full h-full object-cover rounded-full"
               />

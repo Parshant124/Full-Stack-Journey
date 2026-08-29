@@ -12,8 +12,8 @@ function UserProjectCard({ project, bookmarked, userId }) {
     const now = new Date();
     const noti = {
       type: "project bookmarked",
-      // userImage: currUser.image || "",
-      // projectImage: project.image || "",
+      userImage: currUser.userImage || "",
+      projectImage: project.projectImage || "",
       msg: `${currUser.fullName || "User"} bookmarked your project ${project.name}`,
       to: project.userId,
       read: false,
@@ -35,7 +35,7 @@ function UserProjectCard({ project, bookmarked, userId }) {
       <div className="h-55 flex w-full">
         <img
           src={
-            project.image ||
+            project.projectImage ||
             `https://images.pexels.com/photos/30547618/pexels-photo-30547618.jpeg`
           }
           alt=""

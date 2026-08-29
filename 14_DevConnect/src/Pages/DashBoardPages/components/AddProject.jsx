@@ -16,7 +16,8 @@ function AddProject() {
   const [category, setCategory] = useState("");
   const [validCategory, setValidCategory] = useState(true);
   const [visibility, setVisibility] = useState("Private");
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState(null);
+  const [imagePreview, setImagePreview] = useState("");
   const [cancel, setCancel] = useState(false);
 
   const navigate = useNavigate();
@@ -71,22 +72,45 @@ function AddProject() {
 
     if (!file) return;
 
-    const reader = new FileReader();
+    if (file.size > 50 * 1024 * 1024) {
+      console.log("Image must be less than 50MB");
+      return;
+    }
 
-    reader.onload = () => {
-      setImage(reader.result);
-    };
-
-    reader.readAsDataURL(file);
+    setImage(file);
+    setImagePreview(URL.createObjectURL(file));
   };
 
-  const handleCreate = () => {
+  const handleCreate = async () => {
     let validateCategory = handleCategory(category);
     let validateDesc = handleDesc(desc);
     let validateName = handleName(name);
 
     if (!validateCategory || !validateDesc || !validateName) {
       return;
+    }
+
+    let imageUrl = null;
+
+    if (image) {
+      const fileExt = image.name.split(".").pop();
+
+      const filePath = `projects/${currentUser.id}/${Date.now()}.${fileExt}`;
+
+      const { data, error: uploadError } = await supabase.storage
+        .from("devconnect-images")
+        .upload(filePath, image);
+
+      if (uploadError) {
+        console.log(uploadError.message);
+        return;
+      }
+
+      const { data: urlData } = supabase.storage
+        .from("devconnect-images")
+        .getPublicUrl(data.path);
+
+      imageUrl = urlData.publicUrl;
     }
 
     const project = {
@@ -97,7 +121,7 @@ function AddProject() {
       category,
       visibility,
       creator: currentUser?.fullName,
-      image: image,
+      projectImage: imageUrl,
       completed: false,
       createdOn: Date.now(),
     };
@@ -123,7 +147,7 @@ function AddProject() {
         const currInfo = Users.find((user) => user.id === currId);
         const noti = {
           type: "project created",
-          // userImage: currInfo.image || "",
+          userImage: currInfo.userImage || "",
           msg: `${currInfo.fullName || "User"} created a new Project ${name}`,
           to: userId,
           read: false,
@@ -140,6 +164,11 @@ function AddProject() {
 
     addProject(project);
     navigate("/myprojects");
+  };
+
+  const handleImageCancel = () => {
+    setImage("");
+    setImagePreview("");
   };
 
   return (
@@ -310,6 +339,22 @@ function AddProject() {
             onChange={handleImage}
           />
         </div>
+        {imagePreview.length > 0 && (
+          <div className="flex flex-col gap-2">
+            <div className="flex justify-between w-80 px-2">
+              <h2 className="font-semibold text-[14px]">Image Preview: </h2>
+              <button
+                className="text-[14px] bg-gray-200 w-6 h-6 rounded-full text-gray-600"
+                onClick={handleImageCancel}
+              >
+                x
+              </button>
+            </div>
+            <div className="w-80 shadow-lg">
+              <img src={imagePreview} alt="" className="w-full rounded-lg" />
+            </div>
+          </div>
+        )}
         <div className="flex justify-end gap-4">
           <button
             className="border-2 px-4 py-1.5 text-[13px] border-gray-300 bg-white text-black rounded-md transition hover:border-purple-600 hover:bg-purple-600 hover:text-white"

@@ -1,3 +1,4 @@
+import { supabase } from "../../lib/supabaseClient";
 import { useState } from "react";
 import { useAuth } from "../../contexts";
 import { useNavigate } from "react-router-dom";
@@ -9,7 +10,6 @@ function Settings() {
   const {
     currentUser,
     changeBio,
-    changeImage,
     changeFullName,
     changeAbout,
     changeDomain,
@@ -70,7 +70,8 @@ function Settings() {
     currentUser?.fullName || "",
   );
   const [aboutValue, setAboutValue] = useState(currentUser?.about || "");
-  const [image, setImage] = useState(currentUser?.image || "");
+  const [image, setImage] = useState(null);
+  const [imagePreview, setImagePreview] = useState("");
   const [domain, setDomain] = useState(currentUser?.domain || "");
   const [bioValue, setBioValue] = useState(currentUser?.bio || "");
   const [course, setCourse] = useState(currentUser?.course || "");
@@ -104,15 +105,12 @@ function Settings() {
     setBioValue(bio);
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (validFullName && fullNameValue !== currentUser?.fullName) {
       changeFullName(currentUser?.id, fullNameValue);
     }
     if (aboutValue !== currentUser?.about) {
       changeAbout(currentUser?.id, aboutValue);
-    }
-    if (image !== currentUser?.image) {
-      changeImage(currentUser?.id, image);
     }
     if (domain !== currentUser?.domain) {
       changeDomain(currentUser?.id, domain);
@@ -126,24 +124,56 @@ function Settings() {
     if (college !== currentUser?.college) {
       changeCollege(currentUser?.id, college);
     }
+    let imageUrl = currentUser?.userImage;
+
+    if (image) {
+      const fileExt = image.name.split(".").pop();
+      const filePath = `profiles/${currentUser.id}.${fileExt}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from("devconnect-images")
+        .upload(filePath, image, {
+          upsert: true,
+        });
+
+      if (uploadError) {
+        console.log(uploadError.message);
+        return;
+      }
+
+      const { data: urlData } = supabase.storage
+        .from("devconnect-images")
+        .getPublicUrl(filePath);
+
+      imageUrl = urlData.publicUrl;
+    }
+
+    const { error } = await supabase
+      .from("users")
+      .update({
+        userImage: imageUrl,
+      })
+      .eq("id", currentUser.id);
+
+    if (error) {
+      console.log(error.message);
+      return;
+    }
     navigate("/dashboard");
   };
 
   const handleImage = (e) => {
     const file = e.target.files[0];
 
-    console.log("FILE:", file);
-
     if (!file) return;
 
-    const reader = new FileReader();
+    if (file.size > 50 * 1024 * 1024) {
+      console.log("Image must be less than 2MB");
+      return;
+    }
 
-    reader.onload = () => {
-      setImage(reader.result);
-    };
-    console.log("Image stored", image);
-
-    reader.readAsDataURL(file);
+    setImage(file);
+    setImagePreview(URL.createObjectURL(file));
   };
 
   return (
@@ -185,18 +215,18 @@ function Settings() {
             </div>
           </div>
           <div className="bg-gray-100 p-4 rounded-lg flex sm:flex-col items-center gap-4 sm:order-2 order-1">
-            {image ? (
+            {imagePreview ? (
               <div className="sm:h-22 sm:w-22 h-40 w-40 flex">
                 <img
-                  src={image}
+                  src={imagePreview}
                   alt=""
                   className="w-full h-full rounded-full object-cover"
                 />
               </div>
-            ) : currentUser?.image ? (
+            ) : currentUser?.userImage ? (
               <div className="sm:h-22 sm:w-22 h-40 w-40 flex">
                 <img
-                  src={currentUser?.image}
+                  src={currentUser.userImage}
                   alt=""
                   className="rounded-full w-full h-full object-cover"
                 />
@@ -204,13 +234,15 @@ function Settings() {
             ) : (
               <div className="bg-red-500 rounded-full w-40 h-40 sm:h-22 sm:w-22 flex justify-center items-center">
                 <h3 className="text-white text-4xl">
-                  {currentUser?.id ? currentUser?.id[0].toUpperCase() : "U"}
+                  {currentUser?.id ? currentUser.id[0].toUpperCase() : "U"}
                 </h3>
               </div>
             )}
+
             <label htmlFor="userImage" className="font-semibold text-[14px]">
               Change Photo
             </label>
+
             <input
               id="userImage"
               type="file"

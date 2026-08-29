@@ -50,7 +50,7 @@ function ShowConnectionCard({ userId }) {
       const currInfo = Users.find((user) => user.id === currId);
       const noti = {
         type: "request accepted",
-        // userImage: currInfo.image || "",
+        userImage: currInfo.userImage || "",
         msg: `${currInfo.fullName || "User"} sent you a connection request.`,
         to: userId,
         read: false,
@@ -68,18 +68,17 @@ function ShowConnectionCard({ userId }) {
   };
 
   const handleAccept = () => {
+    const nowDate = new Date().toISOString().split("T")[0];
+
     const now = new Date();
     const currInfo = Users.find((user) => user.id === currId);
     const noti = {
       type: "request accepted",
-      // userImage: currInfo.image || "",
+      userImage: currInfo.userImage || "",
       msg: `${currInfo.fullName || "User"} accepted your connection request.`,
       to: userInfo.id,
       read: false,
-      date:
-        `${String(now.getDate()).padStart(2, "0")}/` +
-        `${String(now.getMonth() + 1).padStart(2, "0")}/` +
-        `${now.getFullYear()}`,
+      date: nowDate,
       time:
         `${String(now.getHours()).padStart(2, "0")}:` +
         `${String(now.getMinutes()).padStart(2, "0")}`,
@@ -114,7 +113,7 @@ function ShowConnectionCard({ userId }) {
         <div className="h-12 w-12 flex">
           <img
             src={
-              userInfo.image ||
+              userInfo.userImage ||
               "https://cdn-icons-png.flaticon.com/128/4140/4140037.png"
             }
             alt=""

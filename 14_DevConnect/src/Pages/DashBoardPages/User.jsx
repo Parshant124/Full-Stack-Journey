@@ -91,7 +91,7 @@ function User() {
     const currInfo = Users.find((user) => user.id === currId);
     const noti = {
       type: "request accepted",
-      // userImage: currInfo.image || "",
+      userImage: currInfo.userImage || "",
       msg: `${currInfo.fullName || "User"} accepted your connection request.`,
       to: userInfo.id,
       read: false,
@@ -118,7 +118,7 @@ function User() {
     const currInfo = Users.find((user) => user.id === currId);
     const noti = {
       type: "request accepted",
-      // userImage: currInfo.image || "",
+      userImage: currInfo.userImage || "",
       msg: `${currInfo.fullName || "User"} sent you a connection request.`,
       to: userName,
       read: false,
@@ -144,7 +144,7 @@ function User() {
             <div className="h-45 w-45 flex">
               <img
                 src={
-                  userInfo.image ||
+                  userInfo.userImage ||
                   `https://images.pexels.com/photos/13737923/pexels-photo-13737923.jpeg`
                 }
                 alt=""

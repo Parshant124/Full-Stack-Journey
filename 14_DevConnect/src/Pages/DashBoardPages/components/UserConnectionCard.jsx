@@ -95,7 +95,7 @@ function UserConnectionCard({ userId, currUser }) {
     const currInfo = Users.find((user) => user.id === currId);
     const noti = {
       type: "request accepted",
-      // userImage: currInfo.image || "",
+      userImage: currInfo.userImage || "",
       msg: `${currInfo.fullName || "User"} sent you a connection request.`,
       to: userId,
       read: false,
@@ -119,7 +119,7 @@ function UserConnectionCard({ userId, currUser }) {
         <div className="h-12 w-12 flex">
           <img
             src={
-              userInfo.image ||
+              userInfo.userImage ||
               `https://cdn-icons-png.flaticon.com/128/3001/3001758.png`
             }
             alt=""

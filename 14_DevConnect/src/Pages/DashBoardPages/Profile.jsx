@@ -34,7 +34,7 @@ function Profile() {
             <div className="h-45 w-45 flex">
               <img
                 src={
-                  currentUser?.image ||
+                  currentUser?.userImage ||
                   `https://images.pexels.com/photos/38453533/pexels-photo-38453533.jpeg`
                 }
                 alt=""

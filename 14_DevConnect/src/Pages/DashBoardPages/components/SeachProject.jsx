@@ -36,8 +36,8 @@ function SeachProject({ value }) {
     const now = new Date();
     const noti = {
       type: "project bookmarked",
-      // userImage: currUser.image || "",
-      // projectImage: project.image || "",
+      userImage: currUser.userImage || "",
+      projectImage: project.projectImage || "",
       msg: `${currUser.fullName || "User"} bookmarked your project ${project.name}`,
       to: project.userId,
       read: false,
@@ -61,7 +61,7 @@ function SeachProject({ value }) {
           <div className="flex justify-center w-full h-50">
             <img
               src={
-                project.image ||
+                project.projectImage ||
                 "https://images.pexels.com/photos/373543/pexels-photo-373543.jpeg?_gl=1*etdg79*_ga*NzY2MzQyMzk1LjE3NjE3NTY5ODI.*_ga_8JE65Q40S6*czE3ODYwMTM3ODIkbzE2JGcxJHQxNzg2MDEzODI0JGoxOCRsMCRoMA.."
               }
               alt=""

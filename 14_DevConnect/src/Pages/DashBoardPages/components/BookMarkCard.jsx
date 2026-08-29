@@ -23,7 +23,7 @@ function BookMarkCard({ projectId }) {
             <div className="bg-purple-300 p-1 rounded flex h-12 w-12">
               <img
                 src={
-                  currProject.image ||
+                  currProject.projectImage ||
                   "https://cdn-icons-png.flaticon.com/256/6596/6596459.png"
                 }
                 alt=""
