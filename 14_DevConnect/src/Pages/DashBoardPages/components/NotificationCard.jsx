@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import { useNotification } from "../../../contexts";
 import { NavLink } from "react-router-dom";
 

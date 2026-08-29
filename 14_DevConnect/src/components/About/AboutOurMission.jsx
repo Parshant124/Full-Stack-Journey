@@ -1,5 +1,3 @@
-import React from "react";
-
 function ABoutOurMission() {
   return (
     <div className="flex justify-center w-full pt-8">

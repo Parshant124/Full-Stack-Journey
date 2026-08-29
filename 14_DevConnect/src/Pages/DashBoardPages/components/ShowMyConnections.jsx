@@ -1,4 +1,3 @@
-import React from "react";
 import { useAuth, useConnection } from "../../../contexts";
 import ShowConnectionCard from "./ShowConnectionCard";
 

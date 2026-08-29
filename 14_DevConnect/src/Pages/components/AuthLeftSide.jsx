@@ -1,5 +1,3 @@
-import React from "react";
-
 function AuthLeftSide({ title, titleDesc, image, infoCards }) {
   return (
     <>

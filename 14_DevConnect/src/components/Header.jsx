@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import MarketingNav from "./Nav/MarketingNav";
 import AuthNav from "./Nav/AuthNav";
 import DashboardNav from "./Nav/DashboardNav";

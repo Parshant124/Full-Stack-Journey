@@ -1,4 +1,3 @@
-import React from "react";
 import { useAuth, useConnection, useNotification } from "../../../contexts";
 
 function ExplorePeopleCard({ user, requestReceive, requestSent }) {

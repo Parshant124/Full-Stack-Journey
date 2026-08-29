@@ -1,4 +1,3 @@
-import React from "react";
 import { useParams } from "react-router-dom";
 import { useAuth, useBookMark, useProject } from "../../contexts";
 import UserProjectCard from "./components/UserProjectCard";

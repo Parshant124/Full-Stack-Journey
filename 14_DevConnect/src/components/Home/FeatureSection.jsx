@@ -1,5 +1,3 @@
-import React from "react";
-
 function FeatureSection() {
   return (
     <div className="flex items-center flex-col gap-4 w-full pt-4 border-[1px_0px_0px_0px] border-black/20 bg-white">

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useAuth, useProject } from "../../../contexts";
 
 function ShowSearchMyProject({ type, value }) {

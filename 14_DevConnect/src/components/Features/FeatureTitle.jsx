@@ -1,5 +1,3 @@
-import React from "react";
-
 function FeatureTitle() {
   return (
     <div className="pt-12 flex flex-col gap-4 w-full items-center">

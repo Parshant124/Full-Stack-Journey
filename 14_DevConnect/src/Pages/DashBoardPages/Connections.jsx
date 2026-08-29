@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import ShowMyConnections from "./components/ShowMyConnections";
 import SearchMyConnections from "./components/SearchMyConnections";
 

@@ -1,5 +1,3 @@
-import React from "react";
-
 function ComingSoon() {
   return (
     <div className="text-4xl font-bold flex w-full justify-center py-10">

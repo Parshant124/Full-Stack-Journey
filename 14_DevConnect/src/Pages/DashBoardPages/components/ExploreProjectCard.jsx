@@ -1,4 +1,3 @@
-import React from "react";
 import { useAuth, useBookMark, useNotification } from "../../../contexts";
 
 function ExploreProjectCard({ project, bookmarked }) {

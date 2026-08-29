@@ -1,5 +1,3 @@
-import React from "react";
-
 function TestimonialSection() {
   return (
     <div className="flex w-full pt-8 justify-center">

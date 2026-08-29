@@ -1,6 +1,4 @@
-import React from "react";
 import Cards from "./Cards";
-import Extra from "../Extra.jsx";
 
 function FeatureDisplay() {
   return (

@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { useAuth, useBookMark, useProject } from "../../../contexts";
 
 function BookMarkCard({ projectId }) {

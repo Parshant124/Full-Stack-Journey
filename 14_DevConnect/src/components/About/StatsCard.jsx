@@ -1,5 +1,3 @@
-import React from 'react'
-
 function StatsCard({title, titleColor, desc}) {
   return (
     <div className='flex flex-col items-center gap-1 py-2'>

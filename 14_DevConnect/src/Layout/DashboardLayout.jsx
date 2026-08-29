@@ -1,6 +1,6 @@
 import { supabase } from "../lib/supabaseClient";
-import React, { useEffect, useState } from "react";
-import { Outlet, useLocation, useSearchParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Outlet, useLocation} from "react-router-dom";
 import Header from "../components/Header";
 import SideBar from "../components/SideBar";
 import {

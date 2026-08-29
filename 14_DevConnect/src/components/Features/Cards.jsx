@@ -1,5 +1,3 @@
-import React from "react";
-
 function Cards({ iconBg, icon, imgDisplay, title, desc }) {
   return (
     <div className="border-2 rounded-lg border-gray-300 shadow-md h-100 w-80 py-4 px-6 flex flex-col gap-4">

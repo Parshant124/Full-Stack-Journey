@@ -1,5 +1,3 @@
-import React from "react";
-
 function AboutGithub() {
   return (
     <div className="p-4">

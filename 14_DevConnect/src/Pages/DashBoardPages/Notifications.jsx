@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useAuth, useNotification } from "../../contexts";
 import NotificationCard from "./components/NotificationCard";
 

@@ -1,5 +1,4 @@
-import React from "react";
-import { NavLink, Link, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 function AuthNav() {
   const location = useLocation();

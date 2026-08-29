@@ -1,9 +1,8 @@
-import React from "react";
 import { useAuth, useConnection, useProject, useTasks } from "../../contexts";
 import { NavLink } from "react-router-dom";
 
 function Profile() {
-  const { Users, currentUser } = useAuth();
+  const { currentUser } = useAuth();
   const { connections } = useConnection();
   const { tasks } = useTasks();
   const { projects } = useProject();

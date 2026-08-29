@@ -1,5 +1,3 @@
-import React from "react";
-
 function FeaturesCard({ iconbg, icon, title, desc }) {
   return (
     <div className="text-center flex flex-col items-center gap-2 border border-black/30 rounded-lg p-4 shadow-xl">
