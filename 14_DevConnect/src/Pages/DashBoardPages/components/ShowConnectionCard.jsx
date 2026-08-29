@@ -44,6 +44,8 @@ function ShowConnectionCard({ userId }) {
     if (connected == 2) {
       deleteRequest(currId, userId);
     } else if (connected == 1) {
+      const nowDate = new Date().toISOString().split("T")[0];
+
       const now = new Date();
       const currInfo = Users.find((user) => user.id === currId);
       const noti = {
@@ -52,10 +54,7 @@ function ShowConnectionCard({ userId }) {
         msg: `${currInfo.fullName || "User"} sent you a connection request.`,
         to: userId,
         read: false,
-        date:
-          `${String(now.getDate()).padStart(2, "0")}/` +
-          `${String(now.getMonth() + 1).padStart(2, "0")}/` +
-          `${now.getFullYear()}`,
+        date: nowDate,
         time:
           `${String(now.getHours()).padStart(2, "0")}:` +
           `${String(now.getMinutes()).padStart(2, "0")}`,

@@ -3,7 +3,7 @@ import { useAuth, useConnection } from "../../../contexts";
 import ShowConnectionCard from "./ShowConnectionCard";
 
 function SearchMyConnections({ value, showType }) {
-  const { connections, addConnection } = useConnection();
+  const { connections } = useConnection();
   const { currentUser } = useAuth();
   const { Users } = useAuth();
 

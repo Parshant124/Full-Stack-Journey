@@ -62,6 +62,8 @@ function UserConnectionCard({ userId, currUser }) {
   };
 
   const handleAcceptRequest = () => {
+    const nowDate = new Date().toISOString().split("T")[0];
+
     const now = new Date();
     const currInfo = Users.find((user) => user.id === currId);
     const noti = {
@@ -70,10 +72,7 @@ function UserConnectionCard({ userId, currUser }) {
       msg: `${currInfo.fullName || "User"} accepted your connection request.`,
       to: userInfo.id,
       read: false,
-      date:
-        `${String(now.getDate()).padStart(2, "0")}/` +
-        `${String(now.getMonth() + 1).padStart(2, "0")}/` +
-        `${now.getFullYear()}`,
+      date: nowDate,
       time:
         `${String(now.getHours()).padStart(2, "0")}:` +
         `${String(now.getMinutes()).padStart(2, "0")}`,

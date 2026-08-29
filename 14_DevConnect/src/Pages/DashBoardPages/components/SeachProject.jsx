@@ -32,6 +32,8 @@ function SeachProject({ value }) {
   const handleAddBookMark = (currId, project) => {
     const currUser = Users.find((user) => user.id === currId);
 
+    const nowDate = new Date().toISOString().split("T")[0];
+
     const now = new Date();
     const noti = {
       type: "project bookmarked",
@@ -41,10 +43,7 @@ function SeachProject({ value }) {
       to: project.userId,
       read: false,
       id: Date.now(),
-      date:
-        `${String(now.getDate()).padStart(2, "0")}/` +
-        `${String(now.getMonth() + 1).padStart(2, "0")}/` +
-        `${now.getFullYear()}`,
+      date: nowDate,
       time:
         `${String(now.getHours()).padStart(2, "0")}:` +
         `${String(now.getMinutes()).padStart(2, "0")}`,

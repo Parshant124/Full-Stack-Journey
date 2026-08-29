@@ -8,6 +8,7 @@ function UserProjectCard({ project, bookmarked, userId }) {
 
   const handleAddBookMark = () => {
     const currUser = Users.find((user) => user.id === userId);
+    const nowDate = new Date().toISOString().split("T")[0];
 
     const now = new Date();
     const noti = {
@@ -18,10 +19,7 @@ function UserProjectCard({ project, bookmarked, userId }) {
       to: project.userId,
       read: false,
       id: Date.now(),
-      date:
-        `${String(now.getDate()).padStart(2, "0")}/` +
-        `${String(now.getMonth() + 1).padStart(2, "0")}/` +
-        `${now.getFullYear()}`,
+      date: nowDate,
       time:
         `${String(now.getHours()).padStart(2, "0")}:` +
         `${String(now.getMinutes()).padStart(2, "0")}`,
