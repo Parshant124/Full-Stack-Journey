@@ -10,7 +10,7 @@ function AuthNav() {
     <div className="flex w-full justify-between items-center">
       <Link to="/" className="w-40 flex">
         <img
-          src=".\src\assets\DevConnect.png"
+          src="https://uftsixsunvrpbwrmcrre.supabase.co/storage/v1/object/public/devconnect-images/logos/DevConnect.png"
           alt=""
           width="200px"
           className="cursor-pointer"

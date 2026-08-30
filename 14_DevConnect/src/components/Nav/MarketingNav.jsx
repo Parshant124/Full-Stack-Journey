@@ -63,7 +63,7 @@ function MarketingNav() {
           </button>
           <Link to="/" className="w-40">
             <img
-              src=".\src\assets\DevConnect.png"
+              src="https://uftsixsunvrpbwrmcrre.supabase.co/storage/v1/object/public/devconnect-images/logos/DevConnect.png"
               alt=""
               width="200px"
               className="cursor-pointer"

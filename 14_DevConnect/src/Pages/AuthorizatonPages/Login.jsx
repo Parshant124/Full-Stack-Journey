@@ -59,7 +59,7 @@ function Login() {
     const { error: resetError } = await supabase.auth.resetPasswordForEmail(
       email.trim(),
       {
-        redirectTo: "http://localhost:5173/update-password",
+        redirectTo: `${window.location.origin}/update-password`,
       },
     );
 
@@ -78,7 +78,7 @@ function Login() {
         <AuthLeftSide
           title="Welcome Back!"
           titleDesc="Log in to your account and continue connecting with developers."
-          image=".\src\Pages\assets\Boy.png"
+          image="https://uftsixsunvrpbwrmcrre.supabase.co/storage/v1/object/public/devconnect-images/logos/Boy.png"
           infoCards={[
             {
               img: "https://cdn-icons-png.flaticon.com/128/2592/2592317.png",

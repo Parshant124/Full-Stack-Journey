@@ -12,7 +12,11 @@ function TestimonialSection() {
         </div>
         <div className="flex flex-col gap-2">
           <div>
-            <img src=".\src\assets\5 stars.png" alt="" width="100px" />
+            <img
+              src="https://uftsixsunvrpbwrmcrre.supabase.co/storage/v1/object/public/devconnect-images/logos/5%20stars.png"
+              alt=""
+              width="100px"
+            />
           </div>
           <div className="text-gray-600 text-[14px]">
             "DevConnect has completely transformed the way I manage my projects.

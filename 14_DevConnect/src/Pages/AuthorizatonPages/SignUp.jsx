@@ -233,7 +233,7 @@ function SignUp() {
         <AuthLeftSide
           title="Join DevConnect"
           titleDesc="Create your account and become a part of our developer community."
-          image=".\src\Pages\assets\Girl.png"
+          image="https://uftsixsunvrpbwrmcrre.supabase.co/storage/v1/object/public/devconnect-images/logos/Girl.png"
           infoCards={[
             {
               img: "https://cdn-icons-png.flaticon.com/128/978/978012.png",
