@@ -1,13 +1,11 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { useNotification } from "../../../contexts";
 import { NavLink } from "react-router-dom";
 
-function NotificationCard({
-  notification,
-  openNotification,
-  setOpenNotification,
-}) {
+function NotificationCard({ notification }) {
   const { modifyRead, removeNotification } = useNotification();
+  const [openNotification, setOpenNotification] = useState(null);
+
   const dropdownRef = useRef(null);
 
   const showMore = openNotification === notification.id;
@@ -63,7 +61,7 @@ function NotificationCard({
           <h4>{notification.date}</h4>
         </div>
 
-        <div ref={dropdownRef}>
+        <div ref={dropdownRef} className="relative">
           <button
             className="w-5"
             onClick={() =>
@@ -78,14 +76,24 @@ function NotificationCard({
 
           {showMore && (
             <div className="absolute right-0 top-1/2 bg-white w-fit flex flex-col p-2 gap-2 rounded-md">
-              <button
-                className="border-b-2 pb-2 border-gray-300"
-                onClick={() => modifyRead(notification.id)}
-              >
-                Mark as Read
-              </button>
+              {!notification.read && (
+                <button
+                  className="border-b-2 pb-2 border-gray-300 hover:text-red-600"
+                  onClick={() => {
+                    modifyRead(notification.id);
+                    setOpenNotification(null);
+                  }}
+                >
+                  Mark as Read
+                </button>
+              )}
 
-              <button onClick={() => removeNotification(notification.id)}>
+              <button
+                onClick={() => {
+                  removeNotification(notification.id);
+                  setOpenNotification(null);
+                }}
+              >
                 Delete
               </button>
             </div>

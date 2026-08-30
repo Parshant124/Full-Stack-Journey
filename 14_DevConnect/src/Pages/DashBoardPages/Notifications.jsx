@@ -5,7 +5,6 @@ import NotificationCard from "./components/NotificationCard";
 function Notifications() {
   const { notifications, modifyReadAll, deleteRead } = useNotification();
   const { currentUser } = useAuth();
-  const [openNotification, setOpenNotification] = useState(null);
 
   const userId = currentUser?.id;
   const myNotifications = notifications.filter((noti) => noti.to === userId);
@@ -44,8 +43,6 @@ function Notifications() {
               <NotificationCard
                 notification={notification}
                 key={notification.id}
-                openNotification={openNotification}
-                setOpenNotification={setOpenNotification}
               />
             ))}
           </div>
