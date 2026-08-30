@@ -194,7 +194,7 @@ function AddProject() {
       </div>
       <div className="w-full flex flex-col h-full shadow-lg bg-white rounded-lg p-4 gap-4">
         <h2 className="font-semibold text-[15px]">Project Details</h2>
-        <div className="flex justify-between w-full md:flex-row flex-col">
+        <div className="flex w-full flex-col">
             <label className="text-[14px] font-semibold">
               Project Name <span className="text-red-500">*</span>
             </label>
