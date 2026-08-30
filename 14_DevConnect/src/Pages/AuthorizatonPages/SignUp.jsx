@@ -173,6 +173,20 @@ function SignUp() {
       return;
     }
 
+    // Store user profile in your users table
+    // users.id = username
+    const { error: profileError } = await supabase.from("users").insert({
+      id: username,
+      email: email,
+      fullName: fullName,
+    });
+
+    if (profileError) {
+      console.log(profileError.message);
+      setSignupError(profileError.message);
+      return;
+    }
+    
     // Create Supabase Auth account
     const { data, error } = await supabase.auth.signUp({
       email: email,
@@ -187,20 +201,6 @@ function SignUp() {
 
     if (!data.user) {
       setSignupError("Account could not be created.");
-      return;
-    }
-
-    // Store user profile in your users table
-    // users.id = username
-    const { error: profileError } = await supabase.from("users").insert({
-      id: username,
-      email: email,
-      fullName: fullName,
-    });
-
-    if (profileError) {
-      console.log(profileError.message);
-      setSignupError(profileError.message);
       return;
     }
 
@@ -225,7 +225,7 @@ function SignUp() {
     setConfirmPassword("");
 
     navigate("/dashboard");
-  };
+  };;
 
   return (
     <div className="flex w-full min-h-screen h-fit">
