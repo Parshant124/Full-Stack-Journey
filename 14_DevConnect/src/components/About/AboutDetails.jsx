@@ -5,7 +5,7 @@ function AboutDetails() {
     <div className="flex pt-14 lg:justify-between justify-center px-8 gap-4">
       <div className="hidden lg:block w-250">
         <img
-          src=".\src\components\About\assets\Boy.pnghttps://uftsixsunvrpbwrmcrre.supabase.co/storage/v1/object/public/devconnect-images/logos/Boy.png"
+          src="https://uftsixsunvrpbwrmcrre.supabase.co/storage/v1/object/public/devconnect-images/logos/Boy.png"
           alt=""
           className="w-full h-full"
         />
