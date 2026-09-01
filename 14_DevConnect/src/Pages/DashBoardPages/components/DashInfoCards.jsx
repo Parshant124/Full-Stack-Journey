@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { useProject } from "../../../contexts";
 
 function DashInfoCards({ image, title, data, bgColor, linkTo }) {
   return (

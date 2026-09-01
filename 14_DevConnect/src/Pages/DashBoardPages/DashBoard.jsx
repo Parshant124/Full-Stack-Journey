@@ -30,7 +30,7 @@ function DashBoard() {
   const { projects } = useProject();
   const { tasks } = useTasks();
   const { connections } = useConnection();
-  const { currentUser } = useAuth();
+  const { currentUser} = useAuth();
 
   const firstWord = currentUser?.fullName.substring(
     0,

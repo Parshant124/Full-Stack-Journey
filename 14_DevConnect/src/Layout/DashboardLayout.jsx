@@ -20,8 +20,10 @@ function DashboardLayout() {
   const [pendingRequest, setPendingRequest] = useState([]);
   const [bookmarks, setBookmarks] = useState([]);
   const [notifications, setNotification] = useState([]);
+  const [loadingProject, setLoadingProject] = useState(false);
 
   useEffect(() => {
+    setLoadingProject(true);
     const getProjects = async () => {
       const { data, error } = await supabase
         .from("projects")
@@ -37,6 +39,7 @@ function DashboardLayout() {
     };
 
     getProjects();
+    setLoadingProject(false);
   }, []);
 
   useEffect(() => {
@@ -515,6 +518,7 @@ function DashboardLayout() {
                 toggleComplete,
                 deleteProject,
                 toggleVisibility,
+                loadingProject
               }}
             >
               <div className="h-screen flex flex-col">
