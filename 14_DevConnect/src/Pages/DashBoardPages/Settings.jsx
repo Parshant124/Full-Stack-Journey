@@ -128,8 +128,8 @@ function Settings() {
 
     if (image) {
       const fileExt = image.name.split(".").pop();
-      const filePath = `profiles/${currentUser.id}.${fileExt}`;
-
+      const filePath = `profiles/${currentUser.id}-${Date.now()}.${fileExt}`;
+      
       const { error: uploadError } = await supabase.storage
         .from("devconnect-images")
         .upload(filePath, image, {
