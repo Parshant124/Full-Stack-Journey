@@ -249,7 +249,7 @@ function Profile() {
                   <div className="w-full aspect-video overflow-hidden">
                     <img
                       src={
-                        project.image ||
+                        project.projectImage ||
                         "https://images.pexels.com/photos/37893956/pexels-photo-37893956.jpeg"
                       }
                       alt=""
