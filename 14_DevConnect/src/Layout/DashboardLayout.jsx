@@ -1,6 +1,6 @@
 import { supabase } from "../lib/supabaseClient";
 import { useEffect, useState } from "react";
-import { Outlet, useLocation} from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import Header from "../components/Header";
 import SideBar from "../components/SideBar";
 import {
@@ -107,7 +107,10 @@ function DashboardLayout() {
 
   useEffect(() => {
     const getNotification = async () => {
-      const { data, error } = await supabase.from("notifications").select("*").order("id", {ascending: false});
+      const { data, error } = await supabase
+        .from("notifications")
+        .select("*")
+        .order("id", { ascending: false });
 
       if (error) {
         console.log(error.message);
@@ -167,6 +170,16 @@ function DashboardLayout() {
   };
 
   const deleteProject = async (id, projectId) => {
+    const { error: bookmarkError } = await supabase
+      .from("bookmarks")
+      .delete()
+      .eq("project", projectId);
+
+    if (bookmarkError) {
+      console.log(bookmarkError.message);
+      return;
+    }
+
     const { error } = await supabase
       .from("projects")
       .delete()
@@ -424,7 +437,6 @@ function DashboardLayout() {
   };
 
   const modifyRead = async (notiId) => {
-
     const { data, error } = await supabase
       .from("notifications")
       .update({ read: true })
@@ -518,7 +530,7 @@ function DashboardLayout() {
                 toggleComplete,
                 deleteProject,
                 toggleVisibility,
-                loadingProject
+                loadingProject,
               }}
             >
               <div className="h-screen flex flex-col">
