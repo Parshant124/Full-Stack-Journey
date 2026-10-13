@@ -10,6 +10,8 @@ app.use(
   })
 )
 
+
+//middlewares
 app.use(express.json({ limit: "16kb" }))
 app.use(
   express.urlencoded({
@@ -18,5 +20,13 @@ app.use(
   })
 )
 app.use(express.static("public"))
+
+//import routers
+import healthCheckRouter from "./routes/heathCheck.routes.js"
+
+
+//routes
+app.use("/api/v1/healthcheck", healthCheckRouter)
+
 
 export { app }
