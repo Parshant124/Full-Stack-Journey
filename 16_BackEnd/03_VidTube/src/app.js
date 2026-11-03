@@ -33,7 +33,6 @@ app.use("/api/v1/healthcheck", healthCheckRouter)
 app.use("/api/v1/users", userRouter)
 
 
-
 app.use(errorHandler)
 
 export { app }
