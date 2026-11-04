@@ -138,41 +138,67 @@ const loginUser = asyncHandler(async (req, res) => {
     .status(200)
     .cookie("accessToken", accessToken, options)
     .cookie("refreshToken", refreshToken, options)
-    .json(new ApiResponse(
-      200,
-      {
-        user: loggedInUser,
-        accessToken,
-        refreshToken,
-      },
-      "User logged In Successfully")
+    .json(
+      new ApiResponse(
+        200,
+        {
+          user: loggedInUser,
+          accessToken,
+          refreshToken,
+        },
+        "User logged In Successfully"
+      )
     )
 })
 
-const refreshAccessToken = asyncHandler(async (req, res) => {
-  const incomingRefreshToken = req.cookie.refreshToken || req.body.refreshToken;
+const logoutUser = asyncHandler(async (req, res) => {
+  const user = await User.findByIdAndUpdate(
+    req.user._id,
+    {
+      $set: {
+        refreshToken: null,
+      },
+    },
+    { new: true }
+  )
 
-  if(!incomingRefreshToken){
+  const options = {
+      httpOnly: true,
+      secure: true
+  }
+
+  return res
+  .status(200)
+  .clearCookie("accessToken", options)
+  .clearCookie("refreshToken", options)
+  .json(new ApiResponse(200, {}, "User logged Out"))
+})
+
+const refreshAccessToken = asyncHandler(async (req, res) => {
+  const incomingRefreshToken = req.cookie.refreshToken || req.body.refreshToken
+
+  if (!incomingRefreshToken) {
     throw new ApiError(401, "Refresh Token is required!!!")
   }
 
-  try{
+  try {
     const decodedToken = jwt.verify(
       incomingRefreshToken,
       process.env.REFRESH_TOKEN_SECRET
     )
 
-    const user = await User.findById(decodedToken?._id);
+    const user = await User.findById(decodedToken?._id)
 
-    if(!user){
-      throw new ApiError(401, "Invalid refresh Token");
+    if (!user) {
+      throw new ApiError(401, "Invalid refresh Token")
     }
 
-    if(incomingRefreshToken !== user?.refreshToken){
+    if (incomingRefreshToken !== user?.refreshToken) {
       throw new ApiError(401, "Refresh Token does not match")
     }
 
-    const {accessToken, refreshToken: newRefreshToken} = await generateAccessAndRefreshToken(user._id);
+    const { accessToken, refreshToken: newRefreshToken } =
+      await generateAccessAndRefreshToken(user._id)
 
     const options = {
       httpOnly: true,
@@ -190,10 +216,9 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
           "Access token refreshed"
         )
       )
-
-  }catch(err){
+  } catch (err) {
     throw new ApiError(401, "Error occured while decoding the token.")
   }
 })
 
-export { registerUser, loginUser, refreshAccessToken }
+export { registerUser, loginUser, refreshAccessToken, logoutUser }
